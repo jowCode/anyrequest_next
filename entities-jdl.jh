@@ -1,12 +1,16 @@
 
+/**
+* A user can make a request
+* This request can be seen by all other users
+* Any other user can make an contribution proposal to that request
+* The contributing user can have a chat with the requesting user if he approved the contribution
+**/
 enum Urgency {
 	HIGH,
     MEDIUM,
     LOW
 }
-/**
-* User Request
-**/
+
 entity UserRequest {
 	title String required,
     description String required,
@@ -18,60 +22,44 @@ entity UserRequest {
 relationship ManyToOne {
 	UserRequest{user} to User
 }
-service all with serviceClass
-paginate UserRequest with infinite-scroll
+
+enum ContributionStatus {
+	PENDING,
+    APPROVED,
+    REJECTED
+}
 
 entity Contribution {
-
+	contributionMessage String required,
+    contributionStatus ContributionStatus
 }
+
 relationship OneToMany {
 	UserRequest to Contribution
 }
+
 relationship ManyToOne {
 	Contribution{user} to User
 }
 
-/**
-*UserCredits
-**/
+DEFAULT_BALANCE = 0
+
 entity UserCreditAccount {
-	receivedCredits Integer required min(0),
-    usedCredits Integer required min(0),
-    totalCredits Integer required min(0)
+	receivedCredits Integer required min(DEFAULT_BALANCE),
+    usedCredits Integer required min(DEFAULT_BALANCE),
+    totalCredits Integer required min(DEFAULT_BALANCE)
 }
-service all with serviceClass
-paginate UserCreditAccount with pagination
 
 relationship OneToOne {
 	UserCreditAccount to User
 }
 
-enum ConversationStatus {
-	PENDING,
-    APPROVED,
-    BLOCKED
-}
-/**
-*Conversation
-**/
 entity Conversation {
-	conversationStatus ConversationStatus
 }
-service all with serviceClass
-paginate Conversation with pagination
-
-/**
-*Chatmessage
-**/
-service all with serviceClass
-paginate UserCreditAccount with pagination
 
 entity ChatMessage {
 	message String required
 }
-service all with serviceClass
-paginate Message with infinite-scroll
-
 relationship OneToMany {
 	Conversation to ChatMessage
 }
@@ -83,3 +71,8 @@ relationship ManyToOne {
 relationship OneToOne {
 	Contribution to Conversation
 }
+service all with serviceClass
+paginate UserRequest with infinite-scroll
+paginate Message with infinite-scroll
+paginate Conversation with pagination
+paginate UserCreditAccount with pagination
