@@ -1,4 +1,3 @@
-
 /**
 * A user can make a request
 * This request can be seen by all other users
@@ -55,13 +54,15 @@ relationship OneToOne {
 }
 
 entity Conversation {
+	owningUser String required
+    foreignUser String required
 }
 
 entity ChatMessage {
 	message String required
 }
 relationship OneToMany {
-	Conversation to ChatMessage
+	Conversation{chatMessage} to ChatMessage
 }
 
 relationship ManyToOne {
