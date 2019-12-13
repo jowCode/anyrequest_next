@@ -1,0 +1,103 @@
+
+enum Urgency {
+	HIGH,
+    MEDIUM,
+    LOW
+}
+/**
+*UserRequest
+**/
+entity UserRequest {
+	title String required,
+    description String required,
+    urgency Urgency required,
+    validTo ZonedDateTime required,
+    contributorCount Integer required min(0)
+}
+
+relationship OneToMany {
+	User to UserRequest
+}
+service all with serviceClass
+paginate UserRequest with infinite-scroll
+
+/**
+*Contribution
+**/
+entity Contribution {
+
+}
+service all with serviceClass
+paginate UserRequest with pagination
+
+/**
+* A UserRequest can have many Contributions
+**/
+relationship OneToMany {
+	UserRequest to Contribution
+}
+/**
+*A Contribution can be assigned to only one UserRequest
+**/
+relationship OneToOne {
+	Contribution to UserRequest
+}
+/**
+*A User can have many Contributions
+**/
+relationship OneToMany {
+	User to Contribution
+}
+
+/**
+*UserCredits
+**/
+entity UserCreditAccount {
+	receivedCredits Integer required min(0),
+    usedCredits Integer required min(0),
+    totalCredits Integer required min(0)
+}
+service all with serviceClass
+paginate UserCreditAccount with pagination
+
+relationship OneToOne {
+	UserCreditAccount to User
+}
+
+
+enum ConversationStatus {
+	PENDING,
+    APPROVED,
+    BLOCKED
+}
+
+/**
+*Conversation
+**/
+entity Conversation {
+	conversationStatus ConversationStatus
+}
+service all with serviceClass
+paginate Conversation with pagination
+
+/**
+*Chatmessage
+**/
+service all with serviceClass
+paginate UserCreditAccount with pagination
+
+entity ChatMessage {
+	message String required
+}
+service all with serviceClass
+paginate Message with infinite-scroll
+
+relationship OneToOne {
+	Contribution to Conversation
+}
+relationship OneToMany {
+	Conversation to ChatMessage
+}
+relationship OneToMany {
+	User to ChatMessage
+}
