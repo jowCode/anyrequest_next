@@ -73,6 +73,6 @@ relationship OneToOne {
 }
 service all with serviceClass
 paginate UserRequest with infinite-scroll
-paginate Message with infinite-scroll
+paginate ChatMessage with infinite-scroll
 paginate Conversation with pagination
 paginate UserCreditAccount with pagination
