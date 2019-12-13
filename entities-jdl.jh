@@ -16,7 +16,7 @@ entity UserRequest {
 }
 
 relationship ManyToOne {
-	UserRequest to User
+	UserRequest{user} to User
 }
 service all with serviceClass
 paginate UserRequest with infinite-scroll
@@ -28,7 +28,7 @@ relationship OneToMany {
 	UserRequest to Contribution
 }
 relationship ManyToOne {
-	Contribution to User
+	Contribution{user} to User
 }
 
 /**
@@ -77,7 +77,7 @@ relationship OneToMany {
 }
 
 relationship ManyToOne {
-	ChatMessage to User
+	ChatMessage{user} to User
 }
 
 relationship OneToOne {
