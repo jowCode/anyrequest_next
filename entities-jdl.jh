@@ -5,7 +5,7 @@ enum Urgency {
     LOW
 }
 /**
-*UserRequest
+* User Request
 **/
 entity UserRequest {
 	title String required,
@@ -15,38 +15,20 @@ entity UserRequest {
     contributorCount Integer required min(0)
 }
 
-relationship OneToMany {
-	User to UserRequest
+relationship ManyToOne {
+	UserRequest to User
 }
 service all with serviceClass
 paginate UserRequest with infinite-scroll
 
-/**
-*Contribution
-**/
 entity Contribution {
 
 }
-service all with serviceClass
-paginate UserRequest with pagination
-
-/**
-* A UserRequest can have many Contributions
-**/
 relationship OneToMany {
 	UserRequest to Contribution
 }
-/**
-*A Contribution can be assigned to only one UserRequest
-**/
-relationship OneToOne {
-	Contribution to UserRequest
-}
-/**
-*A User can have many Contributions
-**/
-relationship OneToMany {
-	User to Contribution
+relationship ManyToOne {
+	Contribution to User
 }
 
 /**
@@ -64,13 +46,11 @@ relationship OneToOne {
 	UserCreditAccount to User
 }
 
-
 enum ConversationStatus {
 	PENDING,
     APPROVED,
     BLOCKED
 }
-
 /**
 *Conversation
 **/
@@ -92,12 +72,14 @@ entity ChatMessage {
 service all with serviceClass
 paginate Message with infinite-scroll
 
-relationship OneToOne {
-	Contribution to Conversation
-}
 relationship OneToMany {
 	Conversation to ChatMessage
 }
-relationship OneToMany {
-	User to ChatMessage
+
+relationship ManyToOne {
+	ChatMessage to User
+}
+
+relationship OneToOne {
+	Contribution to Conversation
 }
