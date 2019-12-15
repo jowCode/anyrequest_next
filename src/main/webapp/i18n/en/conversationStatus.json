@@ -1,0 +1,10 @@
+{
+  "anyrequestNextApp": {
+    "ConversationStatus": {
+      "null": "",
+      "OPEN": "OPEN",
+      "CLOSED": "CLOSED",
+      "BLOCKED": "BLOCKED"
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "anyrequestNextApp": {
+    "contribution": {
+      "home": {
+        "title": "Contributions",
+        "createLabel": "Contribution erstellen",
+        "createOrEditLabel": "Contribution erstellen oder bearbeiten",
+        "notFound": "No Contributions found"
+      },
+      "created": "Contribution erstellt mit ID {{ param }}",
+      "updated": "Contribution aktualisiert mit ID {{ param }}",
+      "deleted": "Contribution gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Contribution {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Contribution"
+      },
+      "contributingUser": "Contributing User",
+      "contributionMessage": "Contribution Message",
+      "contributionStatus": "Contribution Status",
+      "conversation": "Conversation",
+      "userRequest": "User Request"
+    }
+  }
+}
