@@ -4,6 +4,7 @@ import de.jow.domain.User;
 import de.jow.domain.UserRequest;
 import de.jow.domain.enumeration.Urgency;
 import de.jow.repository.UserRequestRepository;
+import de.jow.service.dto.NewRequestDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,36 +34,40 @@ public class UserRequestService {
     /**
      * Creates a new userRequest.
      *
-     * @param userRequest the entity to save.
+     * @param newRequestDTO the entity to save.
      * @return the persisted entity.
      */
-    public UserRequest createNew(final UserRequest userRequest, final User currentUser) {
-        log.debug("Request to create a new UserRequest : {}", userRequest);
+    public UserRequest createNew(
+        final NewRequestDTO newRequestDTO,
+        final User currentUser) {
+
+        log.debug("Request to create a new UserRequest : {}", newRequestDTO);
 
         UserRequest newUserRequest = new UserRequest();
 
         newUserRequest.setRequestingUser(currentUser.getLogin());
-        newUserRequest.setTitle(userRequest.getTitle());
-        newUserRequest.setDescription(userRequest.getDescription());
-        newUserRequest.setUrgency(userRequest.getUrgency());
+        newUserRequest.setTitle(newRequestDTO.getTitle());
+        newUserRequest.setDescription(newRequestDTO.getDescription());
+        newUserRequest.setUrgency(newRequestDTO.getUrgency());
         newUserRequest.setContributorCount(0);
 
         ZonedDateTime validTo = ZonedDateTime.now();
+
         switch (newUserRequest.getUrgency()) {
             case HIGH:
-                validTo.plusHours(6);
+                newUserRequest.setValidTo(validTo.plusHours(6));
                 break;
             case MEDIUM:
-                validTo.plusDays(3);
+                newUserRequest.setValidTo(validTo.plusDays(3));
                 break;
             case LOW:
-                validTo.plusDays(14);
+                newUserRequest.setValidTo(validTo.plusDays(14));
                 break;
         }
-        newUserRequest.setValidTo(validTo);
+
         newUserRequest.setContributorCount(0);
 
-        return userRequestRepository.save(userRequest);
+        return userRequestRepository.save(newUserRequest);
     }
 
 

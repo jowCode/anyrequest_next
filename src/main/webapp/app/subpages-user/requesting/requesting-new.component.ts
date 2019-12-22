@@ -5,8 +5,9 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { IUserRequest, UserRequest } from 'app/shared/model/user-request.model';
 import { RequestingService } from 'app/subpages-user/requesting/requesting.service';
+import { INewRequest, NewRequest } from 'app/shared/model/new-request.model';
+import { IUserRequest } from 'app/shared/model/user-request.model';
 
 @Component({
   selector: 'jhi-requesting-new',
@@ -16,7 +17,6 @@ export class RequestingNewComponent implements OnInit {
   isSaving: boolean;
 
   editForm = this.fb.group({
-    id: [],
     title: [null, [Validators.required]],
     description: [null, [Validators.required]],
     urgency: [null, [Validators.required]]
@@ -31,12 +31,11 @@ export class RequestingNewComponent implements OnInit {
     });
   }
 
-  updateForm(userRequest: IUserRequest) {
+  updateForm(newRequest: INewRequest) {
     this.editForm.patchValue({
-      id: userRequest.id,
-      title: userRequest.title,
-      description: userRequest.description,
-      urgency: userRequest.urgency
+      title: newRequest.title,
+      description: newRequest.description,
+      urgency: newRequest.urgency
     });
   }
 
@@ -44,24 +43,18 @@ export class RequestingNewComponent implements OnInit {
     window.history.back();
   }
 
-  save() {
+  publish() {
     this.isSaving = true;
     const userRequest = this.createFromForm();
-    this.subscribeToSaveResponse(this.userRequestService.create(userRequest));
+    this.subscribeToSaveResponse(this.userRequestService.publish(userRequest));
   }
 
-  private createFromForm(): IUserRequest {
+  private createFromForm(): INewRequest {
     return {
-      ...new UserRequest(),
-      id: undefined,
-      requestingUser: undefined,
+      ...new NewRequest(),
       title: this.editForm.get(['title']).value,
       description: this.editForm.get(['description']).value,
-      urgency: this.editForm.get(['urgency']).value,
-      validTo: undefined,
-      contributorCount: undefined,
-      hasContributed: undefined,
-      isBlocked: undefined
+      urgency: this.editForm.get(['urgency']).value
     };
   }
 

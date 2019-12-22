@@ -3,7 +3,6 @@ import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { DATE_FORMAT } from 'app/shared/constants/input.constants';
 import { map } from 'rxjs/operators';
 
 import { SERVER_API_URL } from 'app/app.constants';
@@ -19,7 +18,7 @@ export class RequestingService {
 
   constructor(protected http: HttpClient) {}
 
-  create(userRequest: IUserRequest): Observable<EntityResponseType> {
+  publish(userRequest: IUserRequest): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(userRequest);
     return this.http
       .post<IUserRequest>('api/new-request', copy, { observe: 'response' })
