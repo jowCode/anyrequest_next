@@ -11,8 +11,8 @@ import { IUserRequest, UserRequest } from 'app/shared/model/user-request.model';
 import { RequestingService } from 'app/subpages-user/requesting/requesting.service';
 
 @Component({
-  selector: 'jhi-user-request-update',
-  templateUrl: './user-request-update.component.html'
+  selector: 'jhi-requesting-new',
+  templateUrl: './requesting-new.component.html'
 })
 export class RequestingNewComponent implements OnInit {
   isSaving: boolean;

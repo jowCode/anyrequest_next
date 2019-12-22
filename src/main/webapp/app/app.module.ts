@@ -7,6 +7,7 @@ import { AnyrequestNextCoreModule } from 'app/core/core.module';
 import { AnyrequestNextAppRoutingModule } from './app-routing.module';
 import { AnyrequestNextHomeModule } from './home/home.module';
 import { AnyrequestNextEntityModule } from './entities/entity.module';
+import { AnyrequestNextSubpagesUserModule } from 'app/subpages-user/subpages-user.module';
 // jhipster-needle-angular-add-module-import JHipster will add new module here
 import { JhiMainComponent } from './layouts/main/main.component';
 import { NavbarComponent } from './layouts/navbar/navbar.component';
@@ -23,6 +24,7 @@ import { ErrorComponent } from './layouts/error/error.component';
     AnyrequestNextHomeModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
     AnyrequestNextEntityModule,
+    AnyrequestNextSubpagesUserModule,
     AnyrequestNextAppRoutingModule
   ],
   declarations: [JhiMainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],

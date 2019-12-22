@@ -1,18 +1,14 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="userRequest">
-            <h2><span jhiTranslate="anyrequestNextApp.userRequest.detail.title">User Request</span> {{userRequest.id}}</h2>
+
+            <h2>{{userRequest.title}}</h2>
+
             <hr>
+
             <jhi-alert-error></jhi-alert-error>
+
             <dl class="row-md jh-entity-details">
-                <dt><span jhiTranslate="anyrequestNextApp.userRequest.requestingUser">Requesting User</span></dt>
-                <dd>
-                    <span>{{userRequest.requestingUser}}</span>
-                </dd>
-                <dt><span jhiTranslate="anyrequestNextApp.userRequest.title">Title</span></dt>
-                <dd>
-                    <span>{{userRequest.title}}</span>
-                </dd>
                 <dt><span jhiTranslate="anyrequestNextApp.userRequest.description">Description</span></dt>
                 <dd>
                     <span>{{userRequest.description}}</span>
@@ -29,27 +25,14 @@
                 <dd>
                     <span>{{userRequest.contributorCount}}</span>
                 </dd>
-                <dt><span jhiTranslate="anyrequestNextApp.userRequest.hasContributed">Has Contributed</span></dt>
-                <dd>
-                    <span>{{userRequest.hasContributed}}</span>
-                </dd>
-                <dt><span jhiTranslate="anyrequestNextApp.userRequest.isBlocked">Is Blocked</span></dt>
-                <dd>
-                    <span>{{userRequest.isBlocked}}</span>
-                </dd>
             </dl>
 
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                <span jhiTranslate="entity.action.back"> Back</span>
             </button>
 
-            <button type="button"
-                    [routerLink]="['/user-request', userRequest.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
         </div>
     </div>
 </div>
