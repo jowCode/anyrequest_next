@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-
 import { AnyrequestNextSharedModule } from 'app/shared/shared.module';
 import { UserRequestComponent } from './user-request.component';
 import { UserRequestDetailComponent } from './user-request-detail.component';

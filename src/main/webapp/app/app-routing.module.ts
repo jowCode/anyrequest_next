@@ -13,10 +13,6 @@ const LAYOUT_ROUTES = [navbarRoute, ...errorRoute];
     RouterModule.forRoot(
       [
         {
-          path: 'members',
-          loadChildren: () => import('./subpages-user/subpages-user.module').then(m => m.SubpagesUserModule)
-        },
-        {
           path: 'admin',
           data: {
             authorities: ['ROLE_ADMIN']

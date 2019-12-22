@@ -6,6 +6,15 @@
                 <span id="home-logged-message" *ngIf="account" jhiTranslate="home.logged.message"
                       [translateValues]="{username: account.login}"> You are logged in as user "{{account.login}}". </span>
             </div>
+
+            <div class="d-flex justify-content-center" *ngSwitchCase="true">
+                <a class="btn btn-primary" routerLink="/requesting">Requesting</a>
+            </div>
+
+            <div class="d-flex justify-content-center mt-4" *ngSwitchCase="true">
+                <a class="btn btn-primary" routerLink="/contributing">Contributing</a>
+            </div>
+
         </div>
     </div>
 </div>
