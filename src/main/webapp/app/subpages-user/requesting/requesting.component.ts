@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IUserRequest } from 'app/shared/model/user-request.model';
 import { Subscription } from 'rxjs';
-import { UserRequestService } from 'app/entities/user-request/user-request.service';
+
 import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { UserRequestDeleteDialogComponent } from 'app/entities/user-request/user-request-delete-dialog.component';
+import { RequestingService } from 'app/subpages-user/requesting/requesting.service';
 
 @Component({
   selector: 'jhi-requesting',
@@ -24,7 +25,7 @@ export class RequestingComponent implements OnInit, OnDestroy {
   totalItems: number;
 
   constructor(
-    protected userRequestService: UserRequestService,
+    protected requestingService: RequestingService,
     protected eventManager: JhiEventManager,
     protected modalService: NgbModal,
     protected parseLinks: JhiParseLinks
@@ -40,8 +41,8 @@ export class RequestingComponent implements OnInit, OnDestroy {
   }
 
   loadAll() {
-    this.userRequestService
-      .query({
+    this.requestingService
+      .queryMyRequests({
         page: this.page,
         size: this.itemsPerPage,
         sort: this.sort()

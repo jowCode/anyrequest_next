@@ -32,6 +32,22 @@ public class UserRequestService {
     }
 
     /**
+     * Get all the userRequests by username.
+     *
+     * @param pageable the pagination information.
+     * @return the list of entities.
+     */
+    @Transactional(readOnly = true)
+    public Page<UserRequest> findByUser(
+        final Pageable pageable,
+        final String username) {
+
+        log.debug("Request to get all UserRequests by given username");
+
+        return userRequestRepository.findByRequestingUser(pageable, username);
+    }
+
+    /**
      * Creates a new userRequest.
      *
      * @param newRequestDTO the entity to save.
