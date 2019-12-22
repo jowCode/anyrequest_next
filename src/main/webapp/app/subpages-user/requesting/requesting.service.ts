@@ -22,14 +22,7 @@ export class RequestingService {
   create(userRequest: IUserRequest): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(userRequest);
     return this.http
-      .post<IUserRequest>(this.resourceUrl, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
-  }
-
-  update(userRequest: IUserRequest): Observable<EntityResponseType> {
-    const copy = this.convertDateFromClient(userRequest);
-    return this.http
-      .put<IUserRequest>(this.resourceUrl, copy, { observe: 'response' })
+      .post<IUserRequest>('api/new-request', copy, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
@@ -44,10 +37,6 @@ export class RequestingService {
     return this.http
       .get<IUserRequest[]>(this.resourceUrl, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
-  }
-
-  delete(id: number): Observable<HttpResponse<any>> {
-    return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
   protected convertDateFromClient(userRequest: IUserRequest): IUserRequest {

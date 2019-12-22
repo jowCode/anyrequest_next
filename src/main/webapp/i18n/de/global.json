@@ -134,6 +134,7 @@
     "userexists": "Benutzername bereits vergeben!",
     "emailexists": "Email wird bereits verwendet!",
     "idexists": "Ein neuer {{entityName}} kann noch keine ID haben",
+    "invaliduser": "Dein Benutzername konnte nicht korrekt ermittelt werden",
     "idnull": "Ungültige ID"
   },
   "footer": "Dies ist Ihre Fußzeile"

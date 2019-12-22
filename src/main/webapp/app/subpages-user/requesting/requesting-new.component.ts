@@ -5,8 +5,6 @@ import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import * as moment from 'moment';
-import { DATE_TIME_FORMAT } from 'app/shared/constants/input.constants';
 import { IUserRequest, UserRequest } from 'app/shared/model/user-request.model';
 import { RequestingService } from 'app/subpages-user/requesting/requesting.service';
 
@@ -19,14 +17,9 @@ export class RequestingNewComponent implements OnInit {
 
   editForm = this.fb.group({
     id: [],
-    requestingUser: [null, [Validators.required]],
     title: [null, [Validators.required]],
     description: [null, [Validators.required]],
-    urgency: [null, [Validators.required]],
-    validTo: [null, [Validators.required]],
-    contributorCount: [null, [Validators.required, Validators.min(0)]],
-    hasContributed: [],
-    isBlocked: []
+    urgency: [null, [Validators.required]]
   });
 
   constructor(protected userRequestService: RequestingService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
@@ -41,14 +34,9 @@ export class RequestingNewComponent implements OnInit {
   updateForm(userRequest: IUserRequest) {
     this.editForm.patchValue({
       id: userRequest.id,
-      requestingUser: userRequest.requestingUser,
       title: userRequest.title,
       description: userRequest.description,
-      urgency: userRequest.urgency,
-      validTo: userRequest.validTo != null ? userRequest.validTo.format(DATE_TIME_FORMAT) : null,
-      contributorCount: userRequest.contributorCount,
-      hasContributed: userRequest.hasContributed,
-      isBlocked: userRequest.isBlocked
+      urgency: userRequest.urgency
     });
   }
 
@@ -59,25 +47,21 @@ export class RequestingNewComponent implements OnInit {
   save() {
     this.isSaving = true;
     const userRequest = this.createFromForm();
-    if (userRequest.id !== undefined) {
-      this.subscribeToSaveResponse(this.userRequestService.update(userRequest));
-    } else {
-      this.subscribeToSaveResponse(this.userRequestService.create(userRequest));
-    }
+    this.subscribeToSaveResponse(this.userRequestService.create(userRequest));
   }
 
   private createFromForm(): IUserRequest {
     return {
       ...new UserRequest(),
-      id: this.editForm.get(['id']).value,
-      requestingUser: this.editForm.get(['requestingUser']).value,
+      id: undefined,
+      requestingUser: undefined,
       title: this.editForm.get(['title']).value,
       description: this.editForm.get(['description']).value,
       urgency: this.editForm.get(['urgency']).value,
-      validTo: this.editForm.get(['validTo']).value != null ? moment(this.editForm.get(['validTo']).value, DATE_TIME_FORMAT) : undefined,
-      contributorCount: this.editForm.get(['contributorCount']).value,
-      hasContributed: this.editForm.get(['hasContributed']).value,
-      isBlocked: this.editForm.get(['isBlocked']).value
+      validTo: undefined,
+      contributorCount: undefined,
+      hasContributed: undefined,
+      isBlocked: undefined
     };
   }
 
