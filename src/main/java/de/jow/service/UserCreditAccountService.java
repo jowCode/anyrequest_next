@@ -1,5 +1,6 @@
 package de.jow.service;
 
+import de.jow.domain.User;
 import de.jow.domain.UserCreditAccount;
 import de.jow.repository.UserCreditAccountRepository;
 import org.slf4j.Logger;
@@ -25,6 +26,22 @@ public class UserCreditAccountService {
 
     public UserCreditAccountService(UserCreditAccountRepository userCreditAccountRepository) {
         this.userCreditAccountRepository = userCreditAccountRepository;
+    }
+
+    /**
+     * Creates a new UserCreditAccount for a specific user.
+     * @param user User
+     * @return UserCreditAccount
+     */
+    public UserCreditAccount createUserCreditAccount(final User user) {
+
+        UserCreditAccount userCreditAccount = new UserCreditAccount();
+        userCreditAccount.setUsedCredits(0);
+        userCreditAccount.setReceivedCredits(0);
+        userCreditAccount.setTotalCredits(0);
+        userCreditAccount.setUser(user);
+
+        return this.userCreditAccountRepository.save(userCreditAccount);
     }
 
     /**

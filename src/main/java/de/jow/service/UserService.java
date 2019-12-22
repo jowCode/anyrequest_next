@@ -3,6 +3,7 @@ package de.jow.service;
 import de.jow.config.Constants;
 import de.jow.domain.Authority;
 import de.jow.domain.User;
+import de.jow.domain.UserCreditAccount;
 import de.jow.repository.AuthorityRepository;
 import de.jow.repository.UserRepository;
 import de.jow.security.AuthoritiesConstants;
@@ -42,11 +43,19 @@ public class UserService {
 
     private final CacheManager cacheManager;
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthorityRepository authorityRepository, CacheManager cacheManager) {
+    private final UserCreditAccountService userCreditAccountService;
+
+    public UserService(
+        final UserRepository userRepository,
+        final PasswordEncoder passwordEncoder,
+        final AuthorityRepository authorityRepository,
+        final CacheManager cacheManager,
+        final UserCreditAccountService userCreditAccountService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authorityRepository = authorityRepository;
         this.cacheManager = cacheManager;
+        this.userCreditAccountService = userCreditAccountService;
     }
 
     public Optional<User> activateRegistration(String key) {
@@ -86,7 +95,10 @@ public class UserService {
             });
     }
 
-    public User registerUser(UserDTO userDTO, String password) {
+    public User registerUser(
+        final UserDTO userDTO,
+        final String password) {
+
         userRepository.findOneByLogin(userDTO.getLogin().toLowerCase()).ifPresent(existingUser -> {
             boolean removed = removeNonActivatedUser(existingUser);
             if (!removed) {
@@ -119,7 +131,13 @@ public class UserService {
         userRepository.save(newUser);
         this.clearUserCaches(newUser);
         log.debug("Created Information for User: {}", newUser);
+        UserCreditAccount newUserCreditAccount = createUserCreditAccount(newUser);
+        log.debug("Created new UserCreditAccount for User: {}", newUserCreditAccount.getUser());
         return newUser;
+    }
+
+    private UserCreditAccount createUserCreditAccount(final User newUser) {
+        return this.userCreditAccountService.createUserCreditAccount(newUser);
     }
 
     private boolean removeNonActivatedUser(User existingUser){
