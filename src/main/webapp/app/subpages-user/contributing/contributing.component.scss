@@ -1,0 +1,25 @@
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
+.card {
+  margin: 0 0 20px 0;
+
+  .card-title {
+    padding: 1rem;
+    position: relative;
+  }
+  .card-body {
+    min-height: 60px;
+  }
+
+  @media (max-width: map-get($grid-breakpoints, sm)) {
+    .card-body {
+      min-height: auto;
+    }
+  }
+}
