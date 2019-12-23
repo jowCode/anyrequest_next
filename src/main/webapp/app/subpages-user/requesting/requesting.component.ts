@@ -3,10 +3,8 @@ import { IUserRequest } from 'app/shared/model/user-request.model';
 import { Subscription } from 'rxjs';
 
 import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
-import { UserRequestDeleteDialogComponent } from 'app/entities/user-request/user-request-delete-dialog.component';
 import { RequestingService } from 'app/subpages-user/requesting/requesting.service';
 
 @Component({
@@ -27,7 +25,6 @@ export class RequestingComponent implements OnInit, OnDestroy {
   constructor(
     protected requestingService: RequestingService,
     protected eventManager: JhiEventManager,
-    protected modalService: NgbModal,
     protected parseLinks: JhiParseLinks
   ) {
     this.userRequests = [];
@@ -76,11 +73,6 @@ export class RequestingComponent implements OnInit, OnDestroy {
 
   registerChangeInUserRequests() {
     this.eventSubscriber = this.eventManager.subscribe('userRequestListModification', () => this.reset());
-  }
-
-  delete(userRequest: IUserRequest) {
-    const modalRef = this.modalService.open(UserRequestDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
-    modalRef.componentInstance.userRequest = userRequest;
   }
 
   sort() {
