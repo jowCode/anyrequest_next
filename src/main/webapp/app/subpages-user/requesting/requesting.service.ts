@@ -15,7 +15,6 @@ type EntityArrayResponseType = HttpResponse<IUserRequest[]>;
 
 @Injectable({ providedIn: 'root' })
 export class RequestingService {
-  public resourceUrl = SERVER_API_URL + 'api/user-requests';
   public newRequestUrl = SERVER_API_URL + 'api/new-request';
   public myRequestsUrl = SERVER_API_URL + 'api/my-requests';
 
