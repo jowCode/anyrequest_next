@@ -1,4 +1,4 @@
-package de.jow.web.rest;
+package de.jow.web.rest.usersonly;
 
 import de.jow.domain.User;
 import de.jow.domain.UserRequest;
@@ -9,6 +9,7 @@ import de.jow.service.dto.NewRequestDTO;
 import de.jow.web.rest.errors.BadRequestAlertException;
 import io.github.jhipster.web.util.HeaderUtil;
 import io.github.jhipster.web.util.PaginationUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -59,6 +60,7 @@ public class RequestingResource {
     @GetMapping("/my-requests")
     @PreAuthorize("hasRole(\"" + AuthoritiesConstants.USER + "\")")
     public ResponseEntity<List<UserRequest>> getAllMyRequests(final Pageable pageable) {
+
         log.debug("REST request to get a page of my UserRequests");
 
         Optional<User> currentUser = userService.getUserWithAuthorities();
@@ -73,6 +75,28 @@ public class RequestingResource {
 
         throw new BadRequestAlertException("Could not determine user", ENTITY_NAME, "invaliduser");
 
+    }
+
+    /**
+     * {@code GET  /my-requests/:id} : get the "id" userRequest if its owned by current user.
+     *
+     * @param id the id of the userRequest to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the userRequest,
+     * or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/my-requests/{id}")
+    @PreAuthorize("hasRole(\"" + AuthoritiesConstants.USER + "\")")
+    public ResponseEntity<UserRequest> getMyRequestById(@PathVariable Long id) {
+
+        log.debug("REST request to get UserRequest that must be owned by the current user : {}", id);
+
+        Optional<User> currentUser = userService.getUserWithAuthorities();
+        if (currentUser.isPresent()) {
+            Optional<UserRequest> userRequest = userRequestService.findOneByIdAndUser(id, currentUser.get().getLogin());
+
+            return ResponseUtil.wrapOrNotFound(userRequest);
+        }
+        throw new BadRequestAlertException("Could not determine user", ENTITY_NAME, "invaliduser");
     }
 
 

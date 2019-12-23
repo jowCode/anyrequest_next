@@ -23,7 +23,7 @@ export class UserRequestResolve implements Resolve<IUserRequest> {
   }
 }
 
-export const requestingRoute: Routes = [
+export const requestingRoutes: Routes = [
   {
     path: '',
     component: RequestingComponent,

@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IUserRequest } from 'app/shared/model/user-request.model';
+import { INewRequest } from 'app/shared/model/new-request.model';
 
 type EntityResponseType = HttpResponse<IUserRequest>;
 type EntityArrayResponseType = HttpResponse<IUserRequest[]>;
@@ -15,36 +16,50 @@ type EntityArrayResponseType = HttpResponse<IUserRequest[]>;
 @Injectable({ providedIn: 'root' })
 export class RequestingService {
   public resourceUrl = SERVER_API_URL + 'api/user-requests';
+  public newRequestUrl = SERVER_API_URL + 'api/new-request';
+  public myRequestsUrl = SERVER_API_URL + 'api/my-requests';
 
   constructor(protected http: HttpClient) {}
 
-  publish(userRequest: IUserRequest): Observable<EntityResponseType> {
-    const copy = this.convertDateFromClient(userRequest);
+  /**
+   * CREATE
+   * publish a new userRequest
+   * @param newRequest
+   */
+  publish(newRequest: INewRequest): Observable<EntityResponseType> {
     return this.http
-      .post<IUserRequest>('api/new-request', copy, { observe: 'response' })
+      .post<INewRequest>(this.newRequestUrl, newRequest, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
+  /**
+   * READ
+   * Get all my requests
+   * @param req
+   */
   queryMyRequests(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http
-      .get<IUserRequest[]>('api/my-requests', { params: options, observe: 'response' })
+      .get<IUserRequest[]>(this.myRequestsUrl, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
+  /**
+   * READ
+   * Get any of my requests by id
+   * @param id
+   */
   find(id: number): Observable<EntityResponseType> {
     return this.http
-      .get<IUserRequest>(`${this.resourceUrl}/${id}`, { observe: 'response' })
+      .get<IUserRequest>(`${this.myRequestsUrl}/${id}`, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
-  protected convertDateFromClient(userRequest: IUserRequest): IUserRequest {
-    const copy: IUserRequest = Object.assign({}, userRequest, {
-      validTo: userRequest.validTo != null && userRequest.validTo.isValid() ? userRequest.validTo.toJSON() : null
-    });
-    return copy;
-  }
-
+  /**
+   * PROCESS
+   * Converts a date from server into a readable format
+   * @param res response
+   */
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
       res.body.validTo = res.body.validTo != null ? moment(res.body.validTo) : null;
@@ -52,6 +67,11 @@ export class RequestingService {
     return res;
   }
 
+  /**
+   * PROCESS
+   * Converts dates from server into a readable format
+   * @param res response
+   */
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     if (res.body) {
       res.body.forEach((userRequest: IUserRequest) => {

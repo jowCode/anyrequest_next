@@ -4,10 +4,10 @@ import { RouterModule } from '@angular/router';
 import { RequestingComponent } from 'app/subpages-user/requesting/requesting.component';
 import { RequestingDetailComponent } from 'app/subpages-user/requesting/requesting-detail.component';
 import { RequestingNewComponent } from 'app/subpages-user/requesting/requesting-new.component';
-import { requestingRoute } from 'app/subpages-user/requesting/requesting.route';
+import { requestingRoutes } from 'app/subpages-user/requesting/requesting.route';
 
 @NgModule({
-  imports: [AnyrequestNextSharedModule, RouterModule.forChild(requestingRoute)],
+  imports: [AnyrequestNextSharedModule, RouterModule.forChild(requestingRoutes)],
   declarations: [RequestingComponent, RequestingDetailComponent, RequestingNewComponent]
 })
 export class AnyrequestNextRequestingModule {}

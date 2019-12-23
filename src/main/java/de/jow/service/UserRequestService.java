@@ -35,6 +35,7 @@ public class UserRequestService {
      * Get all the userRequests by username.
      *
      * @param pageable the pagination information.
+     * @param username the username
      * @return the list of entities.
      */
     @Transactional(readOnly = true)
@@ -45,6 +46,23 @@ public class UserRequestService {
         log.debug("Request to get all UserRequests by given username");
 
         return userRequestRepository.findByRequestingUser(pageable, username);
+    }
+
+    /**
+     * Get one userRequest by id and user.
+     *
+     * @param id the id of the entity.
+     * @param username the username
+     * @return the entity.
+     */
+    @Transactional(readOnly = true)
+    public Optional<UserRequest> findOneByIdAndUser(
+        final Long id,
+        final String username) {
+
+        log.debug("Request to get UserRequest by id owned by a given user : {}", id);
+
+        return userRequestRepository.findByIdAndRequestingUser(id, username);
     }
 
     /**
@@ -122,6 +140,7 @@ public class UserRequestService {
         log.debug("Request to get UserRequest : {}", id);
         return userRequestRepository.findById(id);
     }
+
 
     /**
      * Delete the userRequest by id.
