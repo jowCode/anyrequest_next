@@ -29,6 +29,17 @@ export class ContributingService {
   }
 
   /**
+   * READ
+   * Get a userRequest by ID
+   * @param id
+   */
+  find(id: number): Observable<EntityResponseType> {
+    return this.http
+      .get<IUserRequest>(`${this.allRequests}/${id}`, { observe: 'response' })
+      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  /**
    * PROCESS
    * Converts a date from server into a readable format
    * @param res response

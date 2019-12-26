@@ -40,10 +40,23 @@
             <div class="card-body">
                 <p>{{ userRequest.description}}</p>
                 <p>{{ userRequest.urgency}}</p>
-                <p>{{ userRequest.validTo}}</p>
+                <p>{{userRequest.validTo | date:'medium'}}</p>
             </div>
 
-            <div class="card-footer"></div>
+            <div class="card-footer">
+                <div class="btn-group p-2">
+                    <button type="submit"
+                            [routerLink]="['/contributing', userRequest.id, 'view' ]"
+                            class="btn btn-info btn-sm">
+                        <span class="d-none d-md-inline" jhiTranslate="anyrequestNextApp.contributing.action.view">View</span>
+                    </button>
+                    <button type="submit"
+                            [routerLink]="['/contributing', userRequest.id, 'contribute' ]"
+                            class="btn btn-info btn-sm">
+                        <span class="d-none d-md-inline" jhiTranslate="anyrequestNextApp.contributing.action.contribute">View</span>
+                    </button>
+                </div>
+            </div>
         </div>
 
     </div>

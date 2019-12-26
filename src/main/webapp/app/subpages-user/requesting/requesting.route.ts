@@ -11,7 +11,7 @@ import { RequestingNewComponent } from 'app/subpages-user/requesting/requesting-
 import { RequestingService } from 'app/subpages-user/requesting/requesting.service';
 
 @Injectable({ providedIn: 'root' })
-export class UserRequestResolve implements Resolve<IUserRequest> {
+export class MyUserRequestResolve implements Resolve<IUserRequest> {
   constructor(private service: RequestingService) {}
 
   resolve(route: ActivatedRouteSnapshot): Observable<IUserRequest> {
@@ -37,7 +37,7 @@ export const requestingRoutes: Routes = [
     path: ':id/view',
     component: RequestingDetailComponent,
     resolve: {
-      userRequest: UserRequestResolve
+      userRequest: MyUserRequestResolve
     },
     data: {
       authorities: ['ROLE_USER'],
@@ -49,7 +49,7 @@ export const requestingRoutes: Routes = [
     path: 'new',
     component: RequestingNewComponent,
     resolve: {
-      userRequest: UserRequestResolve
+      userRequest: MyUserRequestResolve
     },
     data: {
       authorities: ['ROLE_USER'],

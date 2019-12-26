@@ -5,6 +5,7 @@ import de.jow.security.AuthoritiesConstants;
 import de.jow.service.UserRequestService;
 import de.jow.service.UserService;
 import io.github.jhipster.web.util.PaginationUtil;
+import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,11 +15,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -60,5 +63,19 @@ public class ContributingResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
 
         return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+
+    /**
+     * TODO check if the contributing user is not blocked by the requesting user to see the details
+     * {@code GET  /user-requests/:id} : get the "id" userRequest.
+     *
+     * @param id the id of the userRequest to retrieve.
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and with body the userRequest, or with status {@code 404 (Not Found)}.
+     */
+    @GetMapping("/user/global-requests/{id}")
+    public ResponseEntity<UserRequest> getUserRequest(@PathVariable Long id) {
+        log.debug("REST request to get UserRequest : {}", id);
+        Optional<UserRequest> userRequest = userRequestService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(userRequest);
     }
 }
