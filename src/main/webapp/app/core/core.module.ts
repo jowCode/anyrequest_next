@@ -20,7 +20,6 @@ import { ErrorHandlerInterceptor } from 'app/blocks/interceptor/errorhandler.int
 import { NotificationInterceptor } from 'app/blocks/interceptor/notification.interceptor';
 
 import { fontAwesomeIcons } from './icons/font-awesome-icons';
-import { AnimationsService } from 'app/core/animations/animations.service';
 
 @NgModule({
   imports: [
@@ -48,7 +47,6 @@ import { AnimationsService } from 'app/core/animations/animations.service';
     })
   ],
   providers: [
-    AnimationsService,
     Title,
     {
       provide: LOCALE_ID,

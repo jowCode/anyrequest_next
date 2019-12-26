@@ -2,15 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRouteSnapshot, NavigationEnd, NavigationError } from '@angular/router';
 
 import { JhiLanguageHelper } from 'app/core/language/language.helper';
-import { routeAnimations } from 'app/core/animations/route.animations';
 
 @Component({
   selector: 'jhi-main',
-  templateUrl: './main.component.html',
-  animations: [
-    routeAnimations
-    // animation triggers go here
-  ]
+  templateUrl: './main.component.html'
 })
 export class JhiMainComponent implements OnInit {
   constructor(private jhiLanguageHelper: JhiLanguageHelper, private router: Router) {}

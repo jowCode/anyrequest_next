@@ -1,20 +1,19 @@
-import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IUserRequest } from 'app/shared/model/user-request.model';
 import { ContributingService } from 'app/subpages-user/contributing/contributing.service';
 import { JhiEventManager, JhiParseLinks } from 'ng-jhipster';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { ROUTE_ANIMATIONS_ELEMENTS } from 'app/core/animations/route.animations';
+import { fadeAnimation, listAnimation, transformAnimation } from 'app/core/animations/route.animations';
 
 @Component({
   selector: 'jhi-contributing',
   templateUrl: './contributing.component.html',
   styleUrls: ['./contributing.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Default
+  animations: [listAnimation, fadeAnimation, transformAnimation]
 })
 export class ContributingComponent implements OnInit, OnDestroy {
-  routeAnimationsElements = ROUTE_ANIMATIONS_ELEMENTS;
   userRequests: IUserRequest[];
   eventSubscriber: Subscription;
   itemsPerPage: number;

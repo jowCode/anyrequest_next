@@ -1,14 +1,46 @@
-<div class="row align-items-end">
-    <div *ngFor="let userRequest of userRequests ;trackBy: trackId"
-         class="col-md-6 col-lg-4" [ngClass]="routeAnimationsElements">
+<h2 id="page-heading">
+    <span>All Requests</span>
+</h2>
+<jhi-alert-error></jhi-alert-error>
+<jhi-alert></jhi-alert>
+<br/>
 
-        <div class="card">
+<div>
+    <div class="table-responsive">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+                <th scope="col"  jhiSortBy="title"><span jhiTranslate="anyrequestNextApp.userRequest.title">Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="description"><span jhiTranslate="anyrequestNextApp.userRequest.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="urgency"><span jhiTranslate="anyrequestNextApp.userRequest.urgency">Urgency</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="validTo"><span jhiTranslate="anyrequestNextApp.userRequest.validTo">Valid To</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="contributorCount"><span jhiTranslate="anyrequestNextApp.userRequest.contributorCount">Contributor Count</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<div [@transformAnimation]="page" class="alert alert-warning" *ngIf="userRequests?.length === 0">
+    <span jhiTranslate="anyrequestNextApp.userRequest.home.notFound">No userRequests found</span>
+</div>
+
+<div *ngIf="userRequests?.length > 0"
+     [@listAnimation]="userRequests.length"
+     class="row align-items-end">
+
+    <div *ngFor="let userRequest of userRequests ;trackBy: trackId"
+         class="col-md-6 col-lg-4">
+
+        <div jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)" class="card">
             <div class="card-title">
                 {{userRequest.title}}
             </div>
 
             <div class="card-body">
-                {{ userRequest.description}}
+                <p>{{ userRequest.description}}</p>
+                <p>{{ userRequest.urgency}}</p>
+                <p>{{ userRequest.validTo}}</p>
             </div>
 
             <div class="card-footer"></div>
@@ -18,15 +50,6 @@
 </div>
 
 <!--<div>
-    <h2 id="page-heading">
-        <span>All Requests</span>
-    </h2>
-    <jhi-alert-error></jhi-alert-error>
-    <jhi-alert></jhi-alert>
-    <br/>
-    <div class="alert alert-warning" *ngIf="userRequests?.length === 0">
-        <span jhiTranslate="anyrequestNextApp.userRequest.home.notFound">No userRequests found</span>
-    </div>
     <div class="table-responsive" *ngIf="userRequests?.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
