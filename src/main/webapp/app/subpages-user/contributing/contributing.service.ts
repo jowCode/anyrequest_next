@@ -6,6 +6,7 @@ import { createRequestOption } from 'app/shared/util/request-util';
 import { IUserRequest } from 'app/shared/model/user-request.model';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
+import { IContribution } from 'app/shared/model/contribution.model';
 
 type EntityResponseType = HttpResponse<IUserRequest>;
 type EntityArrayResponseType = HttpResponse<IUserRequest[]>;
@@ -13,6 +14,7 @@ type EntityArrayResponseType = HttpResponse<IUserRequest[]>;
 @Injectable({ providedIn: 'root' })
 export class ContributingService {
   public allRequests = SERVER_API_URL + 'api/user/global-requests';
+  public contribute = SERVER_API_URL + 'api/user/global-requests/contribute';
 
   constructor(protected http: HttpClient) {}
 
@@ -37,6 +39,15 @@ export class ContributingService {
     return this.http
       .get<IUserRequest>(`${this.allRequests}/${id}`, { observe: 'response' })
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+  }
+
+  /**
+   * CREATE
+   * Contribute to a users request
+   * @param contribution
+   */
+  create(contribution: IContribution): Observable<EntityResponseType> {
+    return this.http.post<IContribution>(this.contribute, contribution, { observe: 'response' });
   }
 
   /**

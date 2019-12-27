@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 import { ContributingService } from 'app/subpages-user/contributing/contributing.service';
 import { ContributingRequestDetailComponent } from 'app/subpages-user/contributing/contributing-request-detail.component';
+import { ContributeToRequestComponent } from 'app/subpages-user/contributing/contribute-to-request.component';
 
 @Injectable({ providedIn: 'root' })
 export class AnyUserRequestResolve implements Resolve<IUserRequest> {
@@ -35,6 +36,18 @@ export const contributingRoute: Routes = [
   {
     path: ':id/view',
     component: ContributingRequestDetailComponent,
+    resolve: {
+      userRequest: AnyUserRequestResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'contributing.request.detail.title'
+    },
+    canActivate: [UserRouteAccessService]
+  },
+  {
+    path: ':id/contribute',
+    component: ContributeToRequestComponent,
     resolve: {
       userRequest: AnyUserRequestResolve
     },
