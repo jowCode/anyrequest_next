@@ -1,0 +1,69 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="anyrequestNextApp.userRequest.home.title">User Requests</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-user-request" [routerLink]="['/user-request/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="anyrequestNextApp.userRequest.home.createLabel">
+            Create a new User Request
+            </span>
+        </button>
+    </h2>
+    <jhi-alert-error></jhi-alert-error>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="userRequests?.length === 0">
+        <span jhiTranslate="anyrequestNextApp.userRequest.home.notFound">No userRequests found</span>
+    </div>
+    <div class="table-responsive" *ngIf="userRequests?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="requestingUser"><span jhiTranslate="anyrequestNextApp.userRequest.requestingUser">Requesting User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="title"><span jhiTranslate="anyrequestNextApp.userRequest.title">Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="description"><span jhiTranslate="anyrequestNextApp.userRequest.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="urgency"><span jhiTranslate="anyrequestNextApp.userRequest.urgency">Urgency</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="validTo"><span jhiTranslate="anyrequestNextApp.userRequest.validTo">Valid To</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="contributorCount"><span jhiTranslate="anyrequestNextApp.userRequest.contributorCount">Contributor Count</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="hasContributed"><span jhiTranslate="anyrequestNextApp.userRequest.hasContributed">Has Contributed</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"  jhiSortBy="isBlocked"><span jhiTranslate="anyrequestNextApp.userRequest.isBlocked">Is Blocked</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let userRequest of userRequests ;trackBy: trackId">
+                <td><a [routerLink]="['/user-request', userRequest.id, 'view' ]">{{userRequest.id}}</a></td>
+                <td>{{userRequest.requestingUser}}</td>
+                <td>{{userRequest.title}}</td>
+                <td>{{userRequest.description}}</td>
+                <td jhiTranslate="{{'anyrequestNextApp.Urgency.' + userRequest.urgency}}">{{userRequest.urgency}}</td>
+                <td>{{userRequest.validTo | date:'medium'}}</td>
+                <td>{{userRequest.contributorCount}}</td>
+                <td>{{userRequest.hasContributed}}</td>
+                <td>{{userRequest.isBlocked}}</td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/user-request', userRequest.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/user-request', userRequest.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit" (click)="delete(userRequest)"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

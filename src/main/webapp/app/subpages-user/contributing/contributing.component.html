@@ -1,0 +1,99 @@
+<h2 id="page-heading">
+    <span>All Requests</span>
+</h2>
+<jhi-alert-error></jhi-alert-error>
+<jhi-alert></jhi-alert>
+<br/>
+
+<div>
+    <div class="table-responsive">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+                <th scope="col"  jhiSortBy="title"><span jhiTranslate="anyrequestNextApp.userRequest.title">Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="description"><span jhiTranslate="anyrequestNextApp.userRequest.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="urgency"><span jhiTranslate="anyrequestNextApp.userRequest.urgency">Urgency</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="validTo"><span jhiTranslate="anyrequestNextApp.userRequest.validTo">Valid To</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="contributorCount"><span jhiTranslate="anyrequestNextApp.userRequest.contributorCount">Contributor Count</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+<div [@transformAnimation]="page" class="alert alert-warning" *ngIf="userRequests?.length === 0">
+    <span jhiTranslate="anyrequestNextApp.userRequest.home.notFound">No userRequests found</span>
+</div>
+
+<div *ngIf="userRequests?.length > 0"
+     [@listAnimation]="userRequests.length"
+     class="row align-items-end">
+
+    <div *ngFor="let userRequest of userRequests ;trackBy: trackId"
+         class="col-md-6 col-lg-4">
+
+        <div jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)" class="card">
+            <div class="card-title">
+                {{userRequest.title}}
+            </div>
+
+            <div class="card-body">
+                <p>{{ userRequest.description}}</p>
+                <p>{{ userRequest.urgency}}</p>
+                <p>{{userRequest.validTo | date:'medium'}}</p>
+            </div>
+
+            <div class="card-footer">
+                <div class="btn-group p-2">
+                    <button type="submit"
+                            [routerLink]="['/contributing', userRequest.id, 'view' ]"
+                            class="btn btn-info btn-sm">
+                        <span class="d-none d-md-inline" jhiTranslate="anyrequestNextApp.contributing.action.view">View</span>
+                    </button>
+                    <button type="submit"
+                            [routerLink]="['/contributing', userRequest.id, 'contribute' ]"
+                            class="btn btn-info btn-sm">
+                        <span class="d-none d-md-inline" jhiTranslate="anyrequestNextApp.contributing.action.contribute">View</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--<div>
+    <div class="table-responsive" *ngIf="userRequests?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+                <th scope="col"  jhiSortBy="title"><span jhiTranslate="anyrequestNextApp.userRequest.title">Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="description"><span jhiTranslate="anyrequestNextApp.userRequest.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="urgency"><span jhiTranslate="anyrequestNextApp.userRequest.urgency">Urgency</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="validTo"><span jhiTranslate="anyrequestNextApp.userRequest.validTo">Valid To</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"  jhiSortBy="contributorCount"><span jhiTranslate="anyrequestNextApp.userRequest.contributorCount">Contributor Count</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let userRequest of userRequests ;trackBy: trackId">
+                <td>{{userRequest.title}}</td>
+                <td>{{userRequest.description}}</td>
+                <td jhiTranslate="{{'anyrequestNextApp.Urgency.' + userRequest.urgency}}">{{userRequest.urgency}}</td>
+                <td>{{userRequest.validTo | date:'medium'}}</td>
+                <td>{{userRequest.contributorCount}}</td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/requesting', userRequest.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>-->
+

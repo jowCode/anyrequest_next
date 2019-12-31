@@ -1,0 +1,25 @@
+{
+  "anyrequestNextApp": {
+    "userCreditAccount": {
+      "home": {
+        "title": "User Credit Accounts",
+        "createLabel": "User Credit Account erstellen",
+        "createOrEditLabel": "User Credit Account erstellen oder bearbeiten",
+        "notFound": "No User Credit Accounts found"
+      },
+      "created": "User Credit Account erstellt mit ID {{ param }}",
+      "updated": "User Credit Account aktualisiert mit ID {{ param }}",
+      "deleted": "User Credit Account gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll User Credit Account {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "User Credit Account"
+      },
+      "receivedCredits": "Received Credits",
+      "usedCredits": "Used Credits",
+      "totalCredits": "Total Credits",
+      "user": "User"
+    }
+  }
+}

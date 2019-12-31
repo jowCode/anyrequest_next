@@ -1,0 +1,17 @@
+{
+  "anyrequestNextApp": {
+    "contributing": {
+      "home": {
+        "title": "contributing",
+        "createLabel": "not in use",
+        "createOrEditLabel": "not in use",
+        "notFound": "not in use"
+      },
+      "action": {
+        "view": "View",
+        "cancel": "Cancel",
+        "contribute": "Contribute"
+      }
+    }
+  }
+}

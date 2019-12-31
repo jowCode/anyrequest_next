@@ -1,0 +1,24 @@
+{
+  "anyrequestNextApp": {
+    "conversation": {
+      "home": {
+        "title": "Conversations",
+        "createLabel": "Conversation erstellen",
+        "createOrEditLabel": "Conversation erstellen oder bearbeiten",
+        "notFound": "No Conversations found"
+      },
+      "created": "Conversation erstellt mit ID {{ param }}",
+      "updated": "Conversation aktualisiert mit ID {{ param }}",
+      "deleted": "Conversation gelöscht mit ID {{ param }}",
+      "delete": {
+        "question": "Soll Conversation {{ id }} wirklich dauerhaft gelöscht werden?"
+      },
+      "detail": {
+        "title": "Conversation"
+      },
+      "conversationStatus": "Conversation Status",
+      "chatMessage": "Chat Message",
+      "contribution": "Contribution"
+    }
+  }
+}

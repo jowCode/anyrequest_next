@@ -1,0 +1,23 @@
+{
+  "anyrequestNextApp": {
+    "requesting": {
+      "home": {
+        "title": "Requesting",
+        "createLabel": "Neues Request",
+        "createOrEditLabel": "Veröffentliche ein neues Request",
+        "notFound": "Du hast noch keine Requests"
+      },
+      "action": {
+        "publish": "Veröffentlichen",
+        "cancel": "Abbrechen"
+      },
+      "created": "Request erfolgreich veröffentlicht",
+      "detail": {
+        "title": "Request"
+      },
+      "title": "Titel",
+      "description": "Beschreibung",
+      "urgency": "Dringlichkeit"
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "anyrequestNextApp": {
+    "requesting": {
+      "home": {
+        "title": "Requesting",
+        "createLabel": "New request",
+        "createOrEditLabel": "Publish a new request",
+        "notFound": "You have not any requests"
+      },
+      "action": {
+        "publish": "Publish",
+        "cancel": "Cancel"
+      },
+      "created": "Request published with ID {{ param }}",
+      "detail": {
+        "title": "Request"
+      },
+      "title": "Title",
+      "description": "Description",
+      "urgency": "Urgency"
+    }
+  }
+}

@@ -1,0 +1,76 @@
+
+/**
+* A user can make a request
+* This request can be seen by all other users
+* Any other user can make an contribution proposal to that request
+* The contributing user can have a chat with the requesting user if he approved the contribution
+**/
+
+enum Urgency {
+	HIGH,
+    MEDIUM,
+    LOW
+}
+entity UserRequest {
+	requestingUser String required,
+	title String required,
+    description String required,
+    urgency Urgency required,
+    validTo ZonedDateTime required,
+    contributorCount Integer required min(0),
+    hasContributed Boolean,
+    isBlocked Boolean
+}
+enum ContributionStatus {
+	PENDING,
+    APPROVED,
+    REJECTED
+}
+entity Contribution {
+	contributingUser String required,
+	contributionMessage String required,
+    contributionStatus ContributionStatus
+}
+DEFAULT_BALANCE = 0
+
+entity UserCreditAccount {
+	receivedCredits Integer required min(DEFAULT_BALANCE),
+    usedCredits Integer required min(DEFAULT_BALANCE),
+    totalCredits Integer required min(DEFAULT_BALANCE)
+}
+
+enum ConversationStatus {
+	OPEN,
+    CLOSED,
+    BLOCKED
+}
+
+entity Conversation {
+	conversationStatus ConversationStatus
+}
+
+entity ChatMessage {
+	owningUser String required,
+	message String required
+}
+
+service all with serviceClass
+
+paginate UserRequest with infinite-scroll
+paginate Contribution with infinite-scroll
+paginate Conversation with infinite-scroll
+paginate ChatMessage with infinite-scroll
+paginate UserCreditAccount with pagination
+
+relationship OneToMany {
+	Conversation{chatMessage} to ChatMessage{conversation}
+}
+relationship OneToMany {
+	UserRequest{contribution} to Contribution{userRequest}
+}
+relationship OneToOne {
+	Contribution{conversation} to Conversation{contribution}
+}
+relationship OneToOne {
+	UserCreditAccount to User
+}

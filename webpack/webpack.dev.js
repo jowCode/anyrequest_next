@@ -110,7 +110,7 @@ module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
               }),
         new FriendlyErrorsWebpackPlugin(),
         new ForkTsCheckerWebpackPlugin(),
-        new BrowserSyncPlugin({
+/*        new BrowserSyncPlugin({
             https: options.tls,
             host: 'localhost',
             port: 9000,
@@ -127,7 +127,7 @@ module.exports = (options) => webpackMerge(commonConfig({ env: ENV }), {
             }
         }, {
             reload: false
-        }),
+        }),*/
         new webpack.ContextReplacementPlugin(
             /angular(\\|\/)core(\\|\/)/,
             path.resolve(__dirname, './src/main/webapp/')

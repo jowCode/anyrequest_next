@@ -41,6 +41,13 @@ public class CacheConfiguration {
             createCache(cm, de.jow.domain.User.class.getName());
             createCache(cm, de.jow.domain.Authority.class.getName());
             createCache(cm, de.jow.domain.User.class.getName() + ".authorities");
+            createCache(cm, de.jow.domain.UserRequest.class.getName());
+            createCache(cm, de.jow.domain.UserRequest.class.getName() + ".contributions");
+            createCache(cm, de.jow.domain.Contribution.class.getName());
+            createCache(cm, de.jow.domain.UserCreditAccount.class.getName());
+            createCache(cm, de.jow.domain.Conversation.class.getName());
+            createCache(cm, de.jow.domain.Conversation.class.getName() + ".chatMessages");
+            createCache(cm, de.jow.domain.ChatMessage.class.getName());
             // jhipster-needle-caffeine-add-entry
         };
     }
