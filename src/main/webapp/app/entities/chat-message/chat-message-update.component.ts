@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
+import { map } from 'rxjs/operators';
+
 import { IChatMessage, ChatMessage } from 'app/shared/model/chat-message.model';
 import { ChatMessageService } from './chat-message.service';
 import { IConversation } from 'app/shared/model/conversation.model';
@@ -16,9 +16,9 @@ import { ConversationService } from 'app/entities/conversation/conversation.serv
   templateUrl: './chat-message-update.component.html'
 })
 export class ChatMessageUpdateComponent implements OnInit {
-  isSaving: boolean;
+  isSaving = false;
 
-  conversations: IConversation[];
+  conversations: IConversation[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -28,27 +28,28 @@ export class ChatMessageUpdateComponent implements OnInit {
   });
 
   constructor(
-    protected jhiAlertService: JhiAlertService,
     protected chatMessageService: ChatMessageService,
     protected conversationService: ConversationService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
 
-  ngOnInit() {
-    this.isSaving = false;
+  ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ chatMessage }) => {
       this.updateForm(chatMessage);
+
+      this.conversationService
+        .query()
+        .pipe(
+          map((res: HttpResponse<IConversation[]>) => {
+            return res.body ? res.body : [];
+          })
+        )
+        .subscribe((resBody: IConversation[]) => (this.conversations = resBody));
     });
-    this.conversationService
-      .query()
-      .subscribe(
-        (res: HttpResponse<IConversation[]>) => (this.conversations = res.body),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
   }
 
-  updateForm(chatMessage: IChatMessage) {
+  updateForm(chatMessage: IChatMessage): void {
     this.editForm.patchValue({
       id: chatMessage.id,
       owningUser: chatMessage.owningUser,
@@ -57,11 +58,11 @@ export class ChatMessageUpdateComponent implements OnInit {
     });
   }
 
-  previousState() {
+  previousState(): void {
     window.history.back();
   }
 
-  save() {
+  save(): void {
     this.isSaving = true;
     const chatMessage = this.createFromForm();
     if (chatMessage.id !== undefined) {
@@ -74,30 +75,30 @@ export class ChatMessageUpdateComponent implements OnInit {
   private createFromForm(): IChatMessage {
     return {
       ...new ChatMessage(),
-      id: this.editForm.get(['id']).value,
-      owningUser: this.editForm.get(['owningUser']).value,
-      message: this.editForm.get(['message']).value,
-      conversation: this.editForm.get(['conversation']).value
+      id: this.editForm.get(['id'])!.value,
+      owningUser: this.editForm.get(['owningUser'])!.value,
+      message: this.editForm.get(['message'])!.value,
+      conversation: this.editForm.get(['conversation'])!.value
     };
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<IChatMessage>>) {
-    result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IChatMessage>>): void {
+    result.subscribe(
+      () => this.onSaveSuccess(),
+      () => this.onSaveError()
+    );
   }
 
-  protected onSaveSuccess() {
+  protected onSaveSuccess(): void {
     this.isSaving = false;
     this.previousState();
   }
 
-  protected onSaveError() {
+  protected onSaveError(): void {
     this.isSaving = false;
   }
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
-  }
 
-  trackConversationById(index: number, item: IConversation) {
+  trackById(index: number, item: IConversation): any {
     return item.id;
   }
 }

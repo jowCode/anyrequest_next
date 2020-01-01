@@ -16,13 +16,12 @@ import { UserRequestDeleteDialogComponent } from './user-request-delete-dialog.c
 })
 export class UserRequestComponent implements OnInit, OnDestroy {
   userRequests: IUserRequest[];
-  eventSubscriber: Subscription;
+  eventSubscriber?: Subscription;
   itemsPerPage: number;
   links: any;
-  page: any;
-  predicate: any;
-  reverse: any;
-  totalItems: number;
+  page: number;
+  predicate: string;
+  ascending: boolean;
 
   constructor(
     protected userRequestService: UserRequestService,
@@ -37,10 +36,10 @@ export class UserRequestComponent implements OnInit, OnDestroy {
       last: 0
     };
     this.predicate = 'id';
-    this.reverse = true;
+    this.ascending = true;
   }
 
-  loadAll() {
+  loadAll(): void {
     this.userRequestService
       .query({
         page: this.page,
@@ -50,52 +49,57 @@ export class UserRequestComponent implements OnInit, OnDestroy {
       .subscribe((res: HttpResponse<IUserRequest[]>) => this.paginateUserRequests(res.body, res.headers));
   }
 
-  reset() {
+  reset(): void {
     this.page = 0;
     this.userRequests = [];
     this.loadAll();
   }
 
-  loadPage(page) {
+  loadPage(page: number): void {
     this.page = page;
     this.loadAll();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadAll();
     this.registerChangeInUserRequests();
   }
 
-  ngOnDestroy() {
-    this.eventManager.destroy(this.eventSubscriber);
+  ngOnDestroy(): void {
+    if (this.eventSubscriber) {
+      this.eventManager.destroy(this.eventSubscriber);
+    }
   }
 
-  trackId(index: number, item: IUserRequest) {
-    return item.id;
+  trackId(index: number, item: IUserRequest): number {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    return item.id!;
   }
 
-  registerChangeInUserRequests() {
+  registerChangeInUserRequests(): void {
     this.eventSubscriber = this.eventManager.subscribe('userRequestListModification', () => this.reset());
   }
 
-  delete(userRequest: IUserRequest) {
+  delete(userRequest: IUserRequest): void {
     const modalRef = this.modalService.open(UserRequestDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.userRequest = userRequest;
   }
 
-  sort() {
-    const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+  sort(): string[] {
+    const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];
     if (this.predicate !== 'id') {
       result.push('id');
     }
     return result;
   }
 
-  protected paginateUserRequests(data: IUserRequest[], headers: HttpHeaders) {
-    this.links = this.parseLinks.parse(headers.get('link'));
-    this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-    for (let i = 0; i < data.length; i++) {
-      this.userRequests.push(data[i]);
+  protected paginateUserRequests(data: IUserRequest[] | null, headers: HttpHeaders): void {
+    const headersLink = headers.get('link');
+    this.links = this.parseLinks.parse(headersLink ? headersLink : '');
+    if (data) {
+      for (let i = 0; i < data.length; i++) {
+        this.userRequests.push(data[i]);
+      }
     }
   }
 }

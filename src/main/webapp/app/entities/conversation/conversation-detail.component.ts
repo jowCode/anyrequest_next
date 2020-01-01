@@ -8,17 +8,17 @@ import { IConversation } from 'app/shared/model/conversation.model';
   templateUrl: './conversation-detail.component.html'
 })
 export class ConversationDetailComponent implements OnInit {
-  conversation: IConversation;
+  conversation: IConversation | null = null;
 
   constructor(protected activatedRoute: ActivatedRoute) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ conversation }) => {
       this.conversation = conversation;
     });
   }
 
-  previousState() {
+  previousState(): void {
     window.history.back();
   }
 }

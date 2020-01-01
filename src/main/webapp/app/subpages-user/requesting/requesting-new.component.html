@@ -11,9 +11,9 @@
                         Title
                     </label>
                     <input type="text" class="form-control" name="title" id="field_title" formControlName="title"/>
-                    <div *ngIf="editForm.get('title').invalid && (editForm.get('title').dirty || editForm.get('title').touched)">
+                    <div *ngIf="editForm.get('title')!.invalid && (editForm.get('title')!.dirty || editForm.get('title')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('title').errors.required" jhiTranslate="entity.validation.required">
+                               *ngIf="editForm.get('title')?.errors?.required" jhiTranslate="entity.validation.required">
                             This field is required.
                         </small>
                     </div>
@@ -23,9 +23,9 @@
                         Description
                     </label>
                     <input type="text" class="form-control" name="description" id="field_description" formControlName="description"/>
-                    <div *ngIf="editForm.get('description').invalid && (editForm.get('description').dirty || editForm.get('description').touched)">
+                    <div *ngIf="editForm.get('description')!.invalid && (editForm.get('description')!.dirty || editForm.get('description')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('description').errors.required" jhiTranslate="entity.validation.required">
+                               *ngIf="editForm.get('description')?.errors?.required" jhiTranslate="entity.validation.required">
                             This field is required.
                         </small>
                     </div>
@@ -39,9 +39,9 @@
                         <option value="MEDIUM">{{'anyrequestNextApp.Urgency.MEDIUM' | translate}}</option>
                         <option value="LOW">{{'anyrequestNextApp.Urgency.LOW' | translate}}</option>
                     </select>
-                    <div *ngIf="editForm.get('urgency').invalid && (editForm.get('urgency').dirty || editForm.get('urgency').touched)">
+                    <div *ngIf="editForm.get('urgency')!.invalid && (editForm.get('urgency')!.dirty || editForm.get('urgency')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('urgency').errors.required" jhiTranslate="entity.validation.required">
+                               *ngIf="editForm.get('urgency')?.errors?.required" jhiTranslate="entity.validation.required">
                             This field is required.
                         </small>
                     </div>

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
+import { map } from 'rxjs/operators';
+
 import { IUserCreditAccount, UserCreditAccount } from 'app/shared/model/user-credit-account.model';
 import { UserCreditAccountService } from './user-credit-account.service';
 import { IUser } from 'app/core/user/user.model';
@@ -16,9 +16,9 @@ import { UserService } from 'app/core/user/user.service';
   templateUrl: './user-credit-account-update.component.html'
 })
 export class UserCreditAccountUpdateComponent implements OnInit {
-  isSaving: boolean;
+  isSaving = false;
 
-  users: IUser[];
+  users: IUser[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -29,24 +29,28 @@ export class UserCreditAccountUpdateComponent implements OnInit {
   });
 
   constructor(
-    protected jhiAlertService: JhiAlertService,
     protected userCreditAccountService: UserCreditAccountService,
     protected userService: UserService,
     protected activatedRoute: ActivatedRoute,
     private fb: FormBuilder
   ) {}
 
-  ngOnInit() {
-    this.isSaving = false;
+  ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ userCreditAccount }) => {
       this.updateForm(userCreditAccount);
+
+      this.userService
+        .query()
+        .pipe(
+          map((res: HttpResponse<IUser[]>) => {
+            return res.body ? res.body : [];
+          })
+        )
+        .subscribe((resBody: IUser[]) => (this.users = resBody));
     });
-    this.userService
-      .query()
-      .subscribe((res: HttpResponse<IUser[]>) => (this.users = res.body), (res: HttpErrorResponse) => this.onError(res.message));
   }
 
-  updateForm(userCreditAccount: IUserCreditAccount) {
+  updateForm(userCreditAccount: IUserCreditAccount): void {
     this.editForm.patchValue({
       id: userCreditAccount.id,
       receivedCredits: userCreditAccount.receivedCredits,
@@ -56,11 +60,11 @@ export class UserCreditAccountUpdateComponent implements OnInit {
     });
   }
 
-  previousState() {
+  previousState(): void {
     window.history.back();
   }
 
-  save() {
+  save(): void {
     this.isSaving = true;
     const userCreditAccount = this.createFromForm();
     if (userCreditAccount.id !== undefined) {
@@ -73,31 +77,31 @@ export class UserCreditAccountUpdateComponent implements OnInit {
   private createFromForm(): IUserCreditAccount {
     return {
       ...new UserCreditAccount(),
-      id: this.editForm.get(['id']).value,
-      receivedCredits: this.editForm.get(['receivedCredits']).value,
-      usedCredits: this.editForm.get(['usedCredits']).value,
-      totalCredits: this.editForm.get(['totalCredits']).value,
-      user: this.editForm.get(['user']).value
+      id: this.editForm.get(['id'])!.value,
+      receivedCredits: this.editForm.get(['receivedCredits'])!.value,
+      usedCredits: this.editForm.get(['usedCredits'])!.value,
+      totalCredits: this.editForm.get(['totalCredits'])!.value,
+      user: this.editForm.get(['user'])!.value
     };
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<IUserCreditAccount>>) {
-    result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IUserCreditAccount>>): void {
+    result.subscribe(
+      () => this.onSaveSuccess(),
+      () => this.onSaveError()
+    );
   }
 
-  protected onSaveSuccess() {
+  protected onSaveSuccess(): void {
     this.isSaving = false;
     this.previousState();
   }
 
-  protected onSaveError() {
+  protected onSaveError(): void {
     this.isSaving = false;
   }
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
-  }
 
-  trackUserById(index: number, item: IUser) {
+  trackById(index: number, item: IUser): any {
     return item.id;
   }
 }

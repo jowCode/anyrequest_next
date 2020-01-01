@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
@@ -10,7 +9,7 @@ import { ChatMessageService } from './chat-message.service';
   templateUrl: './chat-message-delete-dialog.component.html'
 })
 export class ChatMessageDeleteDialogComponent {
-  chatMessage: IChatMessage;
+  chatMessage?: IChatMessage;
 
   constructor(
     protected chatMessageService: ChatMessageService,
@@ -18,17 +17,14 @@ export class ChatMessageDeleteDialogComponent {
     protected eventManager: JhiEventManager
   ) {}
 
-  clear() {
-    this.activeModal.dismiss('cancel');
+  clear(): void {
+    this.activeModal.dismiss();
   }
 
-  confirmDelete(id: number) {
+  confirmDelete(id: number): void {
     this.chatMessageService.delete(id).subscribe(() => {
-      this.eventManager.broadcast({
-        name: 'chatMessageListModification',
-        content: 'Deleted an chatMessage'
-      });
-      this.activeModal.dismiss(true);
+      this.eventManager.broadcast('chatMessageListModification');
+      this.activeModal.close();
     });
   }
 }

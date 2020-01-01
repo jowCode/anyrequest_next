@@ -15,13 +15,12 @@ import { fadeAnimation, listAnimation, transformAnimation } from 'app/core/anima
 })
 export class ContributingComponent implements OnInit, OnDestroy {
   userRequests: IUserRequest[];
-  eventSubscriber: Subscription;
+  eventSubscriber?: Subscription;
   itemsPerPage: number;
   links: any;
   page: any;
   predicate: any;
-  reverse: any;
-  totalItems: number;
+  ascending: boolean;
 
   constructor(
     protected contributingService: ContributingService,
@@ -35,7 +34,7 @@ export class ContributingComponent implements OnInit, OnDestroy {
       last: 0
     };
     this.predicate = 'id';
-    this.reverse = true;
+    this.ascending = true;
   }
 
   ngOnInit() {
@@ -43,8 +42,10 @@ export class ContributingComponent implements OnInit, OnDestroy {
     this.registerChangeInUserRequests();
   }
 
-  ngOnDestroy() {
-    this.eventManager.destroy(this.eventSubscriber);
+  ngOnDestroy(): void {
+    if (this.eventSubscriber) {
+      this.eventManager.destroy(this.eventSubscriber);
+    }
   }
 
   loadAll() {
@@ -57,7 +58,7 @@ export class ContributingComponent implements OnInit, OnDestroy {
       .subscribe((res: HttpResponse<IUserRequest[]>) => this.paginateUserRequests(res.body, res.headers));
   }
 
-  loadPage(page) {
+  loadPage(page: number): void {
     this.page = page;
     this.loadAll();
   }
@@ -66,8 +67,8 @@ export class ContributingComponent implements OnInit, OnDestroy {
     this.eventSubscriber = this.eventManager.subscribe('userRequestListModification', () => this.reset());
   }
 
-  sort() {
-    const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+  sort(): string[] {
+    const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];
     if (this.predicate !== 'id') {
       result.push('id');
     }
@@ -84,11 +85,13 @@ export class ContributingComponent implements OnInit, OnDestroy {
     return item.id;
   }
 
-  protected paginateUserRequests(data: IUserRequest[], headers: HttpHeaders) {
-    this.links = this.parseLinks.parse(headers.get('link'));
-    this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-    for (let i = 0; i < data.length; i++) {
-      this.userRequests.push(data[i]);
+  protected paginateUserRequests(data: IUserRequest[] | null, headers: HttpHeaders): void {
+    const headersLink = headers.get('link');
+    this.links = this.parseLinks.parse(headersLink ? headersLink : '');
+    if (data) {
+      for (let i = 0; i < data.length; i++) {
+        this.userRequests.push(data[i]);
+      }
     }
   }
 }

@@ -8,7 +8,7 @@ import { IUserRequest } from 'app/shared/model/user-request.model';
   templateUrl: './contributing-request-detail.component.html'
 })
 export class ContributingRequestDetailComponent implements OnInit {
-  userRequest: IUserRequest;
+  userRequest: IUserRequest | null = null;
 
   constructor(protected activatedRoute: ActivatedRoute) {}
 

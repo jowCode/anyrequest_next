@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -14,7 +14,7 @@ import { IUserRequest } from 'app/shared/model/user-request.model';
   templateUrl: './requesting-new.component.html'
 })
 export class RequestingNewComponent implements OnInit {
-  isSaving: boolean;
+  isSaving = false;
 
   editForm = this.fb.group({
     title: [null, [Validators.required]],
@@ -52,14 +52,17 @@ export class RequestingNewComponent implements OnInit {
   private createFromForm(): INewRequest {
     return {
       ...new NewRequest(),
-      title: this.editForm.get(['title']).value,
-      description: this.editForm.get(['description']).value,
-      urgency: this.editForm.get(['urgency']).value
+      title: this.editForm.get(['title'])!.value,
+      description: this.editForm.get(['description'])!.value,
+      urgency: this.editForm.get(['urgency'])!.value
     };
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IUserRequest>>) {
-    result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
+    result.subscribe(
+      () => this.onSaveSuccess(),
+      () => this.onSaveError()
+    );
   }
 
   protected onSaveSuccess() {

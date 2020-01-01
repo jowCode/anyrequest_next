@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { JhiAlertService } from 'ng-jhipster';
+import { map } from 'rxjs/operators';
+
 import { IContribution, Contribution } from 'app/shared/model/contribution.model';
 import { ContributionService } from './contribution.service';
 import { IConversation } from 'app/shared/model/conversation.model';
@@ -13,16 +13,18 @@ import { ConversationService } from 'app/entities/conversation/conversation.serv
 import { IUserRequest } from 'app/shared/model/user-request.model';
 import { UserRequestService } from 'app/entities/user-request/user-request.service';
 
+type SelectableEntity = IConversation | IUserRequest;
+
 @Component({
   selector: 'jhi-contribution-update',
   templateUrl: './contribution-update.component.html'
 })
 export class ContributionUpdateComponent implements OnInit {
-  isSaving: boolean;
+  isSaving = false;
 
-  conversations: IConversation[];
+  conversations: IConversation[] = [];
 
-  userrequests: IUserRequest[];
+  userrequests: IUserRequest[] = [];
 
   editForm = this.fb.group({
     id: [],
@@ -34,7 +36,6 @@ export class ContributionUpdateComponent implements OnInit {
   });
 
   constructor(
-    protected jhiAlertService: JhiAlertService,
     protected contributionService: ContributionService,
     protected conversationService: ConversationService,
     protected userRequestService: UserRequestService,
@@ -42,35 +43,46 @@ export class ContributionUpdateComponent implements OnInit {
     private fb: FormBuilder
   ) {}
 
-  ngOnInit() {
-    this.isSaving = false;
+  ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ contribution }) => {
       this.updateForm(contribution);
+
+      this.conversationService
+        .query({ filter: 'contribution-is-null' })
+        .pipe(
+          map((res: HttpResponse<IConversation[]>) => {
+            return res.body ? res.body : [];
+          })
+        )
+        .subscribe((resBody: IConversation[]) => {
+          if (!contribution.conversation || !contribution.conversation.id) {
+            this.conversations = resBody;
+          } else {
+            this.conversationService
+              .find(contribution.conversation.id)
+              .pipe(
+                map((subRes: HttpResponse<IConversation>) => {
+                  return subRes.body ? [subRes.body].concat(resBody) : resBody;
+                })
+              )
+              .subscribe((concatRes: IConversation[]) => {
+                this.conversations = concatRes;
+              });
+          }
+        });
+
+      this.userRequestService
+        .query()
+        .pipe(
+          map((res: HttpResponse<IUserRequest[]>) => {
+            return res.body ? res.body : [];
+          })
+        )
+        .subscribe((resBody: IUserRequest[]) => (this.userrequests = resBody));
     });
-    this.conversationService.query({ filter: 'contribution-is-null' }).subscribe(
-      (res: HttpResponse<IConversation[]>) => {
-        if (!this.editForm.get('conversation').value || !this.editForm.get('conversation').value.id) {
-          this.conversations = res.body;
-        } else {
-          this.conversationService
-            .find(this.editForm.get('conversation').value.id)
-            .subscribe(
-              (subRes: HttpResponse<IConversation>) => (this.conversations = [subRes.body].concat(res.body)),
-              (subRes: HttpErrorResponse) => this.onError(subRes.message)
-            );
-        }
-      },
-      (res: HttpErrorResponse) => this.onError(res.message)
-    );
-    this.userRequestService
-      .query()
-      .subscribe(
-        (res: HttpResponse<IUserRequest[]>) => (this.userrequests = res.body),
-        (res: HttpErrorResponse) => this.onError(res.message)
-      );
   }
 
-  updateForm(contribution: IContribution) {
+  updateForm(contribution: IContribution): void {
     this.editForm.patchValue({
       id: contribution.id,
       contributingUser: contribution.contributingUser,
@@ -81,11 +93,11 @@ export class ContributionUpdateComponent implements OnInit {
     });
   }
 
-  previousState() {
+  previousState(): void {
     window.history.back();
   }
 
-  save() {
+  save(): void {
     this.isSaving = true;
     const contribution = this.createFromForm();
     if (contribution.id !== undefined) {
@@ -98,36 +110,32 @@ export class ContributionUpdateComponent implements OnInit {
   private createFromForm(): IContribution {
     return {
       ...new Contribution(),
-      id: this.editForm.get(['id']).value,
-      contributingUser: this.editForm.get(['contributingUser']).value,
-      contributionMessage: this.editForm.get(['contributionMessage']).value,
-      contributionStatus: this.editForm.get(['contributionStatus']).value,
-      conversation: this.editForm.get(['conversation']).value,
-      userRequest: this.editForm.get(['userRequest']).value
+      id: this.editForm.get(['id'])!.value,
+      contributingUser: this.editForm.get(['contributingUser'])!.value,
+      contributionMessage: this.editForm.get(['contributionMessage'])!.value,
+      contributionStatus: this.editForm.get(['contributionStatus'])!.value,
+      conversation: this.editForm.get(['conversation'])!.value,
+      userRequest: this.editForm.get(['userRequest'])!.value
     };
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<IContribution>>) {
-    result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IContribution>>): void {
+    result.subscribe(
+      () => this.onSaveSuccess(),
+      () => this.onSaveError()
+    );
   }
 
-  protected onSaveSuccess() {
+  protected onSaveSuccess(): void {
     this.isSaving = false;
     this.previousState();
   }
 
-  protected onSaveError() {
+  protected onSaveError(): void {
     this.isSaving = false;
   }
-  protected onError(errorMessage: string) {
-    this.jhiAlertService.error(errorMessage, null, null);
-  }
 
-  trackConversationById(index: number, item: IConversation) {
-    return item.id;
-  }
-
-  trackUserRequestById(index: number, item: IUserRequest) {
+  trackById(index: number, item: SelectableEntity): any {
     return item.id;
   }
 }

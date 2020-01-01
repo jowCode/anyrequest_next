@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
@@ -10,7 +9,7 @@ import { UserCreditAccountService } from './user-credit-account.service';
   templateUrl: './user-credit-account-delete-dialog.component.html'
 })
 export class UserCreditAccountDeleteDialogComponent {
-  userCreditAccount: IUserCreditAccount;
+  userCreditAccount?: IUserCreditAccount;
 
   constructor(
     protected userCreditAccountService: UserCreditAccountService,
@@ -18,17 +17,14 @@ export class UserCreditAccountDeleteDialogComponent {
     protected eventManager: JhiEventManager
   ) {}
 
-  clear() {
-    this.activeModal.dismiss('cancel');
+  clear(): void {
+    this.activeModal.dismiss();
   }
 
-  confirmDelete(id: number) {
+  confirmDelete(id: number): void {
     this.userCreditAccountService.delete(id).subscribe(() => {
-      this.eventManager.broadcast({
-        name: 'userCreditAccountListModification',
-        content: 'Deleted an userCreditAccount'
-      });
-      this.activeModal.dismiss(true);
+      this.eventManager.broadcast('userCreditAccountListModification');
+      this.activeModal.close();
     });
   }
 }

@@ -1,24 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, Routes, Router } from '@angular/router';
+import { Observable, of, EMPTY } from 'rxjs';
+import { flatMap } from 'rxjs/operators';
+
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { UserRequest } from 'app/shared/model/user-request.model';
+import { IUserRequest, UserRequest } from 'app/shared/model/user-request.model';
 import { UserRequestService } from './user-request.service';
 import { UserRequestComponent } from './user-request.component';
 import { UserRequestDetailComponent } from './user-request-detail.component';
 import { UserRequestUpdateComponent } from './user-request-update.component';
-import { IUserRequest } from 'app/shared/model/user-request.model';
 
 @Injectable({ providedIn: 'root' })
 export class UserRequestResolve implements Resolve<IUserRequest> {
-  constructor(private service: UserRequestService) {}
+  constructor(private service: UserRequestService, private router: Router) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<IUserRequest> {
+  resolve(route: ActivatedRouteSnapshot): Observable<IUserRequest> | Observable<never> {
     const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(map((userRequest: HttpResponse<UserRequest>) => userRequest.body));
+      return this.service.find(id).pipe(
+        flatMap((userRequest: HttpResponse<UserRequest>) => {
+          if (userRequest.body) {
+            return of(userRequest.body);
+          } else {
+            this.router.navigate(['404']);
+            return EMPTY;
+          }
+        })
+      );
     }
     return of(new UserRequest());
   }

@@ -1,8 +1,8 @@
 package de.jow;
 
 import de.jow.config.ApplicationProperties;
-import de.jow.config.DefaultProfileUtil;
 
+import io.github.jhipster.config.DefaultProfileUtil;
 import io.github.jhipster.config.JHipsterConstants;
 
 import org.apache.commons.lang3.StringUtils;

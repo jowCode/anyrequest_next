@@ -1,24 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, Routes, Router } from '@angular/router';
+import { Observable, of, EMPTY } from 'rxjs';
+import { flatMap } from 'rxjs/operators';
+
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Contribution } from 'app/shared/model/contribution.model';
+import { IContribution, Contribution } from 'app/shared/model/contribution.model';
 import { ContributionService } from './contribution.service';
 import { ContributionComponent } from './contribution.component';
 import { ContributionDetailComponent } from './contribution-detail.component';
 import { ContributionUpdateComponent } from './contribution-update.component';
-import { IContribution } from 'app/shared/model/contribution.model';
 
 @Injectable({ providedIn: 'root' })
 export class ContributionResolve implements Resolve<IContribution> {
-  constructor(private service: ContributionService) {}
+  constructor(private service: ContributionService, private router: Router) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<IContribution> {
+  resolve(route: ActivatedRouteSnapshot): Observable<IContribution> | Observable<never> {
     const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(map((contribution: HttpResponse<Contribution>) => contribution.body));
+      return this.service.find(id).pipe(
+        flatMap((contribution: HttpResponse<Contribution>) => {
+          if (contribution.body) {
+            return of(contribution.body);
+          } else {
+            this.router.navigate(['404']);
+            return EMPTY;
+          }
+        })
+      );
     }
     return of(new Contribution());
   }

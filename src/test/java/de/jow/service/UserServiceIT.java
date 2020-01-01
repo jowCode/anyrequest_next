@@ -5,7 +5,8 @@ import de.jow.config.Constants;
 import de.jow.domain.User;
 import de.jow.repository.UserRepository;
 import de.jow.service.dto.UserDTO;
-import de.jow.service.util.RandomUtil;
+
+import io.github.jhipster.security.RandomUtil;
 
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.BeforeEach;

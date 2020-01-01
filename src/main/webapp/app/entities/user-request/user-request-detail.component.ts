@@ -8,17 +8,17 @@ import { IUserRequest } from 'app/shared/model/user-request.model';
   templateUrl: './user-request-detail.component.html'
 })
 export class UserRequestDetailComponent implements OnInit {
-  userRequest: IUserRequest;
+  userRequest: IUserRequest | null = null;
 
   constructor(protected activatedRoute: ActivatedRoute) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ userRequest }) => {
       this.userRequest = userRequest;
     });
   }
 
-  previousState() {
+  previousState(): void {
     window.history.back();
   }
 }

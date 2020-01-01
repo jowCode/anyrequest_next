@@ -4,7 +4,7 @@
       "packageName": "de.jow",
       "nativeLanguage": "en"
     },
-    "jhipsterVersion": "6.5.1",
+    "jhipsterVersion": "6.6.0",
     "applicationType": "monolith",
     "baseName": "anyrequest_next",
     "packageName": "de.jow",
@@ -36,7 +36,6 @@
     "otherModules": [],
     "enableTranslation": true,
     "nativeLanguage": "en",
-    "languages": ["en", "de"],
-    "blueprints": []
+    "languages": ["en", "de"]
   }
 }

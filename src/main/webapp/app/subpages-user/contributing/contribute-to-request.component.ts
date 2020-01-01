@@ -15,7 +15,7 @@ import { ContributingService } from 'app/subpages-user/contributing/contributing
   templateUrl: './contribute-to-request.component.html'
 })
 export class ContributeToRequestComponent implements OnInit {
-  isSaving: boolean;
+  isSaving = false;
 
   editForm = this.fb.group({
     id: [],
@@ -69,20 +69,23 @@ export class ContributeToRequestComponent implements OnInit {
   private createFromForm(): IUserRequest {
     return {
       ...new UserRequest(),
-      id: this.editForm.get(['id']).value,
-      requestingUser: this.editForm.get(['requestingUser']).value,
-      title: this.editForm.get(['title']).value,
-      description: this.editForm.get(['description']).value,
-      urgency: this.editForm.get(['urgency']).value,
-      validTo: this.editForm.get(['validTo']).value != null ? moment(this.editForm.get(['validTo']).value, DATE_TIME_FORMAT) : undefined,
-      contributorCount: this.editForm.get(['contributorCount']).value,
-      hasContributed: this.editForm.get(['hasContributed']).value,
-      isBlocked: this.editForm.get(['isBlocked']).value
+      id: this.editForm.get(['id'])!.value,
+      requestingUser: this.editForm.get(['requestingUser'])!.value,
+      title: this.editForm.get(['title'])!.value,
+      description: this.editForm.get(['description'])!.value,
+      urgency: this.editForm.get(['urgency'])!.value,
+      validTo: this.editForm.get(['validTo'])!.value != null ? moment(this.editForm.get(['validTo'])!.value, DATE_TIME_FORMAT) : undefined,
+      contributorCount: this.editForm.get(['contributorCount'])!.value,
+      hasContributed: this.editForm.get(['hasContributed'])!.value,
+      isBlocked: this.editForm.get(['isBlocked'])!.value
     };
   }
 
   protected subscribeToSaveResponse(result: Observable<HttpResponse<IUserRequest>>) {
-    result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
+    result.subscribe(
+      () => this.onSaveSuccess(),
+      () => this.onSaveError()
+    );
   }
 
   protected onSaveSuccess() {

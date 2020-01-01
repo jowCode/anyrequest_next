@@ -5,19 +5,19 @@ export class UserCreditAccountComponentsPage {
   deleteButtons = element.all(by.css('jhi-user-credit-account div table .btn-danger'));
   title = element.all(by.css('jhi-user-credit-account div h2#page-heading span')).first();
 
-  async clickOnCreateButton() {
+  async clickOnCreateButton(): Promise<void> {
     await this.createButton.click();
   }
 
-  async clickOnLastDeleteButton() {
+  async clickOnLastDeleteButton(): Promise<void> {
     await this.deleteButtons.last().click();
   }
 
-  async countDeleteButtons() {
+  async countDeleteButtons(): Promise<number> {
     return this.deleteButtons.count();
   }
 
-  async getTitle() {
+  async getTitle(): Promise<string> {
     return this.title.getAttribute('jhiTranslate');
   }
 }
@@ -31,42 +31,42 @@ export class UserCreditAccountUpdatePage {
   totalCreditsInput = element(by.id('field_totalCredits'));
   userSelect = element(by.id('field_user'));
 
-  async getPageTitle() {
+  async getPageTitle(): Promise<string> {
     return this.pageTitle.getAttribute('jhiTranslate');
   }
 
-  async setReceivedCreditsInput(receivedCredits) {
+  async setReceivedCreditsInput(receivedCredits: string): Promise<void> {
     await this.receivedCreditsInput.sendKeys(receivedCredits);
   }
 
-  async getReceivedCreditsInput() {
+  async getReceivedCreditsInput(): Promise<string> {
     return await this.receivedCreditsInput.getAttribute('value');
   }
 
-  async setUsedCreditsInput(usedCredits) {
+  async setUsedCreditsInput(usedCredits: string): Promise<void> {
     await this.usedCreditsInput.sendKeys(usedCredits);
   }
 
-  async getUsedCreditsInput() {
+  async getUsedCreditsInput(): Promise<string> {
     return await this.usedCreditsInput.getAttribute('value');
   }
 
-  async setTotalCreditsInput(totalCredits) {
+  async setTotalCreditsInput(totalCredits: string): Promise<void> {
     await this.totalCreditsInput.sendKeys(totalCredits);
   }
 
-  async getTotalCreditsInput() {
+  async getTotalCreditsInput(): Promise<string> {
     return await this.totalCreditsInput.getAttribute('value');
   }
 
-  async userSelectLastOption() {
+  async userSelectLastOption(): Promise<void> {
     await this.userSelect
       .all(by.tagName('option'))
       .last()
       .click();
   }
 
-  async userSelectOption(option) {
+  async userSelectOption(option: string): Promise<void> {
     await this.userSelect.sendKeys(option);
   }
 
@@ -74,15 +74,15 @@ export class UserCreditAccountUpdatePage {
     return this.userSelect;
   }
 
-  async getUserSelectedOption() {
+  async getUserSelectedOption(): Promise<string> {
     return await this.userSelect.element(by.css('option:checked')).getText();
   }
 
-  async save() {
+  async save(): Promise<void> {
     await this.saveButton.click();
   }
 
-  async cancel() {
+  async cancel(): Promise<void> {
     await this.cancelButton.click();
   }
 
@@ -95,11 +95,11 @@ export class UserCreditAccountDeleteDialog {
   private dialogTitle = element(by.id('jhi-delete-userCreditAccount-heading'));
   private confirmButton = element(by.id('jhi-confirm-delete-userCreditAccount'));
 
-  async getDialogTitle() {
+  async getDialogTitle(): Promise<string> {
     return this.dialogTitle.getAttribute('jhiTranslate');
   }
 
-  async clickOnConfirmButton() {
+  async clickOnConfirmButton(): Promise<void> {
     await this.confirmButton.click();
   }
 }

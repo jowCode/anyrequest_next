@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
@@ -10,7 +9,7 @@ import { ContributionService } from './contribution.service';
   templateUrl: './contribution-delete-dialog.component.html'
 })
 export class ContributionDeleteDialogComponent {
-  contribution: IContribution;
+  contribution?: IContribution;
 
   constructor(
     protected contributionService: ContributionService,
@@ -18,17 +17,14 @@ export class ContributionDeleteDialogComponent {
     protected eventManager: JhiEventManager
   ) {}
 
-  clear() {
-    this.activeModal.dismiss('cancel');
+  clear(): void {
+    this.activeModal.dismiss();
   }
 
-  confirmDelete(id: number) {
+  confirmDelete(id: number): void {
     this.contributionService.delete(id).subscribe(() => {
-      this.eventManager.broadcast({
-        name: 'contributionListModification',
-        content: 'Deleted an contribution'
-      });
-      this.activeModal.dismiss(true);
+      this.eventManager.broadcast('contributionListModification');
+      this.activeModal.close();
     });
   }
 }

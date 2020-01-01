@@ -61,7 +61,7 @@ export class RequestingService {
    */
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
-      res.body.validTo = res.body.validTo != null ? moment(res.body.validTo) : null;
+      res.body.validTo = res.body.validTo ? moment(res.body.validTo) : undefined;
     }
     return res;
   }
@@ -74,7 +74,7 @@ export class RequestingService {
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     if (res.body) {
       res.body.forEach((userRequest: IUserRequest) => {
-        userRequest.validTo = userRequest.validTo != null ? moment(userRequest.validTo) : null;
+        userRequest.validTo = userRequest.validTo ? moment(userRequest.validTo) : undefined;
       });
     }
     return res;
