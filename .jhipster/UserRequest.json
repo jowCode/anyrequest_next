@@ -1,0 +1,76 @@
+{
+    "name": "UserRequest",
+    "fields": [
+        {
+            "fieldName": "requestingUser",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "title",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "urgency",
+            "fieldType": "Urgency",
+            "fieldValues": "HIGH,MEDIUM,LOW",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "validTo",
+            "fieldType": "ZonedDateTime",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "contributorCount",
+            "fieldType": "Integer",
+            "fieldValidateRules": [
+                "required",
+                "min"
+            ],
+            "fieldValidateRulesMin": 0
+        },
+        {
+            "fieldName": "hasContributed",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "isBlocked",
+            "fieldType": "Boolean"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "contribution",
+            "otherEntityRelationshipName": "userRequest",
+            "relationshipName": "contribution"
+        }
+    ],
+    "changelogDate": "20191215132457",
+    "entityTableName": "user_request",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

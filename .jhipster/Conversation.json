@@ -1,0 +1,35 @@
+{
+    "name": "Conversation",
+    "fields": [
+        {
+            "fieldName": "conversationStatus",
+            "fieldType": "ConversationStatus",
+            "fieldValues": "OPEN,CLOSED,BLOCKED"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "chatMessage",
+            "otherEntityRelationshipName": "conversation",
+            "relationshipName": "chatMessage"
+        },
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "contribution",
+            "otherEntityRelationshipName": "conversation",
+            "relationshipName": "contribution",
+            "ownerSide": false
+        }
+    ],
+    "changelogDate": "20191215132500",
+    "entityTableName": "conversation",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,47 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "de.jow",
+      "nativeLanguage": "en"
+    },
+    "jhipsterVersion": "6.5.1",
+    "applicationType": "monolith",
+    "baseName": "anyrequest_next",
+    "packageName": "de.jow",
+    "packageFolder": "de/jow",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "caffeine",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "YzJkNGVkMWI1NzBjNTE4MDhkN2YxYTMzZDI1Mjg0NzUxMmQyNmVlMTEyNTQzYzA3YjNmZTA4OWU4NjNhNjZmOTE1YjJiMGExYjYwMmM2ZTFhNDUwMjBkMmViNWJlYjgwMDNiNTM3NzFiMDQ2YjRiZDM4ZGNjZmZhMGU2ODI3ODU=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "materia",
+    "clientThemeVariant": "dark",
+    "testFrameworks": [
+      "protractor"
+    ],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": [
+      "en",
+      "de"
+    ],
+    "blueprints": []
+  }
+}

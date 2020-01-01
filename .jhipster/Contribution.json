@@ -1,0 +1,51 @@
+{
+    "name": "Contribution",
+    "fields": [
+        {
+            "fieldName": "contributingUser",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "contributionMessage",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "contributionStatus",
+            "fieldType": "ContributionStatus",
+            "fieldValues": "PENDING,APPROVED,REJECTED"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "conversation",
+            "otherEntityRelationshipName": "contribution",
+            "relationshipName": "conversation",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "userRequest",
+            "otherEntityRelationshipName": "contribution",
+            "relationshipName": "userRequest",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20191215132458",
+    "entityTableName": "contribution",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "clientRootFolder": "",
+    "applications": "*"
+}
