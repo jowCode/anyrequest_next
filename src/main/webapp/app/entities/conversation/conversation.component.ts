@@ -16,13 +16,12 @@ import { ConversationDeleteDialogComponent } from './conversation-delete-dialog.
 })
 export class ConversationComponent implements OnInit, OnDestroy {
   conversations: IConversation[];
-  eventSubscriber: Subscription;
+  eventSubscriber?: Subscription;
   itemsPerPage: number;
   links: any;
-  page: any;
-  predicate: any;
-  reverse: any;
-  totalItems: number;
+  page: number;
+  predicate: string;
+  ascending: boolean;
 
   constructor(
     protected conversationService: ConversationService,
@@ -37,10 +36,10 @@ export class ConversationComponent implements OnInit, OnDestroy {
       last: 0
     };
     this.predicate = 'id';
-    this.reverse = true;
+    this.ascending = true;
   }
 
-  loadAll() {
+  loadAll(): void {
     this.conversationService
       .query({
         page: this.page,
@@ -50,52 +49,57 @@ export class ConversationComponent implements OnInit, OnDestroy {
       .subscribe((res: HttpResponse<IConversation[]>) => this.paginateConversations(res.body, res.headers));
   }
 
-  reset() {
+  reset(): void {
     this.page = 0;
     this.conversations = [];
     this.loadAll();
   }
 
-  loadPage(page) {
+  loadPage(page: number): void {
     this.page = page;
     this.loadAll();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadAll();
     this.registerChangeInConversations();
   }
 
-  ngOnDestroy() {
-    this.eventManager.destroy(this.eventSubscriber);
+  ngOnDestroy(): void {
+    if (this.eventSubscriber) {
+      this.eventManager.destroy(this.eventSubscriber);
+    }
   }
 
-  trackId(index: number, item: IConversation) {
-    return item.id;
+  trackId(index: number, item: IConversation): number {
+    // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion
+    return item.id!;
   }
 
-  registerChangeInConversations() {
+  registerChangeInConversations(): void {
     this.eventSubscriber = this.eventManager.subscribe('conversationListModification', () => this.reset());
   }
 
-  delete(conversation: IConversation) {
+  delete(conversation: IConversation): void {
     const modalRef = this.modalService.open(ConversationDeleteDialogComponent, { size: 'lg', backdrop: 'static' });
     modalRef.componentInstance.conversation = conversation;
   }
 
-  sort() {
-    const result = [this.predicate + ',' + (this.reverse ? 'asc' : 'desc')];
+  sort(): string[] {
+    const result = [this.predicate + ',' + (this.ascending ? 'asc' : 'desc')];
     if (this.predicate !== 'id') {
       result.push('id');
     }
     return result;
   }
 
-  protected paginateConversations(data: IConversation[], headers: HttpHeaders) {
-    this.links = this.parseLinks.parse(headers.get('link'));
-    this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-    for (let i = 0; i < data.length; i++) {
-      this.conversations.push(data[i]);
+  protected paginateConversations(data: IConversation[] | null, headers: HttpHeaders): void {
+    const headersLink = headers.get('link');
+    this.links = this.parseLinks.parse(headersLink ? headersLink : '');
+    if (data) {
+      for (let i = 0; i < data.length; i++) {
+        this.conversations.push(data[i]);
+      }
     }
   }
 }

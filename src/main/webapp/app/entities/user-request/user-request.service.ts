@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import * as moment from 'moment';
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { DATE_FORMAT } from 'app/shared/constants/input.constants';
-import { map } from 'rxjs/operators';
-
 import { SERVER_API_URL } from 'app/app.constants';
 import { createRequestOption } from 'app/shared/util/request-util';
 import { IUserRequest } from 'app/shared/model/user-request.model';
@@ -46,20 +46,20 @@ export class UserRequestService {
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
-  delete(id: number): Observable<HttpResponse<any>> {
-    return this.http.delete<any>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+  delete(id: number): Observable<HttpResponse<{}>> {
+    return this.http.delete(`${this.resourceUrl}/${id}`, { observe: 'response' });
   }
 
   protected convertDateFromClient(userRequest: IUserRequest): IUserRequest {
     const copy: IUserRequest = Object.assign({}, userRequest, {
-      validTo: userRequest.validTo != null && userRequest.validTo.isValid() ? userRequest.validTo.toJSON() : null
+      validTo: userRequest.validTo && userRequest.validTo.isValid() ? userRequest.validTo.toJSON() : undefined
     });
     return copy;
   }
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
     if (res.body) {
-      res.body.validTo = res.body.validTo != null ? moment(res.body.validTo) : null;
+      res.body.validTo = res.body.validTo ? moment(res.body.validTo) : undefined;
     }
     return res;
   }
@@ -67,7 +67,7 @@ export class UserRequestService {
   protected convertDateArrayFromServer(res: EntityArrayResponseType): EntityArrayResponseType {
     if (res.body) {
       res.body.forEach((userRequest: IUserRequest) => {
-        userRequest.validTo = userRequest.validTo != null ? moment(userRequest.validTo) : null;
+        userRequest.validTo = userRequest.validTo ? moment(userRequest.validTo) : undefined;
       });
     }
     return res;

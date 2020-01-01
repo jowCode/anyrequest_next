@@ -8,17 +8,17 @@ import { IChatMessage } from 'app/shared/model/chat-message.model';
   templateUrl: './chat-message-detail.component.html'
 })
 export class ChatMessageDetailComponent implements OnInit {
-  chatMessage: IChatMessage;
+  chatMessage: IChatMessage | null = null;
 
   constructor(protected activatedRoute: ActivatedRoute) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ chatMessage }) => {
       this.chatMessage = chatMessage;
     });
   }
 
-  previousState() {
+  previousState(): void {
     window.history.back();
   }
 }

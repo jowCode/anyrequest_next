@@ -1,24 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, Routes, Router } from '@angular/router';
+import { Observable, of, EMPTY } from 'rxjs';
+import { flatMap } from 'rxjs/operators';
+
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Conversation } from 'app/shared/model/conversation.model';
+import { IConversation, Conversation } from 'app/shared/model/conversation.model';
 import { ConversationService } from './conversation.service';
 import { ConversationComponent } from './conversation.component';
 import { ConversationDetailComponent } from './conversation-detail.component';
 import { ConversationUpdateComponent } from './conversation-update.component';
-import { IConversation } from 'app/shared/model/conversation.model';
 
 @Injectable({ providedIn: 'root' })
 export class ConversationResolve implements Resolve<IConversation> {
-  constructor(private service: ConversationService) {}
+  constructor(private service: ConversationService, private router: Router) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<IConversation> {
+  resolve(route: ActivatedRouteSnapshot): Observable<IConversation> | Observable<never> {
     const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(map((conversation: HttpResponse<Conversation>) => conversation.body));
+      return this.service.find(id).pipe(
+        flatMap((conversation: HttpResponse<Conversation>) => {
+          if (conversation.body) {
+            return of(conversation.body);
+          } else {
+            this.router.navigate(['404']);
+            return EMPTY;
+          }
+        })
+      );
     }
     return of(new Conversation());
   }

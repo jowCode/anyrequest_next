@@ -4,7 +4,7 @@
             <h2 id="jhi-user-credit-account-heading" jhiTranslate="anyrequestNextApp.userCreditAccount.home.createOrEditLabel">Create or edit a User Credit Account</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!editForm.get('id').value">
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id" formControlName="id"
                         readonly />
@@ -13,13 +13,13 @@
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.userCreditAccount.receivedCredits" for="field_receivedCredits">Received Credits</label>
                     <input type="number" class="form-control" name="receivedCredits" id="field_receivedCredits"
                            formControlName="receivedCredits"/>
-                    <div *ngIf="editForm.get('receivedCredits').invalid && (editForm.get('receivedCredits').dirty || editForm.get('receivedCredits').touched)">
+                    <div *ngIf="editForm.get('receivedCredits')!.invalid && (editForm.get('receivedCredits')!.dirty || editForm.get('receivedCredits')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('receivedCredits').errors.required" jhiTranslate="entity.validation.required">
+                               *ngIf="editForm.get('receivedCredits')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('receivedCredits').errors.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                               *ngIf="editForm.get('receivedCredits')?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
                             This field should be at least 0.
                         </small>
                         <small class="form-text text-danger"
@@ -32,13 +32,13 @@
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.userCreditAccount.usedCredits" for="field_usedCredits">Used Credits</label>
                     <input type="number" class="form-control" name="usedCredits" id="field_usedCredits"
                            formControlName="usedCredits"/>
-                    <div *ngIf="editForm.get('usedCredits').invalid && (editForm.get('usedCredits').dirty || editForm.get('usedCredits').touched)">
+                    <div *ngIf="editForm.get('usedCredits')!.invalid && (editForm.get('usedCredits')!.dirty || editForm.get('usedCredits')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('usedCredits').errors.required" jhiTranslate="entity.validation.required">
+                               *ngIf="editForm.get('usedCredits')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('usedCredits').errors.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                               *ngIf="editForm.get('usedCredits')?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
                             This field should be at least 0.
                         </small>
                         <small class="form-text text-danger"
@@ -51,13 +51,13 @@
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.userCreditAccount.totalCredits" for="field_totalCredits">Total Credits</label>
                     <input type="number" class="form-control" name="totalCredits" id="field_totalCredits"
                            formControlName="totalCredits"/>
-                    <div *ngIf="editForm.get('totalCredits').invalid && (editForm.get('totalCredits').dirty || editForm.get('totalCredits').touched)">
+                    <div *ngIf="editForm.get('totalCredits')!.invalid && (editForm.get('totalCredits')!.dirty || editForm.get('totalCredits')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('totalCredits').errors.required" jhiTranslate="entity.validation.required">
+                               *ngIf="editForm.get('totalCredits')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('totalCredits').errors.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
+                               *ngIf="editForm.get('totalCredits')?.errors?.min" jhiTranslate="entity.validation.min" [translateValues]="{ min: 0 }">
                             This field should be at least 0.
                         </small>
                         <small class="form-text text-danger"
@@ -71,7 +71,7 @@
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.userCreditAccount.user" for="field_user">User</label>
                     <select class="form-control" id="field_user" name="user" formControlName="user">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="userOption.id === editForm.get('user').value?.id ? editForm.get('user').value : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.id}}</option>
+                        <option [ngValue]="userOption.id === editForm.get('user')!.value?.id ? editForm.get('user')!.value : userOption" *ngFor="let userOption of users; trackBy: trackById">{{userOption.id}}</option>
                     </select>
                 </div>
             </div>

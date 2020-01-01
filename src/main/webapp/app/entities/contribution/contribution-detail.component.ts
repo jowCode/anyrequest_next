@@ -8,17 +8,17 @@ import { IContribution } from 'app/shared/model/contribution.model';
   templateUrl: './contribution-detail.component.html'
 })
 export class ContributionDetailComponent implements OnInit {
-  contribution: IContribution;
+  contribution: IContribution | null = null;
 
   constructor(protected activatedRoute: ActivatedRoute) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ contribution }) => {
       this.contribution = contribution;
     });
   }
 
-  previousState() {
+  previousState(): void {
     window.history.back();
   }
 }

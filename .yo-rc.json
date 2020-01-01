@@ -4,7 +4,7 @@
       "packageName": "de.jow",
       "nativeLanguage": "en"
     },
-    "jhipsterVersion": "6.5.1",
+    "jhipsterVersion": "6.6.0",
     "applicationType": "monolith",
     "baseName": "anyrequest_next",
     "packageName": "de.jow",
@@ -29,19 +29,15 @@
     "clientFramework": "angularX",
     "clientTheme": "materia",
     "clientThemeVariant": "dark",
-    "testFrameworks": [
-      "protractor"
-    ],
+    "testFrameworks": ["protractor"],
     "jhiPrefix": "jhi",
     "entitySuffix": "",
     "dtoSuffix": "DTO",
     "otherModules": [],
     "enableTranslation": true,
     "nativeLanguage": "en",
-    "languages": [
-      "en",
-      "de"
-    ],
-    "blueprints": []
+    "languages": ["en", "de"],
+    "blueprints": [],
+    "creationTimestamp": 1577877959473
   }
 }

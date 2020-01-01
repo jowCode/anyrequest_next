@@ -1,24 +1,33 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
-import { Resolve, ActivatedRouteSnapshot, Routes } from '@angular/router';
+import { Resolve, ActivatedRouteSnapshot, Routes, Router } from '@angular/router';
+import { Observable, of, EMPTY } from 'rxjs';
+import { flatMap } from 'rxjs/operators';
+
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { ChatMessage } from 'app/shared/model/chat-message.model';
+import { IChatMessage, ChatMessage } from 'app/shared/model/chat-message.model';
 import { ChatMessageService } from './chat-message.service';
 import { ChatMessageComponent } from './chat-message.component';
 import { ChatMessageDetailComponent } from './chat-message-detail.component';
 import { ChatMessageUpdateComponent } from './chat-message-update.component';
-import { IChatMessage } from 'app/shared/model/chat-message.model';
 
 @Injectable({ providedIn: 'root' })
 export class ChatMessageResolve implements Resolve<IChatMessage> {
-  constructor(private service: ChatMessageService) {}
+  constructor(private service: ChatMessageService, private router: Router) {}
 
-  resolve(route: ActivatedRouteSnapshot): Observable<IChatMessage> {
+  resolve(route: ActivatedRouteSnapshot): Observable<IChatMessage> | Observable<never> {
     const id = route.params['id'];
     if (id) {
-      return this.service.find(id).pipe(map((chatMessage: HttpResponse<ChatMessage>) => chatMessage.body));
+      return this.service.find(id).pipe(
+        flatMap((chatMessage: HttpResponse<ChatMessage>) => {
+          if (chatMessage.body) {
+            return of(chatMessage.body);
+          } else {
+            this.router.navigate(['404']);
+            return EMPTY;
+          }
+        })
+      );
     }
     return of(new ChatMessage());
   }

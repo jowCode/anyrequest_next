@@ -5,9 +5,6 @@ import de.jow.config.Constants;
 import de.jow.domain.Authority;
 import de.jow.domain.User;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-
 import javax.validation.constraints.*;
 import java.time.Instant;
 import java.util.Set;

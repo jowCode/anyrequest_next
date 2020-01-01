@@ -1,4 +1,5 @@
 package de.jow.repository;
+
 import de.jow.domain.Contribution;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;

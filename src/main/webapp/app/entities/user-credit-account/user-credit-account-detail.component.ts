@@ -8,17 +8,17 @@ import { IUserCreditAccount } from 'app/shared/model/user-credit-account.model';
   templateUrl: './user-credit-account-detail.component.html'
 })
 export class UserCreditAccountDetailComponent implements OnInit {
-  userCreditAccount: IUserCreditAccount;
+  userCreditAccount: IUserCreditAccount | null = null;
 
   constructor(protected activatedRoute: ActivatedRoute) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ userCreditAccount }) => {
       this.userCreditAccount = userCreditAccount;
     });
   }
 
-  previousState() {
+  previousState(): void {
     window.history.back();
   }
 }

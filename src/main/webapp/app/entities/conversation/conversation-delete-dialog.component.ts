@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager } from 'ng-jhipster';
 
@@ -10,7 +9,7 @@ import { ConversationService } from './conversation.service';
   templateUrl: './conversation-delete-dialog.component.html'
 })
 export class ConversationDeleteDialogComponent {
-  conversation: IConversation;
+  conversation?: IConversation;
 
   constructor(
     protected conversationService: ConversationService,
@@ -18,17 +17,14 @@ export class ConversationDeleteDialogComponent {
     protected eventManager: JhiEventManager
   ) {}
 
-  clear() {
-    this.activeModal.dismiss('cancel');
+  clear(): void {
+    this.activeModal.dismiss();
   }
 
-  confirmDelete(id: number) {
+  confirmDelete(id: number): void {
     this.conversationService.delete(id).subscribe(() => {
-      this.eventManager.broadcast({
-        name: 'conversationListModification',
-        content: 'Deleted an conversation'
-      });
-      this.activeModal.dismiss(true);
+      this.eventManager.broadcast('conversationListModification');
+      this.activeModal.close();
     });
   }
 }

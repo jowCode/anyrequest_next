@@ -4,7 +4,7 @@
             <h2 id="jhi-chat-message-heading" jhiTranslate="anyrequestNextApp.chatMessage.home.createOrEditLabel">Create or edit a Chat Message</h2>
             <div>
                 <jhi-alert-error></jhi-alert-error>
-                <div class="form-group" [hidden]="!editForm.get('id').value">
+                <div class="form-group" [hidden]="!editForm.get('id')!.value">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
                     <input type="text" class="form-control" id="id" name="id" formControlName="id"
                         readonly />
@@ -13,9 +13,9 @@
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.chatMessage.owningUser" for="field_owningUser">Owning User</label>
                     <input type="text" class="form-control" name="owningUser" id="field_owningUser"
                            formControlName="owningUser"/>
-                    <div *ngIf="editForm.get('owningUser').invalid && (editForm.get('owningUser').dirty || editForm.get('owningUser').touched)">
+                    <div *ngIf="editForm.get('owningUser')!.invalid && (editForm.get('owningUser')!.dirty || editForm.get('owningUser')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('owningUser').errors.required" jhiTranslate="entity.validation.required">
+                               *ngIf="editForm.get('owningUser')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                     </div>
@@ -24,9 +24,9 @@
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.chatMessage.message" for="field_message">Message</label>
                     <input type="text" class="form-control" name="message" id="field_message"
                            formControlName="message"/>
-                    <div *ngIf="editForm.get('message').invalid && (editForm.get('message').dirty || editForm.get('message').touched)">
+                    <div *ngIf="editForm.get('message')!.invalid && (editForm.get('message')!.dirty || editForm.get('message')!.touched)">
                         <small class="form-text text-danger"
-                               *ngIf="editForm.get('message').errors.required" jhiTranslate="entity.validation.required">
+                               *ngIf="editForm.get('message')?.errors?.required" jhiTranslate="entity.validation.required">
                         This field is required.
                         </small>
                     </div>
@@ -36,7 +36,7 @@
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.chatMessage.conversation" for="field_conversation">Conversation</label>
                     <select class="form-control" id="field_conversation" name="conversation" formControlName="conversation">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="conversationOption.id === editForm.get('conversation').value?.id ? editForm.get('conversation').value : conversationOption" *ngFor="let conversationOption of conversations; trackBy: trackConversationById">{{conversationOption.id}}</option>
+                        <option [ngValue]="conversationOption.id === editForm.get('conversation')!.value?.id ? editForm.get('conversation')!.value : conversationOption" *ngFor="let conversationOption of conversations; trackBy: trackById">{{conversationOption.id}}</option>
                     </select>
                 </div>
             </div>

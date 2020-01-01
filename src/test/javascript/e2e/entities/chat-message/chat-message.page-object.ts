@@ -5,19 +5,19 @@ export class ChatMessageComponentsPage {
   deleteButtons = element.all(by.css('jhi-chat-message div table .btn-danger'));
   title = element.all(by.css('jhi-chat-message div h2#page-heading span')).first();
 
-  async clickOnCreateButton() {
+  async clickOnCreateButton(): Promise<void> {
     await this.createButton.click();
   }
 
-  async clickOnLastDeleteButton() {
+  async clickOnLastDeleteButton(): Promise<void> {
     await this.deleteButtons.last().click();
   }
 
-  async countDeleteButtons() {
+  async countDeleteButtons(): Promise<number> {
     return this.deleteButtons.count();
   }
 
-  async getTitle() {
+  async getTitle(): Promise<string> {
     return this.title.getAttribute('jhiTranslate');
   }
 }
@@ -30,34 +30,34 @@ export class ChatMessageUpdatePage {
   messageInput = element(by.id('field_message'));
   conversationSelect = element(by.id('field_conversation'));
 
-  async getPageTitle() {
+  async getPageTitle(): Promise<string> {
     return this.pageTitle.getAttribute('jhiTranslate');
   }
 
-  async setOwningUserInput(owningUser) {
+  async setOwningUserInput(owningUser: string): Promise<void> {
     await this.owningUserInput.sendKeys(owningUser);
   }
 
-  async getOwningUserInput() {
+  async getOwningUserInput(): Promise<string> {
     return await this.owningUserInput.getAttribute('value');
   }
 
-  async setMessageInput(message) {
+  async setMessageInput(message: string): Promise<void> {
     await this.messageInput.sendKeys(message);
   }
 
-  async getMessageInput() {
+  async getMessageInput(): Promise<string> {
     return await this.messageInput.getAttribute('value');
   }
 
-  async conversationSelectLastOption() {
+  async conversationSelectLastOption(): Promise<void> {
     await this.conversationSelect
       .all(by.tagName('option'))
       .last()
       .click();
   }
 
-  async conversationSelectOption(option) {
+  async conversationSelectOption(option: string): Promise<void> {
     await this.conversationSelect.sendKeys(option);
   }
 
@@ -65,15 +65,15 @@ export class ChatMessageUpdatePage {
     return this.conversationSelect;
   }
 
-  async getConversationSelectedOption() {
+  async getConversationSelectedOption(): Promise<string> {
     return await this.conversationSelect.element(by.css('option:checked')).getText();
   }
 
-  async save() {
+  async save(): Promise<void> {
     await this.saveButton.click();
   }
 
-  async cancel() {
+  async cancel(): Promise<void> {
     await this.cancelButton.click();
   }
 
@@ -86,11 +86,11 @@ export class ChatMessageDeleteDialog {
   private dialogTitle = element(by.id('jhi-delete-chatMessage-heading'));
   private confirmButton = element(by.id('jhi-confirm-delete-chatMessage'));
 
-  async getDialogTitle() {
+  async getDialogTitle(): Promise<string> {
     return this.dialogTitle.getAttribute('jhiTranslate');
   }
 
-  async clickOnConfirmButton() {
+  async clickOnConfirmButton(): Promise<void> {
     await this.confirmButton.click();
   }
 }
