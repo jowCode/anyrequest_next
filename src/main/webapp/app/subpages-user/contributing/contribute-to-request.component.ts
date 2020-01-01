@@ -56,15 +56,15 @@ export class ContributeToRequestComponent implements OnInit {
     window.history.back();
   }
 
-  /*  save() {
+  save() {
     this.isSaving = true;
     const userRequest = this.createFromForm();
-    if (userRequest.id !== undefined) {
+    /*    if (userRequest.id !== undefined) {
       this.subscribeToSaveResponse(this.userRequestService.update(userRequest));
     } else {
       this.subscribeToSaveResponse(this.userRequestService.create(userRequest));
-    }
-  }*/
+    }*/
+  }
 
   private createFromForm(): IUserRequest {
     return {

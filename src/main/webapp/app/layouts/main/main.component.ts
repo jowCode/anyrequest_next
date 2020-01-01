@@ -5,9 +5,11 @@ import { JhiLanguageHelper } from 'app/core/language/language.helper';
 
 @Component({
   selector: 'jhi-main',
-  templateUrl: './main.component.html'
+  templateUrl: './main.component.html',
+  styleUrls: ['main.component.scss']
 })
 export class JhiMainComponent implements OnInit {
+  showNav = true;
   constructor(private jhiLanguageHelper: JhiLanguageHelper, private router: Router) {}
 
   private getPageTitle(routeSnapshot: ActivatedRouteSnapshot) {
