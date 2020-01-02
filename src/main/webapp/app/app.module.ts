@@ -16,6 +16,7 @@ import { FooterComponent } from './layouts/footer/footer.component';
 import { PageRibbonComponent } from './layouts/profiles/page-ribbon.component';
 import { ActiveMenuDirective } from './layouts/navbar/active-menu.directive';
 import { ErrorComponent } from './layouts/error/error.component';
+import { DropdownModule, IconsModule, NavbarModule, WavesModule } from 'angular-bootstrap-md';
 
 @NgModule({
   imports: [
@@ -27,7 +28,11 @@ import { ErrorComponent } from './layouts/error/error.component';
     // jhipster-needle-angular-add-module JHipster will add new module here
     AnyrequestNextEntityModule,
     AnyrequestNextSubpagesUserModule,
-    AnyrequestNextAppRoutingModule
+    AnyrequestNextAppRoutingModule,
+    WavesModule,
+    DropdownModule,
+    IconsModule,
+    NavbarModule
   ],
   declarations: [MainComponent, NavbarComponent, ErrorComponent, PageRibbonComponent, ActiveMenuDirective, FooterComponent],
   bootstrap: [MainComponent]
