@@ -1,66 +1,121 @@
 <!--Navbar-->
-<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark unique-color" [containerInside]="false">
+<mdb-navbar SideClass="navbar navbar-expand-lg navbar-dark stylish-color-dark fixed-top scrolling-navbar"
+            [containerInside]="true">
 
     <!-- Navbar brand -->
-    <mdb-navbar-brand><a class="navbar-brand" href="#">Navbar</a></mdb-navbar-brand>
+    <mdb-navbar-brand><a class="navbar-brand" routerLink="/">LOGO</a></mdb-navbar-brand>
 
     <!-- Collapsible content -->
     <links>
 
-        <!-- Links -->
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link waves-light" mdbWavesEffect>Home<span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link waves-light" mdbWavesEffect>Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link waves-light" mdbWavesEffect>Pricing</a>
+        <!-- Left side -->
+        <ul class="navbar-nav mr-auto" [ngSwitch]="isAuthenticated()">
+
+            <li class="nav-item" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
+                <a class="nav-link waves-light" mdbWavesEffect routerLink="/"
+                   jhiTranslate="global.menu.home">Home
+                </a>
             </li>
 
-            <!-- Dropdown -->
-            <li class="nav-item dropdown" dropdown>
-                <a dropdownToggle mdbWavesEffect type="button" class="nav-link dropdown-toggle waves-light" mdbWavesEffect>
-                    Basic dropdown<span class="caret"></span></a>
+            <li *ngSwitchCase="true" class="nav-item" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
+                <a class="nav-link waves-light" mdbWavesEffect routerLink="/contributing"
+                   jhiTranslate="anyrequestNextApp.contributing.home.title">Contributing
+                </a>
+            </li>
+
+            <li *ngSwitchCase="true" class="nav-item" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
+                <a class="nav-link waves-light" mdbWavesEffect routerLink="/requesting"
+                   jhiTranslate="anyrequestNextApp.requesting.home.title">Requesting
+                </a>
+            </li>
+
+        </ul>
+
+        <!-- Right side -->
+        <ul class="navbar-nav ml-auto" [ngSwitch]="isAuthenticated()">
+
+            <!-- Entities -->
+            <li *ngSwitchCase="true" class="nav-item dropdown" dropdown>
+                <a dropdownToggle
+                   type="button"
+                   class="nav-link dropdown-toggle waves-light"
+                   mdbWavesEffect
+                >
+                    <span jhiTranslate="global.menu.entities.main">Entities</span>
+                    <span class="caret"></span>
+                </a>
                 <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
-                    <a class="dropdown-item waves-light" mdbWavesEffect href="#">Action</a>
-                    <a class="dropdown-item waves-light" mdbWavesEffect href="#">Another action</a>
-                    <a class="dropdown-item waves-light" mdbWavesEffect href="#">Something else here</a>
+
+                    <a class="dropdown-item waves-light" mdbWavesEffect
+                       routerLink="user-request" jhiTranslate="global.menu.entities.userRequest">User Request
+                    </a>
+
+                    <a class="dropdown-item waves-light" mdbWavesEffect
+                       routerLink="contribution" jhiTranslate="global.menu.entities.contribution">Contribution
+                    </a>
+
+                    <a class="dropdown-item waves-light" mdbWavesEffect
+                       routerLink="user-credit-account" jhiTranslate="global.menu.entities.userCreditAccount">UserCreditAccount
+                    </a>
+
                     <div class="divider dropdown-divider"></div>
-                    <a class="dropdown-item waves-light" mdbWavesEffect href="#">Separated link</a>
+
+                    <a class="dropdown-item waves-light" mdbWavesEffect
+                       routerLink="conversation" jhiTranslate="global.menu.entities.conversation">Conversation
+                    </a>
+
+                    <a class="dropdown-item waves-light" mdbWavesEffect
+                       routerLink="chat-message" jhiTranslate="global.menu.entities.chatMessage">Chat Message
+                    </a>
+
+                </div>
+            </li>
+
+            <li *ngSwitchCase="false" class="nav-item" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
+                <a class="nav-link waves-light" mdbWavesEffect routerLink="account/register"
+                   jhiTranslate="global.menu.account.register">Register
+                </a>
+            </li>
+
+            <li *ngSwitchCase="false" class="nav-item">
+                <a class="nav-link waves-light" mdbWavesEffect (click)="login()"
+                jhiTranslate="global.menu.account.login">Login
+                </a>
+            </li>
+
+            <!-- Account -->
+            <li *ngSwitchCase="true" class="nav-item dropdown" dropdown>
+                <a dropdownToggle
+                   type="button"
+                   class="nav-link dropdown-toggle waves-light"
+                   mdbWavesEffect
+                >
+                    <span jhiTranslate="global.menu.account.main">Account</span>
+                    <span class="caret"></span>
+                </a>
+                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+
+                    <a class="dropdown-item waves-light" mdbWavesEffect
+                       routerLink="account/settings" jhiTranslate="global.menu.account.settings">Settings
+                    </a>
+
+                    <a class="dropdown-item waves-light" mdbWavesEffect
+                       routerLink="account/password" jhiTranslate="global.menu.account.password">Password
+                    </a>
+
+                    <div class="divider dropdown-divider"></div>
+
+                    <a class="dropdown-item waves-light" mdbWavesEffect
+                       (click)="logout()" jhiTranslate="global.menu.account.logout">Logout
+                    </a>
+
                 </div>
             </li>
 
         </ul>
-        <!-- Links -->
 
-        <ul class="navbar-nav ml-auto nav-flex-icons">
-            <li class="nav-item">
-                <a class="nav-link">
-                    <mdb-icon fab icon="twitter"></mdb-icon>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link">
-                    <mdb-icon fab icon="google-plus"></mdb-icon>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link">
-                    <div class="btn-group" mdbDropdown>
-                        <mdb-icon fas icon="user" mdbDropdownToggle></mdb-icon>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-primary">
-                            <a class="dropdown-item" href="#">Action</a>
-                            <a class="dropdown-item" href="#">Another action</a>
-                            <a class="dropdown-item" href="#">Something else here</a>
-                            <div class="divider dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Separated link</a>
-                        </div>
-                    </div>
-                </a>
-            </li>
-        </ul>
+
+
     </links>
     <!-- Collapsible content -->
 
@@ -75,51 +130,6 @@
 
     <div id="navbarResponsive" [ngSwitch]="isAuthenticated()">
         <ul>
-            <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-                <a routerLink="/" (click)="collapseNavbar()">
-                    <span jhiTranslate="global.menu.home">Home</span>
-                </a>
-            </li>
-            &lt;!&ndash; jhipster-needle-add-element-to-menu - JHipster will add new menu items here &ndash;&gt;
-            <li *ngSwitchCase="true" routerLinkActive="active"
-                [routerLinkActiveOptions]="{exact: true}">
-                <a href="javascript:void(0);" id="entity-menu">
-                    <span jhiTranslate="global.menu.entities.main">Entities</span>
-                </a>
-                <ul>
-                    <li>
-                        <a routerLink="user-request" routerLinkActive="active"
-                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.entities.userRequest">User Request</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a routerLink="contribution" routerLinkActive="active"
-                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.entities.contribution">Contribution</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a routerLink="user-credit-account" routerLinkActive="active"
-                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.entities.userCreditAccount">User Credit Account</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a routerLink="conversation" routerLinkActive="active"
-                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.entities.conversation">Conversation</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a routerLink="chat-message" routerLinkActive="active"
-                           [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.entities.chatMessage">Chat Message</span>
-                        </a>
-                    </li>
-                    &lt;!&ndash; jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here &ndash;&gt;
-                </ul>
-            </li>
             <li *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLinkActive="active"
                 [routerLinkActiveOptions]="{exact: true}">
                 <a href="javascript:void(0);" id="admin-menu">
@@ -179,37 +189,9 @@
                     </li>
                 </ul>
             </li>
+
             <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
 
-                <a href="javascript:void(0);" id="account-menu"></a>
-
-                <ul>
-                    <li *ngSwitchCase="true">
-                        <a routerLink="account/settings" routerLinkActive="active" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.account.settings">Settings</span>
-                        </a>
-                    </li>
-                    <li *ngSwitchCase="true">
-                        <a routerLink="account/password" routerLinkActive="active" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.account.password">Password</span>
-                        </a>
-                    </li>
-                    <li *ngSwitchCase="true">
-                        <a (click)="logout()" id="logout">
-                            <span jhiTranslate="global.menu.account.logout">Sign out</span>
-                        </a>
-                    </li>
-                    <li *ngSwitchCase="false">
-                        <a (click)="login()" id="login">
-                            <span jhiTranslate="global.menu.account.login">Sign in</span>
-                        </a>
-                    </li>
-                    <li *ngSwitchCase="false">
-                        <a routerLink="account/register" routerLinkActive="active" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.account.register">Register</span>
-                        </a>
-                    </li>
-                </ul>
             </li>
         </ul>
     </div>

@@ -31,14 +31,14 @@ export class ContributeToRequestComponent implements OnInit {
 
   constructor(protected contributingService: ContributingService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ userRequest }) => {
       this.updateForm(userRequest);
     });
   }
 
-  updateForm(userRequest: IUserRequest) {
+  updateForm(userRequest: IUserRequest): void {
     this.editForm.patchValue({
       id: userRequest.id,
       requestingUser: userRequest.requestingUser,
@@ -52,11 +52,11 @@ export class ContributeToRequestComponent implements OnInit {
     });
   }
 
-  previousState() {
+  previousState(): void {
     window.history.back();
   }
 
-  save() {
+  save(): void {
     this.isSaving = true;
     const userRequest = this.createFromForm();
     /*    if (userRequest.id !== undefined) {
@@ -81,19 +81,19 @@ export class ContributeToRequestComponent implements OnInit {
     };
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<IUserRequest>>) {
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IUserRequest>>): void {
     result.subscribe(
       () => this.onSaveSuccess(),
       () => this.onSaveError()
     );
   }
 
-  protected onSaveSuccess() {
+  protected onSaveSuccess(): void {
     this.isSaving = false;
     this.previousState();
   }
 
-  protected onSaveError() {
+  protected onSaveError(): void {
     this.isSaving = false;
   }
 }
