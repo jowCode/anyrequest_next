@@ -1,8 +1,12 @@
-<!--<jhi-page-ribbon></jhi-page-ribbon>-->
-<div>
-    <router-outlet name="navbar"></router-outlet>
-</div>
-<div class="container-fluid p-4">
-    <router-outlet></router-outlet>
-    <jhi-footer></jhi-footer>
+<div class="grid-container-base">
+
+    <!--Navigation -->
+    <div><jhi-navbar></jhi-navbar></div>
+
+    <!--Main Content -->
+    <div><router-outlet></router-outlet></div>
+
+    <!-- Footer -->
+    <div><jhi-footer></jhi-footer></div>
+
 </div>

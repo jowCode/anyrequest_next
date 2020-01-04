@@ -1,0 +1,5 @@
+.grid-container-base {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: minmax(auto, 100px) 1fr minmax(150px, auto);
+}
