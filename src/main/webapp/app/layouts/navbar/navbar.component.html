@@ -10,32 +10,30 @@
 
         <!-- Left side -->
         <ul class="navbar-nav mr-auto" [ngSwitch]="isAuthenticated()">
-
+            <!-- Home -->
             <li class="nav-item" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
                 <a class="nav-link waves-light" mdbWavesEffect routerLink="/"
                    jhiTranslate="global.menu.home">Home
                 </a>
             </li>
-
+            <!-- Contributing -->
             <li *ngSwitchCase="true" class="nav-item" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
                 <a class="nav-link waves-light" mdbWavesEffect routerLink="/contributing"
                    jhiTranslate="anyrequestNextApp.contributing.home.title">Contributing
                 </a>
             </li>
-
+            <!-- Requesting -->
             <li *ngSwitchCase="true" class="nav-item" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
                 <a class="nav-link waves-light" mdbWavesEffect routerLink="/requesting"
                    jhiTranslate="anyrequestNextApp.requesting.home.title">Requesting
                 </a>
             </li>
-
         </ul>
 
         <!-- Right side -->
         <ul class="navbar-nav ml-auto" [ngSwitch]="isAuthenticated()">
-
-            <!-- Entities -->
-            <li *ngSwitchCase="true" class="nav-item dropdown" dropdown>
+            <!-- Entities ADMIN -->
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-item dropdown" dropdown>
                 <a dropdownToggle
                    type="button"
                    class="nav-link dropdown-toggle waves-light"
@@ -71,19 +69,61 @@
                 </div>
             </li>
 
+            <!-- Administration ADMIN -->
+            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" class="nav-item dropdown" dropdown>
+                <a dropdownToggle
+                   type="button"
+                   class="nav-link dropdown-toggle waves-light"
+                   mdbWavesEffect
+                >
+                    <span jhiTranslate="global.menu.admin.main">Entities</span>
+                    <span class="caret"></span>
+                </a>
+                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
+
+                    <a class="dropdown-item waves-light" mdbWavesEffect
+                       routerLink="admin/user-management" jhiTranslate="global.menu.admin.userManagement">User Management
+                    </a>
+
+                    <a class="dropdown-item waves-light" mdbWavesEffect
+                       routerLink="admin/metrics" jhiTranslate="global.menu.admin.metrics">Metrics
+                    </a>
+
+                    <a class="dropdown-item waves-light" mdbWavesEffect
+                       routerLink="admin/health" jhiTranslate="global.menu.admin.health">Health
+                    </a>
+
+                    <a class="dropdown-item waves-light" mdbWavesEffect
+                       routerLink="admin/configuration" jhiTranslate="global.menu.admin.configuration">Configuration
+                    </a>
+
+                    <a class="dropdown-item waves-light" mdbWavesEffect
+                       routerLink="admin/audits" jhiTranslate="global.menu.admin.audits">Audits
+                    </a>
+
+                    <a class="dropdown-item waves-light" mdbWavesEffect
+                       routerLink="admin/logs" jhiTranslate="global.menu.admin.logs">Logs
+                    </a>
+
+                    <a *ngIf="swaggerEnabled" class="dropdown-item waves-light" mdbWavesEffect
+                       routerLink="admin/docs" jhiTranslate="global.menu.admin.apidocs">API
+                    </a>
+
+                </div>
+            </li>
+            <!-- Register ANONYMOUS -->
             <li *ngSwitchCase="false" class="nav-item" [routerLinkActiveOptions]="{exact: true}" routerLinkActive="active">
                 <a class="nav-link waves-light" mdbWavesEffect routerLink="account/register"
                    jhiTranslate="global.menu.account.register">Register
                 </a>
             </li>
-
+            <!-- Login ANONYMOUS -->
             <li *ngSwitchCase="false" class="nav-item">
                 <a class="nav-link waves-light" mdbWavesEffect (click)="login()"
                 jhiTranslate="global.menu.account.login">Login
                 </a>
             </li>
-
-            <!-- Account -->
+            <!-- Account ADMIN USER -->
             <li *ngSwitchCase="true" class="nav-item dropdown" dropdown>
                 <a dropdownToggle
                    type="button"
@@ -111,88 +151,28 @@
 
                 </div>
             </li>
+            <!-- Language ANONYMOUS -->
+            <li *ngIf="languages && languages.length > 1" class="nav-item dropdown" dropdown>
+                <a dropdownToggle
+                   type="button"
+                   class="nav-link dropdown-toggle waves-light"
+                   mdbWavesEffect
+                >
+                    <span jhiTranslate="global.menu.language">Account</span>
+                    <span class="caret"></span>
+                </a>
+                <div *dropdownMenu class="dropdown-menu dropdown dropdown-primary" role="menu">
 
+                    <div *ngFor="let language of languages" class="dropdown-item waves-light" mdbWavesEffect>
+                        <a (click)="changeLanguage(language);">{{language | findLanguageFromKey}}</a>
+                    </div>
+
+                </div>
+            </li>
         </ul>
-
-
 
     </links>
     <!-- Collapsible content -->
 
 </mdb-navbar>
 <!--/.Navbar-->
-
-<!--<nav>
-
-    <a routerLink="/" (click)="collapseNavbar()">collapse</a>
-
-    <a href="javascript:void(0);" (click)="toggleNavbar()"></a>
-
-    <div id="navbarResponsive" [ngSwitch]="isAuthenticated()">
-        <ul>
-            <li *jhiHasAnyAuthority="'ROLE_ADMIN'" routerLinkActive="active"
-                [routerLinkActiveOptions]="{exact: true}">
-                <a href="javascript:void(0);" id="admin-menu">
-                    <span jhiTranslate="global.menu.admin.main">Administration</span>
-                </a>
-                <ul>
-                    <li>
-                        <a routerLink="admin/user-management" routerLinkActive="active"
-                           (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.admin.userManagement">User management</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a routerLink="admin/metrics" routerLinkActive="active" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.admin.metrics">Metrics</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a routerLink="admin/health" routerLinkActive="active" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.admin.health">Health</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a routerLink="admin/configuration" routerLinkActive="active"
-                           (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.admin.configuration">Configuration</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a routerLink="admin/audits" routerLinkActive="active" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.admin.audits">Audits</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a routerLink="admin/logs" routerLinkActive="active" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.admin.logs">Logs</span>
-                        </a>
-                    </li>
-                    <li *ngIf="swaggerEnabled">
-                        <a routerLink="admin/docs" routerLinkActive="active" (click)="collapseNavbar()">
-                            <span jhiTranslate="global.menu.admin.apidocs">API</span>
-                        </a>
-                    </li>
-                    &lt;!&ndash; jhipster-needle-add-element-to-admin-menu - JHipster will add entities to the admin menu here &ndash;&gt;
-                </ul>
-            </li>
-            <li *ngIf="languages && languages.length > 1">
-                <a href="javascript:void(0);" id="languagesnavBarDropdown">
-                    <span>
-                        <span jhiTranslate="global.menu.language">Language</span>
-                    </span>
-                </a>
-                <ul>
-                    <li *ngFor="let language of languages">
-                        <a [jhiActiveMenu]="language" href="javascript:void(0);"
-                           (click)="changeLanguage(language);collapseNavbar();">{{language | findLanguageFromKey}}</a>
-                    </li>
-                </ul>
-            </li>
-
-            <li routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-
-            </li>
-        </ul>
-    </div>
-</nav>-->

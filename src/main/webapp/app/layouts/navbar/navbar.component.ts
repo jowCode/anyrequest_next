@@ -63,12 +63,4 @@ export class NavbarComponent implements OnInit {
     this.loginService.logout();
     this.router.navigate(['']);
   }
-
-  toggleNavbar(): void {
-    this.isNavbarCollapsed = !this.isNavbarCollapsed;
-  }
-
-  getImageUrl(): string {
-    return this.isAuthenticated() ? this.accountService.getImageUrl() : '';
-  }
 }
