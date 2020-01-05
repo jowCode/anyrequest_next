@@ -4,7 +4,6 @@ import { Component, ElementRef, Input, Renderer } from '@angular/core';
   selector: 'jhi-password-strength-bar',
   template: `
     <div id="strength">
-      <small jhiTranslate="global.messages.validate.newpassword.strength">Password strength:</small>
       <ul id="strengthBar">
         <li class="point"></li>
         <li class="point"></li>
@@ -17,7 +16,7 @@ import { Component, ElementRef, Input, Renderer } from '@angular/core';
   styleUrls: ['password-strength-bar.scss']
 })
 export class PasswordStrengthBarComponent {
-  colors = ['#F00', '#F90', '#FF0', '#9F0', '#0F0'];
+  colors = ['#eb7464', '#eba464', '#ebd264', '#b7f081', '#b7f081'];
 
   constructor(private renderer: Renderer, private elementRef: ElementRef) {}
 
@@ -31,7 +30,7 @@ export class PasswordStrengthBarComponent {
 
     const flags = [lowerLetters, upperLetters, numbers, symbols];
     const passedMatches = flags.filter((isMatchedFlag: boolean) => {
-      return isMatchedFlag === true;
+      return isMatchedFlag;
     }).length;
 
     force += 2 * p.length + (p.length >= 10 ? 1 : 0);
@@ -77,7 +76,7 @@ export class PasswordStrengthBarComponent {
         if (i < c.idx) {
           this.renderer.setElementStyle(lis[i], 'backgroundColor', c.color);
         } else {
-          this.renderer.setElementStyle(lis[i], 'backgroundColor', '#DDD');
+          this.renderer.setElementStyle(lis[i], 'backgroundColor', '#646464');
         }
       }
     }

@@ -4,8 +4,8 @@
 * https://github.com/twbs/bootstrap/blob/v4-dev/scss/_variables.scss can be overwritten here
 * Make sure not to add !default to values here
 */
-$arq-ci-primary: #b7f081;
-$arq-ci-secondary: #4ba7cd;
+$arq-ci-primary: #4ba7cd;
+$arq-ci-secondary: #b7f081;
 
 $arq-ci-yellow: #ebd264;
 $arq-ci-warning: #eba464;
@@ -15,14 +15,14 @@ $arq-ci-grey-dark: #646464;
 $arq-ci-grey-almostblack: #464646;
 
 /**Body**/
-$body-bg: $arq-ci-grey-dark;
+$body-bg: $arq-ci-grey-almostblack;
 $body-color: white;
 
 /**Dropdown**/
 $dropdown-bg: $arq-ci-grey-dark;
 $dropdown-color: white !important;
 $dropdown-link-color: white !important;
-$dropdown-link-hover-color: darken($arq-ci-secondary, 5%) !important;
+$dropdown-link-hover-color: lighten($arq-ci-primary, 10%) !important;
 $dropdown-link-hover-bg: $arq-ci-grey-almostblack !important;
 $dropdown-divider-bg: white !important;
 
@@ -40,7 +40,17 @@ $cyan: $arq-ci-primary;
 
 /**indicator color**/
 $carousel-indicator-active-bg: $arq-ci-secondary !important;
+$link-color: $arq-ci-primary;
+$link-decoration: none;
+$link-hover-color: lighten($arq-ci-primary, 15%);
+$link-hover-decoration: underline;
+// Darken percentage for links with `.text-*` class (e.g. `.text-success`)
+$emphasized-link-hover-darken-percentage: 15%;
 
 .modal-header {
   border-bottom: none !important;
+}
+
+.progress {
+  background-color: $arq-ci-grey-dark !important;
 }
