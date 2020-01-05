@@ -102,26 +102,30 @@ Custom alerts for notification
     }
   }
   .jhi-toast {
+    opacity: 0.8;
     position: fixed;
-    width: 100%;
-    &.left {
-      left: 5px;
-    }
+    width: 50%;
     &.right {
-      right: 5px;
+      right: 25%;
     }
     &.top {
-      top: 55px;
-    }
-    &.bottom {
-      bottom: 55px;
+      top: 80%;
     }
   }
 }
 
-@media screen and (min-width: 480px) {
-  .alerts .jhi-toast {
-    width: 50%;
+@media screen and (max-width: 768px) {
+  .alerts {
+    .jhi-toast {
+      position: fixed;
+      width: 90%;
+      &.right {
+        right: 5%;
+      }
+      &.top {
+        top: 80%;
+      }
+    }
   }
 }
 

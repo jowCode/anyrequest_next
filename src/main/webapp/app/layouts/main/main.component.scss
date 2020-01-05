@@ -1,5 +1,7 @@
 .grid-container-base {
+  /*background-color: rgb(94, 108, 122);*/
   display: grid;
+  padding: 1rem;
   grid-template-columns: 1fr;
-  grid-template-rows: minmax(auto, 100px) 1fr minmax(150px, auto);
+  grid-template-rows: minmax(auto, 100px) minmax(100vh, auto) minmax(150px, auto);
 }
