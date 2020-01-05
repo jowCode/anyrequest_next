@@ -168,4 +168,45 @@ ui bootstrap tweaks
   white-space: nowrap;
 }
 
+/* ==========================================================================
+Overrides for MDBootstrap-Navbar
+========================================================================== */
+.stylish-color-dark {
+  background-color: #464646 !important;
+}
+.navbar {
+  box-shadow: 0 6px 12px 3px rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 1) !important;
+}
+
+/*@media (min-width: 600px) {
+  .navbar.scrolling-navbar {
+    transition: background .6s ease-in-out, padding .6s ease-in-out;
+    padding-top: 18px;
+    padding-bottom: 18px;
+  }
+}*/
+
+/* ==========================================================================
+Custom anyRequest styles
+========================================================================== */
+.big-icon {
+  margin-right: 1em;
+  height: 64px;
+  width: 64px;
+}
+
+/*.pagination .page-item.active .page-link:hover {
+  background-color: $arq-ci-secondary!important;
+}
+
+.pagination .page-item .page-link {
+  -webkit-transition: all 0.3s linear;
+  transition: all 0.3s linear;
+  outline: 0;
+  border: 0;
+  background-color: transparent;
+  font-size: 0.9rem;
+  color: #212529;
+}*/
+
 /* jhipster-needle-scss-add-main JHipster will add new css style */

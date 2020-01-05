@@ -41,20 +41,20 @@ $cyan: $arq-ci-primary;
 /**indicator color**/
 $carousel-indicator-active-bg: $arq-ci-secondary !important;
 
-.modal-header {
+/*.modal-header {
   border-bottom: none !important;
-}
+}*/
 
 /**Disables the down caret by bootstrap**/
-.dropdown-toggle:after {
+/*.dropdown-toggle:after {
   content: none;
-}
+}*/
 
-.form-check {
+/*.form-check {
   padding-left: 0;
-}
+}*/
 
-.dropdown-menu {
+/*.dropdown-menu {
   position: absolute;
   top: 100%;
   left: -150px;
@@ -71,59 +71,59 @@ $carousel-indicator-active-bg: $arq-ci-secondary !important;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
+}*/
 
-.card {
+/*.card {
   padding: 1em;
   border: none;
   border-radius: 0;
   box-shadow: none !important;
-}
+}*/
 
-.card-header {
+/*.card-header {
   margin-top: 1em;
   padding: 0 !important;
   border-top: 2px solid $arq-ci-primary;
-  /*background-color: $cc-ci-grey;*/
-}
+  !*background-color: $cc-ci-grey;*!
+}*/
 
-@media screen and (max-width: 768px) {
+/*@media screen and (max-width: 768px) {
   .card {
     padding: 0;
     border: none;
     border-radius: 0;
     box-shadow: none !important;
   }
-}
+}*/
 
-.cc-accordion-panel {
+/*.cc-accordion-panel {
   border-radius: 0;
-  /*background-color: whitesmoke;*/
-}
+  !*background-color: whitesmoke;*!
+}*/
 
-.row {
+/*.row {
   padding: 1em;
-}
+}*/
 
 .modal-header {
   border-bottom: none;
 }
 
 /*disabling carousel indicators*/
-.carousel-indicators {
+/*.carousel-indicators {
   display: none !important;
-}
+}*/
 
 /*override*/
-.carousel-caption {
+/*.carousel-caption {
   position: absolute;
   right: 50%;
   left: 5%;
   top: 10%;
-}
+}*/
 
 /*custom implementation*/
-.carousel-footer {
+/*.carousel-footer {
   position: absolute;
   right: 50%;
   bottom: 20px;
@@ -156,4 +156,4 @@ $carousel-indicator-active-bg: $arq-ci-secondary !important;
   width: 5%;
   right: 0;
   background: transparent;
-}
+}*/
