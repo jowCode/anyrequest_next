@@ -116,12 +116,9 @@
                             Your password cannot be longer than 50 characters.
                         </small>
                     </div>
-                    <!--<jhi-password-strength-bar [passwordToCheck]="registerForm.get('password')!.value"></jhi-password-strength-bar>-->
                 </div>
 
-                <div class="empty-meter">
-                    <span id="complexity" class="worst"></span>
-                </div>
+                <jhi-password-strength-bar-v2 [passwordToCheck]="registerForm.get('password')!.value"></jhi-password-strength-bar-v2>
 
                 <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary" jhiTranslate="register.form.button">Register</button>
             </form>

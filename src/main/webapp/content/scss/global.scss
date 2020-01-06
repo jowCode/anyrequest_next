@@ -280,7 +280,7 @@ input:focus ~ .bar:after {
 }
 
 /*Password strength meter*/
-#complexity {
+/*#complexity {
   border-radius: 5px;
   position: relative;
   display: block;
@@ -321,6 +321,6 @@ input:focus ~ .bar:after {
   -webkit-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
   box-shadow: 0 0 8px 0 $arq-ci-secondary;
-}
+}*/
 
 /* jhipster-needle-scss-add-main JHipster will add new css style */
