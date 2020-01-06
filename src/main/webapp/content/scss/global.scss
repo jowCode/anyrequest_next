@@ -230,6 +230,15 @@ Custom anyRequest styles
   right: 50%;
 }
 
+.arq-password-strength {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  align-content: center;
+  align-items: center;
+}
+
 .arq-input-group {
   position: relative;
   display: grid;
@@ -279,48 +288,35 @@ input:focus ~ .bar:after {
   justify-self: center;
 }
 
-/*Password strength meter*/
-/*#complexity {
-  border-radius: 5px;
-  position: relative;
-  display: block;
-  height: 5px;
-}
-
-.empty-meter {
-  border-radius: 5px;
-  position: relative;
+.arq-alert-container {
+  display: grid;
+  grid-template-columns: 4fr 8fr;
+  align-items: center;
+  justify-items: center;
+  padding: 1em;
+  border-radius: 0.5em;
   background-color: $arq-ci-grey-dark;
-  width: 100%;
+  .arq-alert-icon {
+    color: white;
+    background: $arq-ci-alert;
+    border-radius: 50%;
+    font-size: 2em;
+    text-align: center;
+    line-height: 0;
+    padding: 7px;
+  }
+  .arq-alert-content {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-self: start;
+    grid-template-rows: auto auto;
+    .arq-alert-claimer {
+      color: $arq-ci-alert;
+      font-weight: 600;
+    }
+    .arq-alert-message {
+      color: white;
+    }
+  }
 }
-
-.bad {
-  background-color: $arq-ci-alert;
-  width: 25%;
-  -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
-  box-shadow: 0 0 8px 0 $arq-ci-alert;
-}
-.weak {
-  background-color: $arq-ci-warning;
-  width: 50%;
-  -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
-  box-shadow: 0 0 8px 0 $arq-ci-warning;
-}
-.good {
-  background-color: $arq-ci-yellow;
-  width: 75%;
-  -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
-  box-shadow: 0 0 8px 0 $arq-ci-yellow;
-}
-.strong {
-  background-color: $arq-ci-secondary;
-  width: 100%;
-  -webkit-transition: all 0.2s ease-in;
-  transition: all 0.2s ease-in;
-  box-shadow: 0 0 8px 0 $arq-ci-secondary;
-}*/
-
 /* jhipster-needle-scss-add-main JHipster will add new css style */
