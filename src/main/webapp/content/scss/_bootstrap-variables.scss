@@ -16,15 +16,15 @@ $arq-ci-grey-almostblack: #464646;
 
 /**Body**/
 $body-bg: $arq-ci-grey-almostblack;
-$body-color: white;
+$body-color: #c7c7c7;
 
 /**Dropdown**/
 $dropdown-bg: $arq-ci-grey-dark;
-$dropdown-color: white !important;
-$dropdown-link-color: white !important;
+$dropdown-color: $body-color !important;
+$dropdown-link-color: $body-color !important;
 $dropdown-link-hover-color: lighten($arq-ci-primary, 10%) !important;
 $dropdown-link-hover-bg: $arq-ci-grey-almostblack !important;
-$dropdown-divider-bg: white !important;
+$dropdown-divider-bg: $body-color !important;
 
 /**Bootstrap base colors**/
 $blue: $arq-ci-primary;
@@ -53,4 +53,18 @@ $emphasized-link-hover-darken-percentage: 15%;
 
 .progress {
   background-color: $arq-ci-grey-dark !important;
+}
+
+/*.modal-header {
+  background-color: $arq-ci-grey-almostblack!important;
+}
+.modal-body {
+  background-color: $arq-ci-grey-almostblack!important;
+}*/
+
+.modal-content {
+  background-color: $arq-ci-grey-almostblack !important;
+  position: relative;
+  border: none !important;
+  border-radius: 0 !important;
 }

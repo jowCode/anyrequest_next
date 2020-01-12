@@ -7,6 +7,11 @@
 /* ==============================================================
 Bootstrap tweaks
 ===============================================================*/
+* {
+  /*font-family: varela round,sans-serif!important;*/
+  font-family: raleway, serif !important;
+  letter-spacing: 1px;
+}
 
 body,
 h1,
@@ -33,7 +38,7 @@ input:-webkit-autofill:active {
 }
 /*Change text in autofill textbox*/
 input:-webkit-autofill {
-  -webkit-text-fill-color: white !important;
+  -webkit-text-fill-color: $body-color !important;
 }
 /* ==========================================================================
 Browser Upgrade Prompt
@@ -58,7 +63,7 @@ Generic styles
 }
 
 .error {
-  color: white;
+  color: $body-color;
   background-color: red;
 }
 
@@ -154,7 +159,7 @@ entity detail page css
       margin-bottom: 15px;
     }
     dd {
-      border-bottom: 1px solid #eee;
+      border-bottom: 1px solid $body-color;
       padding-left: 180px;
       margin-left: 0;
     }
@@ -265,7 +270,7 @@ input:focus ~ .bar:after {
   -webkit-appearance: none;
   display: block;
   background-color: $arq-ci-grey-almostblack !important;
-  color: white;
+  color: $body-color;
   width: 100%;
   border: none;
   border-radius: 0;
@@ -293,11 +298,11 @@ input:focus ~ .bar:after {
   grid-template-columns: 4fr 8fr;
   align-items: center;
   justify-items: center;
-  padding: 1em;
+  padding: 0.5em;
   border-radius: 0.5em;
   background-color: $arq-ci-grey-dark;
   .arq-alert-icon {
-    color: white;
+    color: $body-color;
     background: $arq-ci-alert;
     border-radius: 50%;
     font-size: 2em;
@@ -315,8 +320,50 @@ input:focus ~ .bar:after {
       font-weight: 600;
     }
     .arq-alert-message {
-      color: white;
+      color: $body-color;
     }
   }
+}
+
+.arq-close {
+  color: $arq-ci-alert;
+}
+
+button {
+  background-color: $body-color;
+  color: $arq-ci-grey-almostblack;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 2em;
+  font-weight: 800;
+}
+
+.arq-submitbtn {
+  width: 180px;
+  padding: 1em;
+  background-color: $body-color;
+  color: $arq-ci-grey-almostblack;
+}
+
+.arq-submitbtn:hover {
+  background-color: $arq-ci-secondary;
+  color: $arq-ci-grey-almostblack;
+}
+
+.arq-ci-link {
+  color: $body-color !important;
+  font-weight: 500;
+  text-decoration: none !important;
+}
+
+.arq-ci-link:hover {
+  color: $arq-ci-primary !important;
+  font-weight: 500;
+  text-decoration: none !important;
 }
 /* jhipster-needle-scss-add-main JHipster will add new css style */
