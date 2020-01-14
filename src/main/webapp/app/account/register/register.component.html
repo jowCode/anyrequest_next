@@ -1,141 +1,191 @@
-<div>
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <h1 jhiTranslate="register.title">Registration</h1>
-
-            <div class="col-md-12 mt-4">
-                <div class="arq-alert-container" *ngIf="errorUserExists">
-                    <div class="arq-alert-icon">
-                        <fa-icon [icon]="'exclamation-circle'"></fa-icon>
-                    </div>
-                    <div class="arq-alert-content">
-                        <p class="arq-alert-claimer">
-                            <strong jhiTranslate="register.messages.error.userexists.claimer">Login name already registered!</strong>
-                        </p>
-                        <p class="arq-alert-message" jhiTranslate="register.messages.error.userexists.message">
-                            Please chose another one.
-                        </p>
+<div class="row mt-3">
+    <div class="col-xl-1"></div>
+    <div class="col-xl-5">
+        <div class="row">
+            <div class="col-xl-10">
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <hr>
                     </div>
                 </div>
-            </div>
 
-            <div class="alert alert-success" *ngIf="success" jhiTranslate="register.messages.success">
-                <strong>Registration saved!</strong> Please check your email for confirmation.
-            </div>
+                <div class="">
+                    <h2 class="text-center">
+                        Hallo,
+                    </h2>
+                    <h2 class="text-center cc-styled-font mt-4">
+                        schön dass Du da bist
+                    </h2>
+                </div>
 
-            <div class="alert alert-danger" *ngIf="error" jhiTranslate="register.messages.error.fail">
-                <strong>Registration failed!</strong> Please try again later.
-            </div>
 
-            <div class="alert alert-danger" *ngIf="errorEmailExists" jhiTranslate="register.messages.error.emailexists">
-                <strong>Email is already in use!</strong> Please choose another one.
-            </div>
+                <p class="text-center cc-paragraph-font mt-4">
+                    und am Buchbegleiter-Programm teilnehmen möchtest – Deinem optimalen
+                    Begleiter für die Arbeit mit dem Buch
+                </p>
+                <p class="text-center cc-caption-black">
+                    „Leg den schwarzen Hund an die Leine“!
+                </p>
 
-            <div class="alert alert-danger" *ngIf="doNotMatch" jhiTranslate="global.messages.error.dontmatch">
-                The password and its confirmation do not match!
+                <p class="text-center cc-paragraph-font">
+                    Fülle in einem ersten
+                    Schritt die Registrierung für den Mitgliederbereich des Buchbegleiters aus. Nachdem Du das Formular
+                    ausgefüllt hast, erhältst Du eine Bestätigungsmail. Anschließend kannst Du auf alle Funktionen im
+                    Mitgliederbereich zugreifen.
+                </p>
+
+                <p class="text-center cc-paragraph-font">
+                    Keine Sorge, die Registrierung ist <span class="font-weight-bold">kostenfrei</span> für Dich.
+                </p>
+
+                <div class="row justify-content-center">
+                    <div class="col-12">
+                        <hr>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row justify-content-center mt-4">
-        <div class="col-md-8">
-            <form name="form" role="form" (ngSubmit)="register()" [formGroup]="registerForm" *ngIf="!success">
 
-                <!------------------------Username--------------------------------------------------------------------->
-                <div class="arq-input-group">
-                    <div>
-                        <fa-icon class="arq-input-icon" [icon]="'user'"></fa-icon>
-                        <label for="login" style="display: none"></label>
-                        <input id="login" name="login" formControlName="login" #login
-                               placeholder="{{'global.form.username.placeholder' | translate}}" type="text"
-                               class="arq-input">
-                        <span class="bar" style="align-self: center"></span>
-                    </div>
+    <div class="col-xl-5">
+        <div class="row justify-content-center">
+            <div class="co-12">
+                <h1 class="text-center" jhiTranslate="register.title">Registration</h1>
 
-                    <div
-                        *ngIf="registerForm.get('login')!.invalid && (registerForm.get('login')!.dirty || registerForm.get('login')!.touched)"
-                        class="arq-alert-group">
-                        <small class="arq-alert-text" *ngIf="registerForm.get('login')?.errors?.required"
-                               jhiTranslate="register.messages.validate.login.required">
-                            Your username is required.
-                        </small>
-                        <small class="arq-alert-text" *ngIf="registerForm.get('login')?.errors?.minlength"
-                               jhiTranslate="register.messages.validate.login.minlength">
-                            Your username is required to be at least 1 character.
-                        </small>
-                        <small class="arq-alert-text" *ngIf="registerForm.get('login')?.errors?.maxlength"
-                               jhiTranslate="register.messages.validate.login.maxlength">
-                            Your username cannot be longer than 50 characters.
-                        </small>
-                        <small class="arq-alert-text" *ngIf="registerForm.get('login')?.errors?.pattern"
-                               jhiTranslate="register.messages.validate.login.pattern">
-                            Your username can only contain letters and digits.
-                        </small>
-                    </div>
-
-                </div>
-
-                <!------------------------Email------------------------------------------------------------------------>
-                <div class="arq-input-group">
-                    <div>
-                        <fa-icon class="arq-input-icon" [icon]="'envelope'"></fa-icon>
-                        <label for="email" style="display: none"></label>
-                        <input id="email" name="email" formControlName="email"
-                               placeholder="{{'global.form.email.placeholder' | translate}}" type="text"
-                               class="arq-input">
-                        <span class="bar" style="align-self: center"></span>
-                    </div>
-
-                    <div
-                        *ngIf="registerForm.get('email')!.invalid && (registerForm.get('email')!.dirty || registerForm.get('email')!.touched)"
-                        class="arq-alert-group">
-                        <small class="arq-alert-text" *ngIf="registerForm.get('email')?.errors?.required"
-                               jhiTranslate="global.messages.validate.email.required">
-                            Your email is required.
-                        </small>
-                        <small class="arq-alert-text" *ngIf="registerForm.get('email')?.errors?.invalid"
-                               jhiTranslate="global.messages.validate.email.invalid">
-                            Your email is invalid.
-                        </small>
-                        <small class="arq-alert-text" *ngIf="registerForm.get('email')?.errors?.minlength"
-                               jhiTranslate="global.messages.validate.email.minlength">
-                            Your email is required to be at least 5 characters.
-                        </small>
-                        <small class="arq-alert-text" *ngIf="registerForm.get('email')?.errors?.maxlength"
-                               jhiTranslate="global.messages.validate.email.maxlength">
-                            Your email cannot be longer than 100 characters.
-                        </small>
-                    </div>
-
-                </div>
-
-                <!------------------------Password--------------------------------------------------------------------->
-                <div class="arq-input-group">
-                    <div>
-                        <fa-icon class="arq-input-icon" [icon]="'lock'"></fa-icon>
-                        <label for="password" style="display: none"></label>
-                        <input id="password" name="password" formControlName="password"
-                               placeholder="{{'global.form.newpassword.placeholder' | translate}}" type="password"
-                               class="arq-input">
-                        <span class="bar" style="align-self: center"></span>
-                    </div>
-
-                    <div
-                        *ngIf="registerForm.get('password')!.invalid && (registerForm.get('password')!.dirty || registerForm.get('password')!.touched)"
-                        class="arq-alert-group">
-                        <small class="arq-alert-text" *ngIf="registerForm.get('password')?.errors?.required"
-                               jhiTranslate="global.messages.validate.newpassword.required">
-                            Your password is required.
-                        </small>
-                        <small class="arq-alert-text" *ngIf="registerForm.get('password')?.errors?.minlength"
-                               jhiTranslate="global.messages.validate.newpassword.minlength">
-                            Your password is required to be at least 4 characters.
-                        </small>
-                        <small class="arq-alert-text" *ngIf="registerForm.get('password')?.errors?.maxlength"
-                               jhiTranslate="global.messages.validate.newpassword.maxlength">
-                            Your password cannot be longer than 50 characters.
-                        </small>
+                <div class="col-md-12 mt-4">
+                    <div class="arq-alert-container" *ngIf="errorUserExists">
+                        <div class="arq-alert-icon">
+                            <fa-icon [icon]="'exclamation-circle'"></fa-icon>
+                        </div>
+                        <div class="arq-alert-content">
+                            <p class="arq-alert-claimer">
+                                <strong jhiTranslate="register.messages.error.userexists.claimer">Login name already
+                                    registered!</strong>
+                            </p>
+                            <p class="arq-alert-message" jhiTranslate="register.messages.error.userexists.message">
+                                Please chose another one.
+                            </p>
+                        </div>
                     </div>
                 </div>
+
+                <div class="alert alert-success" *ngIf="success" jhiTranslate="register.messages.success">
+                    <strong>Registration saved!</strong> Please check your email for confirmation.
+                </div>
+
+                <div class="alert alert-danger" *ngIf="error" jhiTranslate="register.messages.error.fail">
+                    <strong>Registration failed!</strong> Please try again later.
+                </div>
+
+                <div class="alert alert-danger" *ngIf="errorEmailExists" jhiTranslate="register.messages.error.emailexists">
+                    <strong>Email is already in use!</strong> Please choose another one.
+                </div>
+
+                <div class="alert alert-danger" *ngIf="doNotMatch" jhiTranslate="global.messages.error.dontmatch">
+                    The password and its confirmation do not match!
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center mt-4">
+            <div class="col-12">
+                <form name="form" role="form" (ngSubmit)="register()" [formGroup]="registerForm" *ngIf="!success">
+
+                    <!------------------------Username--------------------------------------------------------------------->
+                    <div class="arq-input-group">
+                        <div>
+                            <fa-icon class="arq-input-icon" [icon]="'user'"></fa-icon>
+                            <label for="login" style="display: none"></label>
+                            <input id="login" name="login" formControlName="login" #login
+                                   placeholder="{{'global.form.username.placeholder' | translate}}" type="text"
+                                   class="arq-input">
+                            <span class="bar" style="align-self: center"></span>
+                        </div>
+
+                        <div
+                            *ngIf="registerForm.get('login')!.invalid && (registerForm.get('login')!.dirty || registerForm.get('login')!.touched)"
+                            class="arq-alert-group">
+                            <small class="arq-alert-text" *ngIf="registerForm.get('login')?.errors?.required"
+                                   jhiTranslate="register.messages.validate.login.required">
+                                Your username is required.
+                            </small>
+                            <small class="arq-alert-text" *ngIf="registerForm.get('login')?.errors?.minlength"
+                                   jhiTranslate="register.messages.validate.login.minlength">
+                                Your username is required to be at least 1 character.
+                            </small>
+                            <small class="arq-alert-text" *ngIf="registerForm.get('login')?.errors?.maxlength"
+                                   jhiTranslate="register.messages.validate.login.maxlength">
+                                Your username cannot be longer than 50 characters.
+                            </small>
+                            <small class="arq-alert-text" *ngIf="registerForm.get('login')?.errors?.pattern"
+                                   jhiTranslate="register.messages.validate.login.pattern">
+                                Your username can only contain letters and digits.
+                            </small>
+                        </div>
+
+                    </div>
+
+                    <!------------------------Email------------------------------------------------------------------------>
+                    <div class="arq-input-group">
+                        <div>
+                            <fa-icon class="arq-input-icon" [icon]="'envelope'"></fa-icon>
+                            <label for="email" style="display: none"></label>
+                            <input id="email" name="email" formControlName="email"
+                                   placeholder="{{'global.form.email.placeholder' | translate}}" type="text"
+                                   class="arq-input">
+                            <span class="bar" style="align-self: center"></span>
+                        </div>
+
+                        <div
+                            *ngIf="registerForm.get('email')!.invalid && (registerForm.get('email')!.dirty || registerForm.get('email')!.touched)"
+                            class="arq-alert-group">
+                            <small class="arq-alert-text" *ngIf="registerForm.get('email')?.errors?.required"
+                                   jhiTranslate="global.messages.validate.email.required">
+                                Your email is required.
+                            </small>
+                            <small class="arq-alert-text" *ngIf="registerForm.get('email')?.errors?.invalid"
+                                   jhiTranslate="global.messages.validate.email.invalid">
+                                Your email is invalid.
+                            </small>
+                            <small class="arq-alert-text" *ngIf="registerForm.get('email')?.errors?.minlength"
+                                   jhiTranslate="global.messages.validate.email.minlength">
+                                Your email is required to be at least 5 characters.
+                            </small>
+                            <small class="arq-alert-text" *ngIf="registerForm.get('email')?.errors?.maxlength"
+                                   jhiTranslate="global.messages.validate.email.maxlength">
+                                Your email cannot be longer than 100 characters.
+                            </small>
+                        </div>
+
+                    </div>
+
+                    <!------------------------Password--------------------------------------------------------------------->
+                    <div class="arq-input-group">
+                        <div>
+                            <fa-icon class="arq-input-icon" [icon]="'lock'"></fa-icon>
+                            <label for="password" style="display: none"></label>
+                            <input id="password" name="password" formControlName="password"
+                                   placeholder="{{'global.form.newpassword.placeholder' | translate}}" type="password"
+                                   class="arq-input">
+                            <span class="bar" style="align-self: center"></span>
+                        </div>
+
+                        <div
+                            *ngIf="registerForm.get('password')!.invalid && (registerForm.get('password')!.dirty || registerForm.get('password')!.touched)"
+                            class="arq-alert-group">
+                            <small class="arq-alert-text" *ngIf="registerForm.get('password')?.errors?.required"
+                                   jhiTranslate="global.messages.validate.newpassword.required">
+                                Your password is required.
+                            </small>
+                            <small class="arq-alert-text" *ngIf="registerForm.get('password')?.errors?.minlength"
+                                   jhiTranslate="global.messages.validate.newpassword.minlength">
+                                Your password is required to be at least 4 characters.
+                            </small>
+                            <small class="arq-alert-text" *ngIf="registerForm.get('password')?.errors?.maxlength"
+                                   jhiTranslate="global.messages.validate.newpassword.maxlength">
+                                Your password cannot be longer than 50 characters.
+                            </small>
+                        </div>
+                    </div>
 
                     <div class="arq-password-strength">
                         <small>
@@ -146,39 +196,45 @@
                         </jhi-password-strength-bar-v2>
                     </div>
 
-                <div class="arq-input-group mt-4">
-                    <div>
-                        <fa-icon class="arq-input-icon" [icon]="'lock'"></fa-icon>
-                        <label for="confirmPassword" style="display: none"></label>
-                        <input id="confirmPassword" name="confirmPassword" formControlName="confirmPassword"
-                               placeholder="{{'global.form.confirmpassword.placeholder' | translate}}" type="password"
-                               class="arq-input">
-                        <span class="bar" style="align-self: center"></span>
+                    <div class="arq-input-group mt-4">
+                        <div>
+                            <fa-icon class="arq-input-icon" [icon]="'lock'"></fa-icon>
+                            <label for="confirmPassword" style="display: none"></label>
+                            <input id="confirmPassword" name="confirmPassword" formControlName="confirmPassword"
+                                   placeholder="{{'global.form.confirmpassword.placeholder' | translate}}" type="password"
+                                   class="arq-input">
+                            <span class="bar" style="align-self: center"></span>
+                        </div>
+
+                        <div
+                            *ngIf="registerForm.get('password')!.invalid && (registerForm.get('password')!.dirty || registerForm.get('password')!.touched)"
+                            class="arq-alert-group">
+                            <small class="arq-alert-text" *ngIf="registerForm.get('confirmPassword')?.errors?.required"
+                                   jhiTranslate="global.messages.validate.confirmpassword.required">
+                                Your confirmation password is required.
+                            </small>
+                            <small class="arq-alert-text" *ngIf="registerForm.get('confirmPassword')?.errors?.minlength"
+                                   jhiTranslate="global.messages.validate.confirmpassword.minlength">
+                                Your confirmation password is required to be at least 4 characters.
+                            </small>
+                            <small class="arq-alert-text" *ngIf="registerForm.get('confirmPassword')?.errors?.maxlength"
+                                   jhiTranslate="global.messages.validate.confirmpassword.maxlength">
+                                Your confirmation password cannot be longer than 50 characters.
+                            </small>
+                        </div>
                     </div>
 
-                    <div
-                        *ngIf="registerForm.get('password')!.invalid && (registerForm.get('password')!.dirty || registerForm.get('password')!.touched)"
-                        class="arq-alert-group">
-                        <small class="arq-alert-text" *ngIf="registerForm.get('confirmPassword')?.errors?.required"
-                               jhiTranslate="global.messages.validate.confirmpassword.required">
-                            Your confirmation password is required.
-                        </small>
-                        <small class="arq-alert-text" *ngIf="registerForm.get('confirmPassword')?.errors?.minlength"
-                               jhiTranslate="global.messages.validate.confirmpassword.minlength">
-                            Your confirmation password is required to be at least 4 characters.
-                        </small>
-                        <small class="arq-alert-text" *ngIf="registerForm.get('confirmPassword')?.errors?.maxlength"
-                               jhiTranslate="global.messages.validate.confirmpassword.maxlength">
-                            Your confirmation password cannot be longer than 50 characters.
-                        </small>
+                    <div class="row d-flex justify-content-center">
+                        <button type="submit" [disabled]="registerForm.invalid" class="arq-submitbtn"
+                                jhiTranslate="register.form.button">Register
+                        </button>
                     </div>
-                </div>
+                </form>
 
-                <button type="submit" [disabled]="registerForm.invalid" class="btn btn-primary"
-                        jhiTranslate="register.form.button">Register
-                </button>
-            </form>
-
+            </div>
         </div>
     </div>
+
 </div>
+
+
