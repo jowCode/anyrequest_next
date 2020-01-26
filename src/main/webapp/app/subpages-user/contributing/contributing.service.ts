@@ -7,6 +7,7 @@ import { IUserRequest } from 'app/shared/model/user-request.model';
 import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 import { IContribution } from 'app/shared/model/contribution.model';
+import { IUserContribution } from 'app/shared/model/userContribution';
 
 type EntityResponseType = HttpResponse<IUserRequest>;
 type EntityArrayResponseType = HttpResponse<IUserRequest[]>;
@@ -44,10 +45,10 @@ export class ContributingService {
   /**
    * CREATE
    * Contribute to a users request
-   * @param contribution
+   * @param userContribution
    */
-  create(contribution: IContribution): Observable<EntityResponseType> {
-    return this.http.post<IContribution>(this.contribute, contribution, { observe: 'response' });
+  create(userContribution: IUserContribution): Observable<EntityResponseType> {
+    return this.http.post<IContribution>(this.contribute, userContribution, { observe: 'response' });
   }
 
   /**

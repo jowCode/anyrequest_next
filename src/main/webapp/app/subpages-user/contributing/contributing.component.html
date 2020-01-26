@@ -10,11 +10,24 @@
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
-                <th scope="col"  jhiSortBy="title"><span jhiTranslate="anyrequestNextApp.userRequest.title">Title</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th scope="col"  jhiSortBy="description"><span jhiTranslate="anyrequestNextApp.userRequest.description">Description</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th scope="col"  jhiSortBy="urgency"><span jhiTranslate="anyrequestNextApp.userRequest.urgency">Urgency</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th scope="col"  jhiSortBy="validTo"><span jhiTranslate="anyrequestNextApp.userRequest.validTo">Valid To</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-                <th scope="col"  jhiSortBy="contributorCount"><span jhiTranslate="anyrequestNextApp.userRequest.contributorCount">Contributor Count</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+                <th scope="col" jhiSortBy="title"><span jhiTranslate="anyrequestNextApp.userRequest.title">Title</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th scope="col" jhiSortBy="description"><span jhiTranslate="anyrequestNextApp.userRequest.description">Description</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th scope="col" jhiSortBy="urgency"><span
+                    jhiTranslate="anyrequestNextApp.userRequest.urgency">Urgency</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th scope="col" jhiSortBy="validTo"><span
+                    jhiTranslate="anyrequestNextApp.userRequest.validTo">Valid To</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
+                <th scope="col" jhiSortBy="contributorCount"><span
+                    jhiTranslate="anyrequestNextApp.userRequest.contributorCount">Contributor Count</span>
+                    <fa-icon [icon]="'sort'"></fa-icon>
+                </th>
             </tr>
             </thead>
         </table>
@@ -32,28 +45,28 @@
     <div *ngFor="let userRequest of userRequests ;trackBy: trackId"
          class="col-md-6 col-lg-4">
 
-        <div jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)" class="card">
-            <div class="card-title">
+
+        <div jhiSort [(predicate)]="predicate" [(ascending)]="ascending"
+             [callback]="reset.bind(this)"
+             class="arq-card">
+
+            <div class="arq-card-title">
                 {{userRequest.title}}
             </div>
 
-            <div class="card-body">
+            <div class="arq-card-body">
                 <p>{{ userRequest.description}}</p>
                 <p>{{ userRequest.urgency}}</p>
                 <p>{{userRequest.validTo | date:'medium'}}</p>
             </div>
 
-            <div class="card-footer">
+            <div class="arq-card-footer">
                 <div class="btn-group p-2">
                     <button type="submit"
                             [routerLink]="['/contributing', userRequest.id, 'view' ]"
-                            class="btn btn-info btn-sm">
-                        <span class="d-none d-md-inline" jhiTranslate="anyrequestNextApp.contributing.action.view">View</span>
-                    </button>
-                    <button type="submit"
-                            [routerLink]="['/contributing', userRequest.id, 'contribute' ]"
-                            class="btn btn-info btn-sm">
-                        <span class="d-none d-md-inline" jhiTranslate="anyrequestNextApp.contributing.action.contribute">View</span>
+                            class="arq-submitbtn arq-smallbtn">
+                        <span class="d-none d-md-inline"
+                              jhiTranslate="anyrequestNextApp.contributing.action.view">View</span>
                     </button>
                 </div>
             </div>

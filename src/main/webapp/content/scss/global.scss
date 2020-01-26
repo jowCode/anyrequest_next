@@ -390,6 +390,7 @@ input:focus ~ .bar:after {
 }
 
 button {
+  outline: 0 !important;
   background-color: $body-color;
   color: $arq-ci-grey-almostblack;
   border: none;
@@ -404,19 +405,32 @@ button {
 }
 
 .arq-submitbtn {
+  outline: 0 !important;
   width: 170px;
   padding: 1em;
   background-color: $arq-ci-secondary;
   color: $arq-ci-grey-almostblack;
 }
-
 .arq-submitbtn:disabled {
   background-color: $body-color;
   color: $arq-ci-grey-almostblack;
 }
-
 .arq-submitbtn:hover {
   width: 180px;
+  background-color: darken($arq-ci-secondary, 5%);
+  color: $arq-ci-grey-almostblack;
+}
+
+.arq-smallbtn {
+  font-size: 0.8em;
+  outline: 0 !important;
+  width: 80px;
+  padding: 1em;
+  background-color: $arq-ci-secondary;
+  color: $arq-ci-grey-almostblack;
+}
+.arq-smallbtn:hover {
+  width: 90px;
   background-color: darken($arq-ci-secondary, 5%);
   color: $arq-ci-grey-almostblack;
 }
@@ -431,5 +445,20 @@ button {
   color: $arq-ci-primary !important;
   font-weight: 500;
   text-decoration: none !important;
+}
+
+.arq-card {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 2fr 8fr 2fr;
+
+  .arq-card-title {
+  }
+
+  .arq-card-body {
+  }
+
+  .arq-card-body {
+  }
 }
 /* jhipster-needle-scss-add-main JHipster will add new css style */
