@@ -11,6 +11,7 @@
   src: local('Raleway'), local('Raleway-Regular'), url('../fonts/raleway-v14-latin-regular.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */ url('../fonts/raleway-v14-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
+
 /* raleway-500 - latin */
 @font-face {
   font-family: 'Raleway';
@@ -19,6 +20,7 @@
   src: local('Raleway Medium'), local('Raleway-Medium'), url('../fonts/raleway-v14-latin-500.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */ url('../fonts/raleway-v14-latin-500.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
+
 /* raleway-600 - latin */
 @font-face {
   font-family: 'Raleway';
@@ -27,6 +29,7 @@
   src: local('Raleway SemiBold'), local('Raleway-SemiBold'), url('../fonts/raleway-v14-latin-600.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */ url('../fonts/raleway-v14-latin-600.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
+
 /* raleway-700 - latin */
 @font-face {
   font-family: 'Raleway';
@@ -35,6 +38,7 @@
   src: local('Raleway Bold'), local('Raleway-Bold'), url('../fonts/raleway-v14-latin-700.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */ url('../fonts/raleway-v14-latin-700.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
+
 /* raleway-800 - latin */
 @font-face {
   font-family: 'Raleway';
@@ -43,6 +47,7 @@
   src: local('Raleway ExtraBold'), local('Raleway-ExtraBold'), url('../fonts/raleway-v14-latin-800.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */ url('../fonts/raleway-v14-latin-800.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
+
 /* raleway-900 - latin */
 @font-face {
   font-family: 'Raleway';
@@ -51,6 +56,7 @@
   src: local('Raleway Black'), local('Raleway-Black'), url('../fonts/raleway-v14-latin-900.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */ url('../fonts/raleway-v14-latin-900.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
+
 /* varela-round-regular - latin */
 @font-face {
   font-family: 'Varela Round';
@@ -59,6 +65,7 @@
   src: local('Varela Round Regular'), local('VarelaRound-Regular'), url('../fonts/varela-round-v12-latin-regular.woff2') format('woff2'),
     /* Chrome 26+, Opera 23+, Firefox 39+ */ url('../fonts/varela-round-v12-latin-regular.woff') format('woff'); /* Chrome 6+, Firefox 3.6+, IE 9+, Safari 5.1+ */
 }
+
 /* ==============================================================
 Bootstrap tweaks
 ===============================================================*/
@@ -77,6 +84,7 @@ h6 {
   font-weight: 700;
   letter-spacing: 1px;
 }
+
 small {
   font-weight: 600 !important;
 }
@@ -89,6 +97,7 @@ a:hover {
 .dropdown-item:hover {
   color: $dropdown-link-hover-color;
 }
+
 /*Change input background in autofill textbox*/
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -96,10 +105,12 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px $arq-ci-grey-almostblack inset !important;
 }
+
 /*Change text in autofill textbox*/
 input:-webkit-autofill {
   -webkit-text-fill-color: $body-color !important;
 }
+
 /* ==========================================================================
 Browser Upgrade Prompt
 ========================================================================== */
@@ -164,6 +175,7 @@ Custom alerts for notification
 .alerts {
   .alert {
     text-overflow: ellipsis;
+
     pre {
       background: none;
       border: none;
@@ -172,17 +184,21 @@ Custom alerts for notification
       padding: 0;
       margin: 0;
     }
+
     .popover pre {
       font-size: 10px;
     }
   }
+
   .jhi-toast {
     opacity: 0.8;
     position: fixed;
     width: 50%;
+
     &.right {
       right: 25%;
     }
+
     &.top {
       top: 80%;
     }
@@ -194,9 +210,11 @@ Custom alerts for notification
     .jhi-toast {
       position: fixed;
       width: 90%;
+
       &.right {
         right: 5%;
       }
+
       &.top {
         top: 80%;
       }
@@ -218,6 +236,7 @@ entity detail page css
     dt {
       margin-bottom: 15px;
     }
+
     dd {
       border-bottom: 1px solid $body-color;
       padding-left: 180px;
@@ -249,6 +268,7 @@ Overrides for MDBootstrap-Navbar
 .stylish-color-dark {
   background-color: $arq-ci-grey-dark !important;
 }
+
 .navbar {
   box-shadow: 0 6px 12px 3px rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 1) !important;
 }
@@ -291,6 +311,7 @@ Custom anyRequest styles
 .bar:before {
   left: 50%;
 }
+
 .bar:after {
   right: 50%;
 }
@@ -361,6 +382,7 @@ input:focus ~ .bar:after {
   padding: 0.5em;
   border-radius: 0.5em;
   background-color: $arq-ci-grey-dark;
+
   .arq-alert-icon {
     color: $body-color;
     background: $arq-ci-alert;
@@ -370,15 +392,18 @@ input:focus ~ .bar:after {
     line-height: 0;
     padding: 7px;
   }
+
   .arq-alert-content {
     display: grid;
     grid-template-columns: 1fr;
     justify-self: start;
     grid-template-rows: auto auto;
+
     .arq-alert-claimer {
       color: $arq-ci-alert;
       font-weight: 600;
     }
+
     .arq-alert-message {
       color: $body-color;
     }
@@ -411,10 +436,12 @@ button {
   background-color: $arq-ci-secondary;
   color: $arq-ci-grey-almostblack;
 }
+
 .arq-submitbtn:disabled {
   background-color: $body-color;
   color: $arq-ci-grey-almostblack;
 }
+
 .arq-submitbtn:hover {
   width: 180px;
   background-color: darken($arq-ci-secondary, 5%);
@@ -429,6 +456,7 @@ button {
   background-color: $arq-ci-secondary;
   color: $arq-ci-grey-almostblack;
 }
+
 .arq-smallbtn:hover {
   width: 90px;
   background-color: darken($arq-ci-secondary, 5%);
@@ -450,15 +478,87 @@ button {
 .arq-card {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 2fr 8fr 2fr;
+  padding: 1em;
+  background-color: $arq-ci-grey-dark;
+  margin: 0 0 20px 0;
+  height: 300px;
+  box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.16), 2px 2px 6px 0 rgba(0, 0, 0, 1);
+
+  .card-divider {
+    height: 0;
+    margin: 0.5rem 0;
+    overflow: hidden;
+    border-top: 1px solid $body-color;
+  }
+
+  .arq-card-header {
+    display: grid;
+    grid-template-columns: min-content auto auto;
+    align-items: center;
+
+    .arq-urgency {
+      margin: 0 10px 0 0 !important;
+      justify-self: start;
+      font-weight: bold;
+      color: $body-color;
+    }
+
+    .arq-time {
+      margin: 0 !important;
+      justify-self: end;
+      font-weight: bold;
+      color: $arq-ci-primary;
+    }
+  }
 
   .arq-card-title {
   }
 
   .arq-card-body {
+    min-height: 60px;
   }
 
-  .arq-card-body {
+  .arq-card-footer {
+    display: grid;
+    grid-template-columns: min-content auto auto;
+    align-items: center;
+
+    .arq-card-icon {
+      color: $body-color;
+      /*      position: absolute;
+      left: 8px;
+      top: 8px;*/
+      font-size: 1.2em;
+    }
+
+    .arq-contributor-count {
+      margin: 0 !important;
+      justify-self: end;
+      font-weight: bold;
+      color: $arq-ci-primary;
+    }
+
+    .arq-card-submit {
+      margin: 0 !important;
+      justify-self: end;
+    }
   }
 }
+
+.arq-sort-bar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
+  align-items: center;
+
+  .property {
+    border-radius: 2em;
+    padding: 1em;
+    background-color: $arq-ci-primary;
+    color: $arq-ci-grey-almostblack;
+    align-self: center;
+    justify-self: center;
+  }
+}
+
 /* jhipster-needle-scss-add-main JHipster will add new css style */

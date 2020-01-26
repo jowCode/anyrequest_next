@@ -1,38 +1,25 @@
-<h2 id="page-heading">
-    <span>All Requests</span>
-</h2>
 <jhi-alert-error></jhi-alert-error>
 <jhi-alert></jhi-alert>
 <br/>
 
-<div>
-    <div class="table-responsive">
-        <table class="table table-striped" aria-describedby="page-heading">
-            <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
-                <th scope="col" jhiSortBy="title"><span jhiTranslate="anyrequestNextApp.userRequest.title">Title</span>
-                    <fa-icon [icon]="'sort'"></fa-icon>
-                </th>
-                <th scope="col" jhiSortBy="description"><span jhiTranslate="anyrequestNextApp.userRequest.description">Description</span>
-                    <fa-icon [icon]="'sort'"></fa-icon>
-                </th>
-                <th scope="col" jhiSortBy="urgency"><span
-                    jhiTranslate="anyrequestNextApp.userRequest.urgency">Urgency</span>
-                    <fa-icon [icon]="'sort'"></fa-icon>
-                </th>
-                <th scope="col" jhiSortBy="validTo"><span
-                    jhiTranslate="anyrequestNextApp.userRequest.validTo">Valid To</span>
-                    <fa-icon [icon]="'sort'"></fa-icon>
-                </th>
-                <th scope="col" jhiSortBy="contributorCount"><span
-                    jhiTranslate="anyrequestNextApp.userRequest.contributorCount">Contributor Count</span>
-                    <fa-icon [icon]="'sort'"></fa-icon>
-                </th>
-            </tr>
-            </thead>
-        </table>
+
+<div class="arq-sort-bar" jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="reset.bind(this)">
+
+    <div class="property" jhiSortBy="urgency">
+        <span class="small font-weight-bold" jhiTranslate="anyrequestNextApp.userRequest.urgency">Urgency</span>
+        <fa-icon [icon]="'sort'"></fa-icon>
     </div>
+    <div class="property" jhiSortBy="validTo">
+        <span class="small font-weight-bold" jhiTranslate="anyrequestNextApp.userRequest.validTo">Valid To</span>
+        <fa-icon [icon]="'sort'"></fa-icon>
+    </div>
+    <div class="property" jhiSortBy="contributorCount">
+        <span class="small font-weight-bold" jhiTranslate="anyrequestNextApp.userRequest.contributorCount">Contributor Count</span>
+        <fa-icon [icon]="'sort'"></fa-icon>
+    </div>
+
 </div>
+
 
 <div [@transformAnimation]="page" class="alert alert-warning" *ngIf="userRequests?.length === 0">
     <span jhiTranslate="anyrequestNextApp.userRequest.home.notFound">No userRequests found</span>
@@ -40,7 +27,7 @@
 
 <div *ngIf="userRequests?.length > 0"
      [@listAnimation]="userRequests.length"
-     class="row align-items-end">
+     class="row align-items-end mt-4">
 
     <div *ngFor="let userRequest of userRequests ;trackBy: trackId"
          class="col-md-6 col-lg-4">
@@ -50,21 +37,34 @@
              [callback]="reset.bind(this)"
              class="arq-card">
 
+            <div class="arq-card-header">
+                <p class="small arq-urgency" jhiTranslate="anyrequestNextApp.userRequest.urgency"></p>
+                <jhi-urgency-light class="arq-urgency"
+                                   [urgencyToCheck]=userRequest.urgency!.toString()>
+                </jhi-urgency-light>
+                <p class="small arq-time">5 minutes ago</p>
+                <p style="grid-column: 1/3">{{userRequest.validTo | date:'medium'}}</p>
+            </div>
+
+            <div class="card-divider"></div>
+
             <div class="arq-card-title">
-                {{userRequest.title}}
+                <h3>{{userRequest.title}}</h3>
             </div>
 
             <div class="arq-card-body">
-                <p>{{ userRequest.description}}</p>
-                <p>{{ userRequest.urgency}}</p>
-                <p>{{userRequest.validTo | date:'medium'}}</p>
+                <p>{{userRequest.description.slice(0, 140)}}<span>...</span></p>
             </div>
 
+            <div class="card-divider"></div>
+
             <div class="arq-card-footer">
-                <div class="btn-group p-2">
+                <fa-icon class="arq-card-icon" [icon]="'user-plus'"></fa-icon>
+                <p class="small arq-contributor-count">10856</p>
+                <div class="arq-card-submit">
                     <button type="submit"
-                            [routerLink]="['/contributing', userRequest.id, 'view' ]"
-                            class="arq-submitbtn arq-smallbtn">
+                            class="arq-submitbtn arq-smallbtn"
+                            [routerLink]="['/contributing', userRequest.id, 'view' ]">
                         <span class="d-none d-md-inline"
                               jhiTranslate="anyrequestNextApp.contributing.action.view">View</span>
                     </button>

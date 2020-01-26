@@ -7,6 +7,7 @@ import { LoginModalComponent } from './login/login.component';
 import { HasAnyAuthorityDirective } from './auth/has-any-authority.directive';
 import { ArqPasswordStrengthBarComponent } from 'app/shared/arq-password-strength-meter/arq-password-strength-bar.component';
 import { ChangeClassNameDirective } from 'app/shared/arq-password-strength-meter/arq-password-strength-bar.directive';
+import { ArqUrgencyLightComponent } from 'app/shared/arq-urgency-light/arq-urgency-light.component';
 
 @NgModule({
   imports: [AnyrequestNextSharedLibsModule],
@@ -16,6 +17,7 @@ import { ChangeClassNameDirective } from 'app/shared/arq-password-strength-meter
     AlertErrorComponent,
     LoginModalComponent,
     ArqPasswordStrengthBarComponent,
+    ArqUrgencyLightComponent,
     ChangeClassNameDirective,
     HasAnyAuthorityDirective
   ],
@@ -28,7 +30,8 @@ import { ChangeClassNameDirective } from 'app/shared/arq-password-strength-meter
     LoginModalComponent,
     ArqPasswordStrengthBarComponent,
     ChangeClassNameDirective,
-    HasAnyAuthorityDirective
+    HasAnyAuthorityDirective,
+    ArqUrgencyLightComponent
   ]
 })
 export class AnyrequestNextSharedModule {}

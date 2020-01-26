@@ -1,0 +1,71 @@
+$arq-ci-secondary: #b7f081;
+$arq-ci-yellow: #ebd264;
+$arq-ci-alert: #eb7464;
+$arq-ci-grey-dark: #646464;
+$body-color: #c7c7c7;
+#urgency {
+  border-radius: 50%;
+  /*position: relative;
+  display: block;*/
+  height: 10px;
+  width: 10px;
+}
+
+.empty-urgency {
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+  background-color: $body-color;
+}
+
+@-webkit-keyframes blinker {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.blink-fast {
+  text-decoration: blink;
+  -webkit-animation-name: blinker;
+  -webkit-animation-duration: 0.3s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-direction: alternate;
+}
+.blink-med {
+  text-decoration: blink;
+  -webkit-animation-name: blinker;
+  -webkit-animation-duration: 0.6s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-direction: alternate;
+}
+.blink-slow {
+  text-decoration: blink;
+  -webkit-animation-name: blinker;
+  -webkit-animation-duration: 1.2s;
+  -webkit-animation-iteration-count: infinite;
+  -webkit-animation-timing-function: ease-in-out;
+  -webkit-animation-direction: alternate;
+}
+
+.urgency-low {
+  background-color: $arq-ci-secondary;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  box-shadow: 0 0 8px 0 $arq-ci-secondary;
+}
+.urgency-medium {
+  background-color: $arq-ci-yellow;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  box-shadow: 0 0 8px 0 $arq-ci-yellow;
+}
+.urgency-high {
+  background-color: $arq-ci-alert;
+  -webkit-transition: all 0.2s ease-in;
+  transition: all 0.2s ease-in;
+  box-shadow: 0 0 8px 0 $arq-ci-alert;
+}
