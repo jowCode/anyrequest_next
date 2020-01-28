@@ -37,7 +37,7 @@ export class ContributingComponent implements OnInit, OnDestroy {
     this.ascending = true;
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadAll();
     this.registerChangeInUserRequests();
   }
@@ -48,7 +48,7 @@ export class ContributingComponent implements OnInit, OnDestroy {
     }
   }
 
-  loadAll() {
+  loadAll(): void {
     this.contributingService
       .getAllRequests({
         page: this.page,
@@ -63,7 +63,7 @@ export class ContributingComponent implements OnInit, OnDestroy {
     this.loadAll();
   }
 
-  registerChangeInUserRequests() {
+  registerChangeInUserRequests(): void {
     this.eventSubscriber = this.eventManager.subscribe('userRequestListModification', () => this.reset());
   }
 
@@ -75,13 +75,13 @@ export class ContributingComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  reset() {
+  reset(): void {
     this.page = 0;
     this.userRequests = [];
     this.loadAll();
   }
 
-  trackId(index: number, item: IUserRequest) {
+  trackId(index: number, item: IUserRequest): number | undefined {
     return item.id;
   }
 

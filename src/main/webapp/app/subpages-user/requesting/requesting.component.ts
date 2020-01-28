@@ -36,7 +36,7 @@ export class RequestingComponent implements OnInit, OnDestroy {
     this.ascending = true;
   }
 
-  loadAll() {
+  loadAll(): void {
     this.requestingService
       .queryMyRequests({
         page: this.page,
@@ -46,7 +46,7 @@ export class RequestingComponent implements OnInit, OnDestroy {
       .subscribe((res: HttpResponse<IUserRequest[]>) => this.paginateUserRequests(res.body, res.headers));
   }
 
-  reset() {
+  reset(): void {
     this.page = 0;
     this.userRequests = [];
     this.loadAll();
@@ -57,7 +57,7 @@ export class RequestingComponent implements OnInit, OnDestroy {
     this.loadAll();
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadAll();
     this.registerChangeInUserRequests();
   }
@@ -68,11 +68,11 @@ export class RequestingComponent implements OnInit, OnDestroy {
     }
   }
 
-  trackId(index: number, item: IUserRequest) {
+  trackId(index: number, item: IUserRequest): any {
     return item.id;
   }
 
-  registerChangeInUserRequests() {
+  registerChangeInUserRequests(): void {
     this.eventSubscriber = this.eventManager.subscribe('userRequestListModification', () => this.reset());
   }
 

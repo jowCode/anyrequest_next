@@ -12,13 +12,13 @@ export class RequestingDetailComponent implements OnInit {
 
   constructor(protected activatedRoute: ActivatedRoute) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ userRequest }) => {
       this.userRequest = userRequest;
     });
   }
 
-  previousState() {
+  previousState(): void {
     window.history.back();
   }
 }

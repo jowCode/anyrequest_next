@@ -24,14 +24,14 @@ export class RequestingNewComponent implements OnInit {
 
   constructor(protected userRequestService: RequestingService, protected activatedRoute: ActivatedRoute, private fb: FormBuilder) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.isSaving = false;
     this.activatedRoute.data.subscribe(({ userRequest }) => {
       this.updateForm(userRequest);
     });
   }
 
-  updateForm(newRequest: INewRequest) {
+  updateForm(newRequest: INewRequest): void {
     this.editForm.patchValue({
       title: newRequest.title,
       description: newRequest.description,
@@ -39,11 +39,11 @@ export class RequestingNewComponent implements OnInit {
     });
   }
 
-  previousState() {
+  previousState(): void {
     window.history.back();
   }
 
-  publish() {
+  publish(): void {
     this.isSaving = true;
     const userRequest = this.createFromForm();
     this.subscribeToSaveResponse(this.userRequestService.publish(userRequest));
@@ -58,19 +58,19 @@ export class RequestingNewComponent implements OnInit {
     };
   }
 
-  protected subscribeToSaveResponse(result: Observable<HttpResponse<IUserRequest>>) {
+  protected subscribeToSaveResponse(result: Observable<HttpResponse<IUserRequest>>): void {
     result.subscribe(
       () => this.onSaveSuccess(),
       () => this.onSaveError()
     );
   }
 
-  protected onSaveSuccess() {
+  protected onSaveSuccess(): void {
     this.isSaving = false;
     this.previousState();
   }
 
-  protected onSaveError() {
+  protected onSaveError(): void {
     this.isSaving = false;
   }
 }
