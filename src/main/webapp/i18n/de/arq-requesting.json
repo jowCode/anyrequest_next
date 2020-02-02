@@ -9,7 +9,8 @@
       },
       "action": {
         "publish": "Veröffentlichen",
-        "cancel": "Abbrechen"
+        "cancel": "Abbrechen",
+        "contribute": "Contribute"
       },
       "created": "Request erfolgreich veröffentlicht",
       "detail": {

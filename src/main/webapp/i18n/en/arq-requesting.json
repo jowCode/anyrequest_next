@@ -9,7 +9,8 @@
       },
       "action": {
         "publish": "Publish",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "contribute": "Contribute"
       },
       "created": "Request published with ID {{ param }}",
       "detail": {

@@ -476,13 +476,15 @@ button {
 }
 
 .arq-card {
+  /*border-radius: 2em;*/
   display: grid;
   grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 5fr 10fr 1fr 1fr;
   padding: 1em;
   background-color: $arq-ci-grey-dark;
   margin: 0 0 20px 0;
   height: 300px;
-  box-shadow: 2px 2px 6px 0 rgba(0, 0, 0, 0.16), 2px 2px 6px 0 rgba(0, 0, 0, 1);
+  box-shadow: 2px 4px 8px 0 rgba(0, 0, 0, 0.16), 2px 2px 6px 0 rgba(0, 0, 0, 1);
 
   .card-divider {
     height: 0;
@@ -496,14 +498,20 @@ button {
     grid-template-columns: min-content auto auto;
     align-items: center;
 
-    .arq-urgency {
+    .arq-info {
       margin: 0 10px 0 0 !important;
       justify-self: start;
       font-weight: bold;
       color: $body-color;
     }
 
-    .arq-time {
+    .arq-info-content-start {
+      margin: 0 !important;
+      justify-self: start;
+      font-weight: bold;
+      color: $arq-ci-primary;
+    }
+    .arq-info-content-end {
       margin: 0 !important;
       justify-self: end;
       font-weight: bold;
@@ -524,16 +532,15 @@ button {
     align-items: center;
 
     .arq-card-icon {
+      margin: 0 10px 0 0 !important;
+      justify-self: start;
       color: $body-color;
-      /*      position: absolute;
-      left: 8px;
-      top: 8px;*/
       font-size: 1.2em;
     }
 
     .arq-contributor-count {
-      margin: 0 !important;
-      justify-self: end;
+      margin: 0 10px 0 0 !important;
+      justify-self: start;
       font-weight: bold;
       color: $arq-ci-primary;
     }
