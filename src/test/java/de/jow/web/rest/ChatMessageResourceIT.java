@@ -114,7 +114,7 @@ public class ChatMessageResourceIT {
 
         // Create the ChatMessage
         restChatMessageMockMvc.perform(post("/api/chat-messages")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(chatMessage)))
             .andExpect(status().isCreated());
 
@@ -136,7 +136,7 @@ public class ChatMessageResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restChatMessageMockMvc.perform(post("/api/chat-messages")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(chatMessage)))
             .andExpect(status().isBadRequest());
 
@@ -156,7 +156,7 @@ public class ChatMessageResourceIT {
         // Create the ChatMessage, which fails.
 
         restChatMessageMockMvc.perform(post("/api/chat-messages")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(chatMessage)))
             .andExpect(status().isBadRequest());
 
@@ -174,7 +174,7 @@ public class ChatMessageResourceIT {
         // Create the ChatMessage, which fails.
 
         restChatMessageMockMvc.perform(post("/api/chat-messages")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(chatMessage)))
             .andExpect(status().isBadRequest());
 
@@ -191,7 +191,7 @@ public class ChatMessageResourceIT {
         // Get all the chatMessageList
         restChatMessageMockMvc.perform(get("/api/chat-messages?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(chatMessage.getId().intValue())))
             .andExpect(jsonPath("$.[*].owningUser").value(hasItem(DEFAULT_OWNING_USER)))
             .andExpect(jsonPath("$.[*].message").value(hasItem(DEFAULT_MESSAGE)));
@@ -206,7 +206,7 @@ public class ChatMessageResourceIT {
         // Get the chatMessage
         restChatMessageMockMvc.perform(get("/api/chat-messages/{id}", chatMessage.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(chatMessage.getId().intValue()))
             .andExpect(jsonPath("$.owningUser").value(DEFAULT_OWNING_USER))
             .andExpect(jsonPath("$.message").value(DEFAULT_MESSAGE));
@@ -237,7 +237,7 @@ public class ChatMessageResourceIT {
             .message(UPDATED_MESSAGE);
 
         restChatMessageMockMvc.perform(put("/api/chat-messages")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(updatedChatMessage)))
             .andExpect(status().isOk());
 
@@ -258,7 +258,7 @@ public class ChatMessageResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restChatMessageMockMvc.perform(put("/api/chat-messages")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(chatMessage)))
             .andExpect(status().isBadRequest());
 
@@ -277,7 +277,7 @@ public class ChatMessageResourceIT {
 
         // Delete the chatMessage
         restChatMessageMockMvc.perform(delete("/api/chat-messages/{id}", chatMessage.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(TestUtil.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item

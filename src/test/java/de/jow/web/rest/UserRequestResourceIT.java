@@ -150,7 +150,7 @@ public class UserRequestResourceIT {
 
         // Create the UserRequest
         restUserRequestMockMvc.perform(post("/api/user-requests")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(userRequest)))
             .andExpect(status().isCreated());
 
@@ -178,7 +178,7 @@ public class UserRequestResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restUserRequestMockMvc.perform(post("/api/user-requests")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(userRequest)))
             .andExpect(status().isBadRequest());
 
@@ -198,7 +198,7 @@ public class UserRequestResourceIT {
         // Create the UserRequest, which fails.
 
         restUserRequestMockMvc.perform(post("/api/user-requests")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(userRequest)))
             .andExpect(status().isBadRequest());
 
@@ -216,7 +216,7 @@ public class UserRequestResourceIT {
         // Create the UserRequest, which fails.
 
         restUserRequestMockMvc.perform(post("/api/user-requests")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(userRequest)))
             .andExpect(status().isBadRequest());
 
@@ -234,7 +234,7 @@ public class UserRequestResourceIT {
         // Create the UserRequest, which fails.
 
         restUserRequestMockMvc.perform(post("/api/user-requests")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(userRequest)))
             .andExpect(status().isBadRequest());
 
@@ -252,7 +252,7 @@ public class UserRequestResourceIT {
         // Create the UserRequest, which fails.
 
         restUserRequestMockMvc.perform(post("/api/user-requests")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(userRequest)))
             .andExpect(status().isBadRequest());
 
@@ -270,7 +270,7 @@ public class UserRequestResourceIT {
         // Create the UserRequest, which fails.
 
         restUserRequestMockMvc.perform(post("/api/user-requests")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(userRequest)))
             .andExpect(status().isBadRequest());
 
@@ -288,7 +288,7 @@ public class UserRequestResourceIT {
         // Create the UserRequest, which fails.
 
         restUserRequestMockMvc.perform(post("/api/user-requests")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(userRequest)))
             .andExpect(status().isBadRequest());
 
@@ -305,7 +305,7 @@ public class UserRequestResourceIT {
         // Get all the userRequestList
         restUserRequestMockMvc.perform(get("/api/user-requests?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(userRequest.getId().intValue())))
             .andExpect(jsonPath("$.[*].requestingUser").value(hasItem(DEFAULT_REQUESTING_USER)))
             .andExpect(jsonPath("$.[*].title").value(hasItem(DEFAULT_TITLE)))
@@ -326,7 +326,7 @@ public class UserRequestResourceIT {
         // Get the userRequest
         restUserRequestMockMvc.perform(get("/api/user-requests/{id}", userRequest.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(userRequest.getId().intValue()))
             .andExpect(jsonPath("$.requestingUser").value(DEFAULT_REQUESTING_USER))
             .andExpect(jsonPath("$.title").value(DEFAULT_TITLE))
@@ -369,7 +369,7 @@ public class UserRequestResourceIT {
             .isBlocked(UPDATED_IS_BLOCKED);
 
         restUserRequestMockMvc.perform(put("/api/user-requests")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(updatedUserRequest)))
             .andExpect(status().isOk());
 
@@ -396,7 +396,7 @@ public class UserRequestResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restUserRequestMockMvc.perform(put("/api/user-requests")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(userRequest)))
             .andExpect(status().isBadRequest());
 
@@ -415,7 +415,7 @@ public class UserRequestResourceIT {
 
         // Delete the userRequest
         restUserRequestMockMvc.perform(delete("/api/user-requests/{id}", userRequest.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(TestUtil.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item

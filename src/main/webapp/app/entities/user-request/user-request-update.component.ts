@@ -33,6 +33,11 @@ export class UserRequestUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ userRequest }) => {
+      if (!userRequest.id) {
+        const today = moment().startOf('day');
+        userRequest.validTo = today;
+      }
+
       this.updateForm(userRequest);
     });
   }
@@ -44,7 +49,7 @@ export class UserRequestUpdateComponent implements OnInit {
       title: userRequest.title,
       description: userRequest.description,
       urgency: userRequest.urgency,
-      validTo: userRequest.validTo != null ? userRequest.validTo.format(DATE_TIME_FORMAT) : null,
+      validTo: userRequest.validTo ? userRequest.validTo.format(DATE_TIME_FORMAT) : null,
       contributorCount: userRequest.contributorCount,
       hasContributed: userRequest.hasContributed,
       isBlocked: userRequest.isBlocked
@@ -73,7 +78,7 @@ export class UserRequestUpdateComponent implements OnInit {
       title: this.editForm.get(['title'])!.value,
       description: this.editForm.get(['description'])!.value,
       urgency: this.editForm.get(['urgency'])!.value,
-      validTo: this.editForm.get(['validTo'])!.value != null ? moment(this.editForm.get(['validTo'])!.value, DATE_TIME_FORMAT) : undefined,
+      validTo: this.editForm.get(['validTo'])!.value ? moment(this.editForm.get(['validTo'])!.value, DATE_TIME_FORMAT) : undefined,
       contributorCount: this.editForm.get(['contributorCount'])!.value,
       hasContributed: this.editForm.get(['hasContributed'])!.value,
       isBlocked: this.editForm.get(['isBlocked'])!.value

@@ -4,6 +4,8 @@ export class UserCreditAccountComponentsPage {
   createButton = element(by.id('jh-create-entity'));
   deleteButtons = element.all(by.css('jhi-user-credit-account div table .btn-danger'));
   title = element.all(by.css('jhi-user-credit-account div h2#page-heading span')).first();
+  noResult = element(by.id('no-result'));
+  entities = element(by.id('entities'));
 
   async clickOnCreateButton(): Promise<void> {
     await this.createButton.click();
@@ -26,9 +28,11 @@ export class UserCreditAccountUpdatePage {
   pageTitle = element(by.id('jhi-user-credit-account-heading'));
   saveButton = element(by.id('save-entity'));
   cancelButton = element(by.id('cancel-save'));
+
   receivedCreditsInput = element(by.id('field_receivedCredits'));
   usedCreditsInput = element(by.id('field_usedCredits'));
   totalCreditsInput = element(by.id('field_totalCredits'));
+
   userSelect = element(by.id('field_user'));
 
   async getPageTitle(): Promise<string> {

@@ -50,7 +50,6 @@ public class ContributionService {
         return contributionRepository.findAll(pageable);
     }
 
-
     /**
      * Get one contribution by id.
      *

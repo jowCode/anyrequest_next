@@ -25,6 +25,10 @@ describe('ChatMessage e2e test', () => {
     chatMessageComponentsPage = new ChatMessageComponentsPage();
     await browser.wait(ec.visibilityOf(chatMessageComponentsPage.title), 5000);
     expect(await chatMessageComponentsPage.getTitle()).to.eq('anyrequestNextApp.chatMessage.home.title');
+    await browser.wait(
+      ec.or(ec.visibilityOf(chatMessageComponentsPage.entities), ec.visibilityOf(chatMessageComponentsPage.noResult)),
+      1000
+    );
   });
 
   it('should load create ChatMessage page', async () => {
@@ -38,13 +42,16 @@ describe('ChatMessage e2e test', () => {
     const nbButtonsBeforeCreate = await chatMessageComponentsPage.countDeleteButtons();
 
     await chatMessageComponentsPage.clickOnCreateButton();
+
     await promise.all([
       chatMessageUpdatePage.setOwningUserInput('owningUser'),
       chatMessageUpdatePage.setMessageInput('message'),
       chatMessageUpdatePage.conversationSelectLastOption()
     ]);
+
     expect(await chatMessageUpdatePage.getOwningUserInput()).to.eq('owningUser', 'Expected OwningUser value to be equals to owningUser');
     expect(await chatMessageUpdatePage.getMessageInput()).to.eq('message', 'Expected Message value to be equals to message');
+
     await chatMessageUpdatePage.save();
     expect(await chatMessageUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;
 

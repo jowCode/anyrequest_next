@@ -13,9 +13,7 @@ export class ChatMessageDetailComponent implements OnInit {
   constructor(protected activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ chatMessage }) => {
-      this.chatMessage = chatMessage;
-    });
+    this.activatedRoute.data.subscribe(({ chatMessage }) => (this.chatMessage = chatMessage));
   }
 
   previousState(): void {

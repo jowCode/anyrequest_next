@@ -1,32 +1,35 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="contribution">
-            <h2><span jhiTranslate="anyrequestNextApp.contribution.detail.title">Contribution</span> {{contribution.id}}</h2>
+            <h2><span jhiTranslate="anyrequestNextApp.contribution.detail.title">Contribution</span> {{ contribution.id }}</h2>
+
             <hr>
+
             <jhi-alert-error></jhi-alert-error>
+
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="anyrequestNextApp.contribution.contributingUser">Contributing User</span></dt>
                 <dd>
-                    <span>{{contribution.contributingUser}}</span>
+                    <span>{{ contribution.contributingUser }}</span>
                 </dd>
                 <dt><span jhiTranslate="anyrequestNextApp.contribution.contributionMessage">Contribution Message</span></dt>
                 <dd>
-                    <span>{{contribution.contributionMessage}}</span>
+                    <span>{{ contribution.contributionMessage }}</span>
                 </dd>
                 <dt><span jhiTranslate="anyrequestNextApp.contribution.contributionStatus">Contribution Status</span></dt>
                 <dd>
-                    <span jhiTranslate="{{'anyrequestNextApp.ContributionStatus.' + contribution.contributionStatus}}">{{contribution.contributionStatus}}</span>
+                    <span jhiTranslate="{{ 'anyrequestNextApp.ContributionStatus.' + contribution.contributionStatus }}">{{ contribution.contributionStatus }}</span>
                 </dd>
                 <dt><span jhiTranslate="anyrequestNextApp.contribution.conversation">Conversation</span></dt>
                 <dd>
                     <div *ngIf="contribution.conversation">
-                        <a [routerLink]="['/conversation', contribution.conversation?.id, 'view']">{{contribution.conversation?.id}}</a>
+                        <a [routerLink]="['/conversation', contribution.conversation?.id, 'view']">{{ contribution.conversation?.id }}</a>
                     </div>
                 </dd>
                 <dt><span jhiTranslate="anyrequestNextApp.contribution.userRequest">User Request</span></dt>
                 <dd>
                     <div *ngIf="contribution.userRequest">
-                        <a [routerLink]="['/user-request', contribution.userRequest?.id, 'view']">{{contribution.userRequest?.id}}</a>
+                        <a [routerLink]="['/user-request', contribution.userRequest?.id, 'view']">{{ contribution.userRequest?.id }}</a>
                     </div>
                 </dd>
             </dl>
@@ -34,13 +37,13 @@
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/contribution', contribution.id, 'edit']"
                     class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
             </button>
         </div>
     </div>

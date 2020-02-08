@@ -50,7 +50,6 @@ public class UserCreditAccountService {
         return userCreditAccountRepository.findAll(pageable);
     }
 
-
     /**
      * Get one userCreditAccount by id.
      *

@@ -34,7 +34,8 @@ export class UserCreditAccountComponent implements OnInit, OnDestroy {
   ) {}
 
   loadPage(page?: number): void {
-    const pageToLoad: number = page ? page : this.page;
+    const pageToLoad: number = page || this.page;
+
     this.userCreditAccountService
       .query({
         page: pageToLoad - 1,
@@ -96,7 +97,7 @@ export class UserCreditAccountComponent implements OnInit, OnDestroy {
         sort: this.predicate + ',' + (this.ascending ? 'asc' : 'desc')
       }
     });
-    this.userCreditAccounts = data ? data : [];
+    this.userCreditAccounts = data || [];
   }
 
   protected onError(): void {

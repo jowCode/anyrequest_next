@@ -1,38 +1,41 @@
 <div class="row justify-content-center">
     <div class="col-8">
         <div *ngIf="userCreditAccount">
-            <h2><span jhiTranslate="anyrequestNextApp.userCreditAccount.detail.title">User Credit Account</span> {{userCreditAccount.id}}</h2>
+            <h2><span jhiTranslate="anyrequestNextApp.userCreditAccount.detail.title">User Credit Account</span> {{ userCreditAccount.id }}</h2>
+
             <hr>
+
             <jhi-alert-error></jhi-alert-error>
+
             <dl class="row-md jh-entity-details">
                 <dt><span jhiTranslate="anyrequestNextApp.userCreditAccount.receivedCredits">Received Credits</span></dt>
                 <dd>
-                    <span>{{userCreditAccount.receivedCredits}}</span>
+                    <span>{{ userCreditAccount.receivedCredits }}</span>
                 </dd>
                 <dt><span jhiTranslate="anyrequestNextApp.userCreditAccount.usedCredits">Used Credits</span></dt>
                 <dd>
-                    <span>{{userCreditAccount.usedCredits}}</span>
+                    <span>{{ userCreditAccount.usedCredits }}</span>
                 </dd>
                 <dt><span jhiTranslate="anyrequestNextApp.userCreditAccount.totalCredits">Total Credits</span></dt>
                 <dd>
-                    <span>{{userCreditAccount.totalCredits}}</span>
+                    <span>{{ userCreditAccount.totalCredits }}</span>
                 </dd>
                 <dt><span jhiTranslate="anyrequestNextApp.userCreditAccount.user">User</span></dt>
                 <dd>
-                    {{userCreditAccount.user?.id}}
+                    {{ userCreditAccount.user?.id }}
                 </dd>
             </dl>
 
             <button type="submit"
                     (click)="previousState()"
                     class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
             </button>
 
             <button type="button"
                     [routerLink]="['/user-credit-account', userCreditAccount.id, 'edit']"
                     class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
             </button>
         </div>
     </div>

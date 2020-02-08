@@ -4,7 +4,6 @@ import { HttpResponse } from '@angular/common/http';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 
 import { IChatMessage, ChatMessage } from 'app/shared/model/chat-message.model';
 import { ChatMessageService } from './chat-message.service';
@@ -17,7 +16,6 @@ import { ConversationService } from 'app/entities/conversation/conversation.serv
 })
 export class ChatMessageUpdateComponent implements OnInit {
   isSaving = false;
-
   conversations: IConversation[] = [];
 
   editForm = this.fb.group({
@@ -38,14 +36,7 @@ export class ChatMessageUpdateComponent implements OnInit {
     this.activatedRoute.data.subscribe(({ chatMessage }) => {
       this.updateForm(chatMessage);
 
-      this.conversationService
-        .query()
-        .pipe(
-          map((res: HttpResponse<IConversation[]>) => {
-            return res.body ? res.body : [];
-          })
-        )
-        .subscribe((resBody: IConversation[]) => (this.conversations = resBody));
+      this.conversationService.query().subscribe((res: HttpResponse<IConversation[]>) => (this.conversations = res.body || []));
     });
   }
 

@@ -4,6 +4,8 @@ export class UserRequestComponentsPage {
   createButton = element(by.id('jh-create-entity'));
   deleteButtons = element.all(by.css('jhi-user-request div table .btn-danger'));
   title = element.all(by.css('jhi-user-request div h2#page-heading span')).first();
+  noResult = element(by.id('no-result'));
+  entities = element(by.id('entities'));
 
   async clickOnCreateButton(): Promise<void> {
     await this.createButton.click();
@@ -26,6 +28,7 @@ export class UserRequestUpdatePage {
   pageTitle = element(by.id('jhi-user-request-heading'));
   saveButton = element(by.id('save-entity'));
   cancelButton = element(by.id('cancel-save'));
+
   requestingUserInput = element(by.id('field_requestingUser'));
   titleInput = element(by.id('field_title'));
   descriptionInput = element(by.id('field_description'));
@@ -97,6 +100,7 @@ export class UserRequestUpdatePage {
   getHasContributedInput(): ElementFinder {
     return this.hasContributedInput;
   }
+
   getIsBlockedInput(): ElementFinder {
     return this.isBlockedInput;
   }

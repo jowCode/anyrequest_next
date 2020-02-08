@@ -25,6 +25,10 @@ describe('UserRequest e2e test', () => {
     userRequestComponentsPage = new UserRequestComponentsPage();
     await browser.wait(ec.visibilityOf(userRequestComponentsPage.title), 5000);
     expect(await userRequestComponentsPage.getTitle()).to.eq('anyrequestNextApp.userRequest.home.title');
+    await browser.wait(
+      ec.or(ec.visibilityOf(userRequestComponentsPage.entities), ec.visibilityOf(userRequestComponentsPage.noResult)),
+      1000
+    );
   });
 
   it('should load create UserRequest page', async () => {
@@ -38,6 +42,7 @@ describe('UserRequest e2e test', () => {
     const nbButtonsBeforeCreate = await userRequestComponentsPage.countDeleteButtons();
 
     await userRequestComponentsPage.clickOnCreateButton();
+
     await promise.all([
       userRequestUpdatePage.setRequestingUserInput('requestingUser'),
       userRequestUpdatePage.setTitleInput('title'),
@@ -46,6 +51,7 @@ describe('UserRequest e2e test', () => {
       userRequestUpdatePage.setValidToInput('01/01/2001' + protractor.Key.TAB + '02:30AM'),
       userRequestUpdatePage.setContributorCountInput('5')
     ]);
+
     expect(await userRequestUpdatePage.getRequestingUserInput()).to.eq(
       'requestingUser',
       'Expected RequestingUser value to be equals to requestingUser'
@@ -76,6 +82,7 @@ describe('UserRequest e2e test', () => {
       await userRequestUpdatePage.getIsBlockedInput().click();
       expect(await userRequestUpdatePage.getIsBlockedInput().isSelected(), 'Expected isBlocked to be selected').to.be.true;
     }
+
     await userRequestUpdatePage.save();
     expect(await userRequestUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;
 

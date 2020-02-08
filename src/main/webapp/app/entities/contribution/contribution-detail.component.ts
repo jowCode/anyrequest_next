@@ -13,9 +13,7 @@ export class ContributionDetailComponent implements OnInit {
   constructor(protected activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ contribution }) => {
-      this.contribution = contribution;
-    });
+    this.activatedRoute.data.subscribe(({ contribution }) => (this.contribution = contribution));
   }
 
   previousState(): void {

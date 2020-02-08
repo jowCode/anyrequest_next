@@ -13,9 +13,7 @@ export class UserCreditAccountDetailComponent implements OnInit {
   constructor(protected activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ userCreditAccount }) => {
-      this.userCreditAccount = userCreditAccount;
-    });
+    this.activatedRoute.data.subscribe(({ userCreditAccount }) => (this.userCreditAccount = userCreditAccount));
   }
 
   previousState(): void {

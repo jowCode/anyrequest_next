@@ -25,6 +25,10 @@ describe('Conversation e2e test', () => {
     conversationComponentsPage = new ConversationComponentsPage();
     await browser.wait(ec.visibilityOf(conversationComponentsPage.title), 5000);
     expect(await conversationComponentsPage.getTitle()).to.eq('anyrequestNextApp.conversation.home.title');
+    await browser.wait(
+      ec.or(ec.visibilityOf(conversationComponentsPage.entities), ec.visibilityOf(conversationComponentsPage.noResult)),
+      1000
+    );
   });
 
   it('should load create Conversation page', async () => {
@@ -38,7 +42,9 @@ describe('Conversation e2e test', () => {
     const nbButtonsBeforeCreate = await conversationComponentsPage.countDeleteButtons();
 
     await conversationComponentsPage.clickOnCreateButton();
+
     await promise.all([conversationUpdatePage.conversationStatusSelectLastOption()]);
+
     await conversationUpdatePage.save();
     expect(await conversationUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;
 

@@ -1,69 +1,77 @@
 <div>
     <h2 id="page-heading">
         <span jhiTranslate="anyrequestNextApp.userCreditAccount.home.title">User Credit Accounts</span>
+
         <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-user-credit-account" [routerLink]="['/user-credit-account/new']">
-            <fa-icon [icon]="'plus'"></fa-icon>
+            <fa-icon icon="plus"></fa-icon>
             <span  jhiTranslate="anyrequestNextApp.userCreditAccount.home.createLabel">
             Create a new User Credit Account
             </span>
         </button>
     </h2>
+
     <jhi-alert-error></jhi-alert-error>
+
     <jhi-alert></jhi-alert>
-    <br/>
-    <div class="alert alert-warning" *ngIf="userCreditAccounts?.length === 0">
+
+    <div class="alert alert-warning" id="no-result" *ngIf="userCreditAccounts?.length === 0">
         <span jhiTranslate="anyrequestNextApp.userCreditAccount.home.notFound">No userCreditAccounts found</span>
     </div>
-    <div class="table-responsive" *ngIf="userCreditAccounts?.length > 0">
+
+    <div class="table-responsive" id="entities" *ngIf="userCreditAccounts?.length > 0">
         <table class="table table-striped" aria-describedby="page-heading">
             <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
-            <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="receivedCredits"><span jhiTranslate="anyrequestNextApp.userCreditAccount.receivedCredits">Received Credits</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="usedCredits"><span jhiTranslate="anyrequestNextApp.userCreditAccount.usedCredits">Used Credits</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="totalCredits"><span jhiTranslate="anyrequestNextApp.userCreditAccount.totalCredits">Total Credits</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"  jhiSortBy="user.id"><span jhiTranslate="anyrequestNextApp.userCreditAccount.user">User</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th scope="col"></th>
-            </tr>
+                <tr jhiSort [(predicate)]="predicate" [(ascending)]="ascending" [callback]="loadPage.bind(this)">
+                    <th scope="col"  jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="receivedCredits"><span jhiTranslate="anyrequestNextApp.userCreditAccount.receivedCredits">Received Credits</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="usedCredits"><span jhiTranslate="anyrequestNextApp.userCreditAccount.usedCredits">Used Credits</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="totalCredits"><span jhiTranslate="anyrequestNextApp.userCreditAccount.totalCredits">Total Credits</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"  jhiSortBy="user.id"><span jhiTranslate="anyrequestNextApp.userCreditAccount.user">User</span> <fa-icon icon="sort"></fa-icon></th>
+                    <th scope="col"></th>
+                </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let userCreditAccount of userCreditAccounts ;trackBy: trackId">
-                <td><a [routerLink]="['/user-credit-account', userCreditAccount.id, 'view' ]">{{userCreditAccount.id}}</a></td>
-                <td>{{userCreditAccount.receivedCredits}}</td>
-                <td>{{userCreditAccount.usedCredits}}</td>
-                <td>{{userCreditAccount.totalCredits}}</td>
-                <td>
-                    {{userCreditAccount.user?.id}}
-                </td>
-                <td class="text-right">
-                    <div class="btn-group">
-                        <button type="submit"
-                                [routerLink]="['/user-credit-account', userCreditAccount.id, 'view' ]"
-                                class="btn btn-info btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button type="submit"
-                                [routerLink]="['/user-credit-account', userCreditAccount.id, 'edit']"
-                                class="btn btn-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button type="submit" (click)="delete(userCreditAccount)"
-                                class="btn btn-danger btn-sm">
-                            <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
-                    </div>
-                </td>
-            </tr>
+                <tr *ngFor="let userCreditAccount of userCreditAccounts ;trackBy: trackId">
+                    <td><a [routerLink]="['/user-credit-account', userCreditAccount.id, 'view']">{{ userCreditAccount.id }}</a></td>
+                    <td>{{ userCreditAccount.receivedCredits }}</td>
+                    <td>{{ userCreditAccount.usedCredits }}</td>
+                    <td>{{ userCreditAccount.totalCredits }}</td>
+                    <td>
+                        {{ userCreditAccount.user?.id }}
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group">
+                            <button type="submit"
+                                    [routerLink]="['/user-credit-account', userCreditAccount.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/user-credit-account', userCreditAccount.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+
+                            <button type="submit" (click)="delete(userCreditAccount)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
+
     <div *ngIf="userCreditAccounts?.length > 0">
         <div class="row justify-content-center">
             <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
         </div>
+
         <div class="row justify-content-center">
             <ngb-pagination [collectionSize]="totalItems" [(page)]="ngbPaginationPage" [pageSize]="itemsPerPage" [maxSize]="5" [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage($event)"></ngb-pagination>
         </div>

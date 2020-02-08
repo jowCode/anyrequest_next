@@ -25,6 +25,10 @@ describe('Contribution e2e test', () => {
     contributionComponentsPage = new ContributionComponentsPage();
     await browser.wait(ec.visibilityOf(contributionComponentsPage.title), 5000);
     expect(await contributionComponentsPage.getTitle()).to.eq('anyrequestNextApp.contribution.home.title');
+    await browser.wait(
+      ec.or(ec.visibilityOf(contributionComponentsPage.entities), ec.visibilityOf(contributionComponentsPage.noResult)),
+      1000
+    );
   });
 
   it('should load create Contribution page', async () => {
@@ -38,6 +42,7 @@ describe('Contribution e2e test', () => {
     const nbButtonsBeforeCreate = await contributionComponentsPage.countDeleteButtons();
 
     await contributionComponentsPage.clickOnCreateButton();
+
     await promise.all([
       contributionUpdatePage.setContributingUserInput('contributingUser'),
       contributionUpdatePage.setContributionMessageInput('contributionMessage'),
@@ -45,6 +50,7 @@ describe('Contribution e2e test', () => {
       contributionUpdatePage.conversationSelectLastOption(),
       contributionUpdatePage.userRequestSelectLastOption()
     ]);
+
     expect(await contributionUpdatePage.getContributingUserInput()).to.eq(
       'contributingUser',
       'Expected ContributingUser value to be equals to contributingUser'
@@ -53,6 +59,7 @@ describe('Contribution e2e test', () => {
       'contributionMessage',
       'Expected ContributionMessage value to be equals to contributionMessage'
     );
+
     await contributionUpdatePage.save();
     expect(await contributionUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;
 

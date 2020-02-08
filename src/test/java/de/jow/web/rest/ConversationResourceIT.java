@@ -110,7 +110,7 @@ public class ConversationResourceIT {
 
         // Create the Conversation
         restConversationMockMvc.perform(post("/api/conversations")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(conversation)))
             .andExpect(status().isCreated());
 
@@ -131,7 +131,7 @@ public class ConversationResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restConversationMockMvc.perform(post("/api/conversations")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(conversation)))
             .andExpect(status().isBadRequest());
 
@@ -150,7 +150,7 @@ public class ConversationResourceIT {
         // Get all the conversationList
         restConversationMockMvc.perform(get("/api/conversations?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(conversation.getId().intValue())))
             .andExpect(jsonPath("$.[*].conversationStatus").value(hasItem(DEFAULT_CONVERSATION_STATUS.toString())));
     }
@@ -164,7 +164,7 @@ public class ConversationResourceIT {
         // Get the conversation
         restConversationMockMvc.perform(get("/api/conversations/{id}", conversation.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(conversation.getId().intValue()))
             .andExpect(jsonPath("$.conversationStatus").value(DEFAULT_CONVERSATION_STATUS.toString()));
     }
@@ -193,7 +193,7 @@ public class ConversationResourceIT {
             .conversationStatus(UPDATED_CONVERSATION_STATUS);
 
         restConversationMockMvc.perform(put("/api/conversations")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(updatedConversation)))
             .andExpect(status().isOk());
 
@@ -213,7 +213,7 @@ public class ConversationResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restConversationMockMvc.perform(put("/api/conversations")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(conversation)))
             .andExpect(status().isBadRequest());
 
@@ -232,7 +232,7 @@ public class ConversationResourceIT {
 
         // Delete the conversation
         restConversationMockMvc.perform(delete("/api/conversations/{id}", conversation.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(TestUtil.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
