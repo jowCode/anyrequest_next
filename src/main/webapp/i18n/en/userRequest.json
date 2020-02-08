@@ -1,0 +1,30 @@
+{
+  "anyrequestNextApp": {
+    "userRequest": {
+      "home": {
+        "title": "User Requests",
+        "createLabel": "Create a new User Request",
+        "createOrEditLabel": "Create or edit a User Request",
+        "notFound": "No User Requests found"
+      },
+      "created": "A new User Request is created with identifier {{ param }}",
+      "updated": "A User Request is updated with identifier {{ param }}",
+      "deleted": "A User Request is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete User Request {{ id }}?"
+      },
+      "detail": {
+        "title": "User Request"
+      },
+      "requestingUser": "Requesting User",
+      "title": "Title",
+      "description": "Description",
+      "urgency": "Urgency",
+      "validTo": "Valid To",
+      "contributorCount": "Contributor Count",
+      "hasContributed": "Has Contributed",
+      "isBlocked": "Is Blocked",
+      "contribution": "Contribution"
+    }
+  }
+}
