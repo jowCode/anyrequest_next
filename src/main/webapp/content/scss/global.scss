@@ -127,12 +127,6 @@ Generic styles
 
 /* other generic styles */
 
-.jh-card {
-  padding: 1.5%;
-  margin-top: 20px;
-  border: none;
-}
-
 .error {
   color: $body-color;
   background-color: red;
@@ -189,36 +183,10 @@ Custom alerts for notification
       font-size: 10px;
     }
   }
-
-  .jhi-toast {
-    opacity: 0.8;
-    position: fixed;
-    width: 50%;
-
-    &.right {
-      right: 25%;
-    }
-
-    &.top {
-      top: 80%;
-    }
-  }
 }
 
 @media screen and (max-width: 768px) {
   .alerts {
-    .jhi-toast {
-      position: fixed;
-      width: 90%;
-
-      &.right {
-        right: 5%;
-      }
-
-      &.top {
-        top: 80%;
-      }
-    }
   }
 }
 
@@ -248,29 +216,12 @@ entity detail page css
 /* ==========================================================================
 ui bootstrap tweaks
 ========================================================================== */
-.nav,
-.pagination,
-.carousel,
-.panel-title a {
-  cursor: pointer;
-}
-
-.thread-dump-modal-lock {
-  max-width: 450px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
 
 /* ==========================================================================
 Overrides for MDBootstrap-Navbar
 ========================================================================== */
 .stylish-color-dark {
   background-color: $arq-ci-grey-dark !important;
-}
-
-.navbar {
-  box-shadow: 0 6px 12px 3px rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 1) !important;
 }
 
 /*@media (min-width: 600px) {

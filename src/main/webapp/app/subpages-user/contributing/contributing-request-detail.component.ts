@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { IUserRequest } from 'app/shared/model/user-request.model';
 import { ContributingService } from 'app/subpages-user/contributing/contributing.service';
 
 @Component({
@@ -9,21 +8,21 @@ import { ContributingService } from 'app/subpages-user/contributing/contributing
   templateUrl: './contributing-request-detail.component.html'
 })
 export class ContributingRequestDetailComponent implements OnInit {
-  userRequest: IUserRequest | null = null;
+  userRequest: any;
 
   constructor(protected activatedRoute: ActivatedRoute, protected contributingService: ContributingService) {}
 
-  ngOnInit(): any {
+  ngOnInit() {
     this.activatedRoute.data.subscribe(({ userRequest }) => {
       this.userRequest = userRequest;
     });
   }
 
-  previousState(): any {
+  previousState() {
     window.history.back();
   }
 
-  contributeToRequest(): any {
+  contributeToRequest() {
     /* this.contributingService.contribute(this.userRequest);*/
   }
 }

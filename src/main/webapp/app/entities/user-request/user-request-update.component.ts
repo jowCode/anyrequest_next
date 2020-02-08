@@ -34,8 +34,7 @@ export class UserRequestUpdateComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.data.subscribe(({ userRequest }) => {
       if (!userRequest.id) {
-        const today = moment().startOf('day');
-        userRequest.validTo = today;
+        userRequest.validTo = moment().startOf('day');
       }
 
       this.updateForm(userRequest);

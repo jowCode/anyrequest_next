@@ -49,10 +49,9 @@ export class UserRequestService {
   }
 
   protected convertDateFromClient(userRequest: IUserRequest): IUserRequest {
-    const copy: IUserRequest = Object.assign({}, userRequest, {
+    return Object.assign({}, userRequest, {
       validTo: userRequest.validTo && userRequest.validTo.isValid() ? userRequest.validTo.toJSON() : undefined
     });
-    return copy;
   }
 
   protected convertDateFromServer(res: EntityResponseType): EntityResponseType {
