@@ -120,7 +120,7 @@ public class ContributionResourceIT {
 
         // Create the Contribution
         restContributionMockMvc.perform(post("/api/contributions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(contribution)))
             .andExpect(status().isCreated());
 
@@ -143,7 +143,7 @@ public class ContributionResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restContributionMockMvc.perform(post("/api/contributions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(contribution)))
             .andExpect(status().isBadRequest());
 
@@ -163,7 +163,7 @@ public class ContributionResourceIT {
         // Create the Contribution, which fails.
 
         restContributionMockMvc.perform(post("/api/contributions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(contribution)))
             .andExpect(status().isBadRequest());
 
@@ -181,7 +181,7 @@ public class ContributionResourceIT {
         // Create the Contribution, which fails.
 
         restContributionMockMvc.perform(post("/api/contributions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(contribution)))
             .andExpect(status().isBadRequest());
 
@@ -198,7 +198,7 @@ public class ContributionResourceIT {
         // Get all the contributionList
         restContributionMockMvc.perform(get("/api/contributions?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(contribution.getId().intValue())))
             .andExpect(jsonPath("$.[*].contributingUser").value(hasItem(DEFAULT_CONTRIBUTING_USER)))
             .andExpect(jsonPath("$.[*].contributionMessage").value(hasItem(DEFAULT_CONTRIBUTION_MESSAGE)))
@@ -214,7 +214,7 @@ public class ContributionResourceIT {
         // Get the contribution
         restContributionMockMvc.perform(get("/api/contributions/{id}", contribution.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(contribution.getId().intValue()))
             .andExpect(jsonPath("$.contributingUser").value(DEFAULT_CONTRIBUTING_USER))
             .andExpect(jsonPath("$.contributionMessage").value(DEFAULT_CONTRIBUTION_MESSAGE))
@@ -247,7 +247,7 @@ public class ContributionResourceIT {
             .contributionStatus(UPDATED_CONTRIBUTION_STATUS);
 
         restContributionMockMvc.perform(put("/api/contributions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(updatedContribution)))
             .andExpect(status().isOk());
 
@@ -269,7 +269,7 @@ public class ContributionResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restContributionMockMvc.perform(put("/api/contributions")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(contribution)))
             .andExpect(status().isBadRequest());
 
@@ -288,7 +288,7 @@ public class ContributionResourceIT {
 
         // Delete the contribution
         restContributionMockMvc.perform(delete("/api/contributions/{id}", contribution.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(TestUtil.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item

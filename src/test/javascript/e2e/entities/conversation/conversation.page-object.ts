@@ -4,6 +4,8 @@ export class ConversationComponentsPage {
   createButton = element(by.id('jh-create-entity'));
   deleteButtons = element.all(by.css('jhi-conversation div table .btn-danger'));
   title = element.all(by.css('jhi-conversation div h2#page-heading span')).first();
+  noResult = element(by.id('no-result'));
+  entities = element(by.id('entities'));
 
   async clickOnCreateButton(): Promise<void> {
     await this.createButton.click();
@@ -26,6 +28,7 @@ export class ConversationUpdatePage {
   pageTitle = element(by.id('jhi-conversation-heading'));
   saveButton = element(by.id('save-entity'));
   cancelButton = element(by.id('cancel-save'));
+
   conversationStatusSelect = element(by.id('field_conversationStatus'));
 
   async getPageTitle(): Promise<string> {

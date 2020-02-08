@@ -4,6 +4,8 @@ export class ContributionComponentsPage {
   createButton = element(by.id('jh-create-entity'));
   deleteButtons = element.all(by.css('jhi-contribution div table .btn-danger'));
   title = element.all(by.css('jhi-contribution div h2#page-heading span')).first();
+  noResult = element(by.id('no-result'));
+  entities = element(by.id('entities'));
 
   async clickOnCreateButton(): Promise<void> {
     await this.createButton.click();
@@ -26,9 +28,11 @@ export class ContributionUpdatePage {
   pageTitle = element(by.id('jhi-contribution-heading'));
   saveButton = element(by.id('save-entity'));
   cancelButton = element(by.id('cancel-save'));
+
   contributingUserInput = element(by.id('field_contributingUser'));
   contributionMessageInput = element(by.id('field_contributionMessage'));
   contributionStatusSelect = element(by.id('field_contributionStatus'));
+
   conversationSelect = element(by.id('field_conversation'));
   userRequestSelect = element(by.id('field_userRequest'));
 

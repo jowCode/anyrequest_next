@@ -13,9 +13,7 @@ export class ConversationDetailComponent implements OnInit {
   constructor(protected activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ conversation }) => {
-      this.conversation = conversation;
-    });
+    this.activatedRoute.data.subscribe(({ conversation }) => (this.conversation = conversation));
   }
 
   previousState(): void {

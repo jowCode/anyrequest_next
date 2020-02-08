@@ -13,9 +13,7 @@ export class UserRequestDetailComponent implements OnInit {
   constructor(protected activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.activatedRoute.data.subscribe(({ userRequest }) => {
-      this.userRequest = userRequest;
-    });
+    this.activatedRoute.data.subscribe(({ userRequest }) => (this.userRequest = userRequest));
   }
 
   previousState(): void {

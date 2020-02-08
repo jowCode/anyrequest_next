@@ -21,9 +21,7 @@ type SelectableEntity = IConversation | IUserRequest;
 })
 export class ContributionUpdateComponent implements OnInit {
   isSaving = false;
-
   conversations: IConversation[] = [];
-
   userrequests: IUserRequest[] = [];
 
   editForm = this.fb.group({
@@ -51,7 +49,7 @@ export class ContributionUpdateComponent implements OnInit {
         .query({ filter: 'contribution-is-null' })
         .pipe(
           map((res: HttpResponse<IConversation[]>) => {
-            return res.body ? res.body : [];
+            return res.body || [];
           })
         )
         .subscribe((resBody: IConversation[]) => {
@@ -65,20 +63,11 @@ export class ContributionUpdateComponent implements OnInit {
                   return subRes.body ? [subRes.body].concat(resBody) : resBody;
                 })
               )
-              .subscribe((concatRes: IConversation[]) => {
-                this.conversations = concatRes;
-              });
+              .subscribe((concatRes: IConversation[]) => (this.conversations = concatRes));
           }
         });
 
-      this.userRequestService
-        .query()
-        .pipe(
-          map((res: HttpResponse<IUserRequest[]>) => {
-            return res.body ? res.body : [];
-          })
-        )
-        .subscribe((resBody: IUserRequest[]) => (this.userrequests = resBody));
+      this.userRequestService.query().subscribe((res: HttpResponse<IUserRequest[]>) => (this.userrequests = res.body || []));
     });
   }
 

@@ -29,6 +29,10 @@ describe('UserCreditAccount e2e test', () => {
     userCreditAccountComponentsPage = new UserCreditAccountComponentsPage();
     await browser.wait(ec.visibilityOf(userCreditAccountComponentsPage.title), 5000);
     expect(await userCreditAccountComponentsPage.getTitle()).to.eq('anyrequestNextApp.userCreditAccount.home.title');
+    await browser.wait(
+      ec.or(ec.visibilityOf(userCreditAccountComponentsPage.entities), ec.visibilityOf(userCreditAccountComponentsPage.noResult)),
+      1000
+    );
   });
 
   it('should load create UserCreditAccount page', async () => {
@@ -42,15 +46,18 @@ describe('UserCreditAccount e2e test', () => {
     const nbButtonsBeforeCreate = await userCreditAccountComponentsPage.countDeleteButtons();
 
     await userCreditAccountComponentsPage.clickOnCreateButton();
+
     await promise.all([
       userCreditAccountUpdatePage.setReceivedCreditsInput('5'),
       userCreditAccountUpdatePage.setUsedCreditsInput('5'),
       userCreditAccountUpdatePage.setTotalCreditsInput('5'),
       userCreditAccountUpdatePage.userSelectLastOption()
     ]);
+
     expect(await userCreditAccountUpdatePage.getReceivedCreditsInput()).to.eq('5', 'Expected receivedCredits value to be equals to 5');
     expect(await userCreditAccountUpdatePage.getUsedCreditsInput()).to.eq('5', 'Expected usedCredits value to be equals to 5');
     expect(await userCreditAccountUpdatePage.getTotalCreditsInput()).to.eq('5', 'Expected totalCredits value to be equals to 5');
+
     await userCreditAccountUpdatePage.save();
     expect(await userCreditAccountUpdatePage.getSaveButton().isPresent(), 'Expected save button disappear').to.be.false;
 

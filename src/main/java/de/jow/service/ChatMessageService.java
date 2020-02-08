@@ -50,7 +50,6 @@ public class ChatMessageService {
         return chatMessageRepository.findAll(pageable);
     }
 
-
     /**
      * Get one chatMessage by id.
      *

@@ -132,7 +132,6 @@ public class UserRequestService {
         return userRequestRepository.findAll(pageable);
     }
 
-
     /**
      * Get one userRequest by id.
      *

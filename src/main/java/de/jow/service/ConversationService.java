@@ -54,9 +54,8 @@ public class ConversationService {
     }
 
 
-
     /**
-    *  Get all the conversations where Contribution is {@code null}.
+     *  Get all the conversations where Contribution is {@code null}.
      *  @return the list of entities.
      */
     @Transactional(readOnly = true) 

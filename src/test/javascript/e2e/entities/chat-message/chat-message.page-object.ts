@@ -4,6 +4,8 @@ export class ChatMessageComponentsPage {
   createButton = element(by.id('jh-create-entity'));
   deleteButtons = element.all(by.css('jhi-chat-message div table .btn-danger'));
   title = element.all(by.css('jhi-chat-message div h2#page-heading span')).first();
+  noResult = element(by.id('no-result'));
+  entities = element(by.id('entities'));
 
   async clickOnCreateButton(): Promise<void> {
     await this.createButton.click();
@@ -26,8 +28,10 @@ export class ChatMessageUpdatePage {
   pageTitle = element(by.id('jhi-chat-message-heading'));
   saveButton = element(by.id('save-entity'));
   cancelButton = element(by.id('cancel-save'));
+
   owningUserInput = element(by.id('field_owningUser'));
   messageInput = element(by.id('field_message'));
+
   conversationSelect = element(by.id('field_conversation'));
 
   async getPageTitle(): Promise<string> {

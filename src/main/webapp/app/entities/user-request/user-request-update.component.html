@@ -2,13 +2,15 @@
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-user-request-heading" jhiTranslate="anyrequestNextApp.userRequest.home.createOrEditLabel">Create or edit a User Request</h2>
+
             <div>
                 <jhi-alert-error></jhi-alert-error>
+
                 <div class="form-group" [hidden]="!editForm.get('id')!.value">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
-                        readonly />
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
                 </div>
+
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.userRequest.requestingUser" for="field_requestingUser">Requesting User</label>
                     <input type="text" class="form-control" name="requestingUser" id="field_requestingUser"
@@ -20,6 +22,7 @@
                         </small>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.userRequest.title" for="field_title">Title</label>
                     <input type="text" class="form-control" name="title" id="field_title"
@@ -31,6 +34,7 @@
                         </small>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.userRequest.description" for="field_description">Description</label>
                     <input type="text" class="form-control" name="description" id="field_description"
@@ -42,12 +46,13 @@
                         </small>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.userRequest.urgency" for="field_urgency">Urgency</label>
                     <select class="form-control" name="urgency" formControlName="urgency" id="field_urgency">
-                        <option value="HIGH">{{'anyrequestNextApp.Urgency.HIGH' | translate}}</option>
-                        <option value="MEDIUM">{{'anyrequestNextApp.Urgency.MEDIUM' | translate}}</option>
-                        <option value="LOW">{{'anyrequestNextApp.Urgency.LOW' | translate}}</option>
+                        <option value="HIGH">{{ 'anyrequestNextApp.Urgency.HIGH' | translate }}</option>
+                        <option value="MEDIUM">{{ 'anyrequestNextApp.Urgency.MEDIUM' | translate }}</option>
+                        <option value="LOW">{{ 'anyrequestNextApp.Urgency.LOW' | translate }}</option>
                     </select>
                     <div *ngIf="editForm.get('urgency')!.invalid && (editForm.get('urgency')!.dirty || editForm.get('urgency')!.touched)">
                         <small class="form-text text-danger"
@@ -56,6 +61,7 @@
                         </small>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.userRequest.validTo" for="field_validTo">Valid To</label>
                     <div class="d-flex">
@@ -72,6 +78,7 @@
                         </small>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.userRequest.contributorCount" for="field_contributorCount">Contributor Count</label>
                     <input type="number" class="form-control" name="contributorCount" id="field_contributorCount"
@@ -91,24 +98,27 @@
                         </small>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.userRequest.hasContributed" for="field_hasContributed">Has Contributed</label>
                     <input type="checkbox" class="form-control" name="hasContributed" id="field_hasContributed"
                            formControlName="hasContributed"/>
                 </div>
+
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.userRequest.isBlocked" for="field_isBlocked">Is Blocked</label>
                     <input type="checkbox" class="form-control" name="isBlocked" id="field_isBlocked"
                            formControlName="isBlocked"/>
                 </div>
-
             </div>
+
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
+
                 <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>
         </form>

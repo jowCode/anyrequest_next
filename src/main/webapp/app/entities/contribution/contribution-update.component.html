@@ -2,13 +2,15 @@
     <div class="col-8">
         <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
             <h2 id="jhi-contribution-heading" jhiTranslate="anyrequestNextApp.contribution.home.createOrEditLabel">Create or edit a Contribution</h2>
+
             <div>
                 <jhi-alert-error></jhi-alert-error>
+
                 <div class="form-group" [hidden]="!editForm.get('id')!.value">
                     <label for="id" jhiTranslate="global.field.id">ID</label>
-                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
-                        readonly />
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id" readonly />
                 </div>
+
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.contribution.contributingUser" for="field_contributingUser">Contributing User</label>
                     <input type="text" class="form-control" name="contributingUser" id="field_contributingUser"
@@ -20,6 +22,7 @@
                         </small>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.contribution.contributionMessage" for="field_contributionMessage">Contribution Message</label>
                     <input type="text" class="form-control" name="contributionMessage" id="field_contributionMessage"
@@ -31,12 +34,13 @@
                         </small>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.contribution.contributionStatus" for="field_contributionStatus">Contribution Status</label>
                     <select class="form-control" name="contributionStatus" formControlName="contributionStatus" id="field_contributionStatus">
-                        <option value="PENDING">{{'anyrequestNextApp.ContributionStatus.PENDING' | translate}}</option>
-                        <option value="APPROVED">{{'anyrequestNextApp.ContributionStatus.APPROVED' | translate}}</option>
-                        <option value="REJECTED">{{'anyrequestNextApp.ContributionStatus.REJECTED' | translate}}</option>
+                        <option value="PENDING">{{ 'anyrequestNextApp.ContributionStatus.PENDING' | translate }}</option>
+                        <option value="APPROVED">{{ 'anyrequestNextApp.ContributionStatus.APPROVED' | translate }}</option>
+                        <option value="REJECTED">{{ 'anyrequestNextApp.ContributionStatus.REJECTED' | translate }}</option>
                     </select>
                 </div>
 
@@ -44,23 +48,26 @@
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.contribution.conversation" for="field_conversation">Conversation</label>
                     <select class="form-control" id="field_conversation" name="conversation" formControlName="conversation">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="conversationOption.id === editForm.get('conversation')!.value?.id ? editForm.get('conversation')!.value : conversationOption" *ngFor="let conversationOption of conversations; trackBy: trackById">{{conversationOption.id}}</option>
+                        <option [ngValue]="conversationOption.id === editForm.get('conversation')!.value?.id ? editForm.get('conversation')!.value : conversationOption" *ngFor="let conversationOption of conversations; trackBy: trackById">{{ conversationOption.id }}</option>
                     </select>
                 </div>
+
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="anyrequestNextApp.contribution.userRequest" for="field_userRequest">User Request</label>
                     <select class="form-control" id="field_userRequest" name="userRequest" formControlName="userRequest">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="userRequestOption.id === editForm.get('userRequest')!.value?.id ? editForm.get('userRequest')!.value : userRequestOption" *ngFor="let userRequestOption of userrequests; trackBy: trackById">{{userRequestOption.id}}</option>
+                        <option [ngValue]="userRequestOption.id === editForm.get('userRequest')!.value?.id ? editForm.get('userRequest')!.value : userRequestOption" *ngFor="let userRequestOption of userrequests; trackBy: trackById">{{ userRequestOption.id }}</option>
                     </select>
                 </div>
             </div>
+
             <div>
-                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
-                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+                <button type="button" id="cancel-save" class="btn btn-secondary" (click)="previousState()">
+                    <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
                 </button>
+
                 <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
-                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+                    <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
                 </button>
             </div>
         </form>

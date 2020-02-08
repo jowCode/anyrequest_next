@@ -119,7 +119,7 @@ public class UserCreditAccountResourceIT {
 
         // Create the UserCreditAccount
         restUserCreditAccountMockMvc.perform(post("/api/user-credit-accounts")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(userCreditAccount)))
             .andExpect(status().isCreated());
 
@@ -142,7 +142,7 @@ public class UserCreditAccountResourceIT {
 
         // An entity with an existing ID cannot be created, so this API call must fail
         restUserCreditAccountMockMvc.perform(post("/api/user-credit-accounts")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(userCreditAccount)))
             .andExpect(status().isBadRequest());
 
@@ -162,7 +162,7 @@ public class UserCreditAccountResourceIT {
         // Create the UserCreditAccount, which fails.
 
         restUserCreditAccountMockMvc.perform(post("/api/user-credit-accounts")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(userCreditAccount)))
             .andExpect(status().isBadRequest());
 
@@ -180,7 +180,7 @@ public class UserCreditAccountResourceIT {
         // Create the UserCreditAccount, which fails.
 
         restUserCreditAccountMockMvc.perform(post("/api/user-credit-accounts")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(userCreditAccount)))
             .andExpect(status().isBadRequest());
 
@@ -198,7 +198,7 @@ public class UserCreditAccountResourceIT {
         // Create the UserCreditAccount, which fails.
 
         restUserCreditAccountMockMvc.perform(post("/api/user-credit-accounts")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(userCreditAccount)))
             .andExpect(status().isBadRequest());
 
@@ -215,7 +215,7 @@ public class UserCreditAccountResourceIT {
         // Get all the userCreditAccountList
         restUserCreditAccountMockMvc.perform(get("/api/user-credit-accounts?sort=id,desc"))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.[*].id").value(hasItem(userCreditAccount.getId().intValue())))
             .andExpect(jsonPath("$.[*].receivedCredits").value(hasItem(DEFAULT_RECEIVED_CREDITS)))
             .andExpect(jsonPath("$.[*].usedCredits").value(hasItem(DEFAULT_USED_CREDITS)))
@@ -231,7 +231,7 @@ public class UserCreditAccountResourceIT {
         // Get the userCreditAccount
         restUserCreditAccountMockMvc.perform(get("/api/user-credit-accounts/{id}", userCreditAccount.getId()))
             .andExpect(status().isOk())
-            .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+            .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.id").value(userCreditAccount.getId().intValue()))
             .andExpect(jsonPath("$.receivedCredits").value(DEFAULT_RECEIVED_CREDITS))
             .andExpect(jsonPath("$.usedCredits").value(DEFAULT_USED_CREDITS))
@@ -264,7 +264,7 @@ public class UserCreditAccountResourceIT {
             .totalCredits(UPDATED_TOTAL_CREDITS);
 
         restUserCreditAccountMockMvc.perform(put("/api/user-credit-accounts")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(updatedUserCreditAccount)))
             .andExpect(status().isOk());
 
@@ -286,7 +286,7 @@ public class UserCreditAccountResourceIT {
 
         // If the entity doesn't have an ID, it will throw BadRequestAlertException
         restUserCreditAccountMockMvc.perform(put("/api/user-credit-accounts")
-            .contentType(TestUtil.APPLICATION_JSON_UTF8)
+            .contentType(TestUtil.APPLICATION_JSON)
             .content(TestUtil.convertObjectToJsonBytes(userCreditAccount)))
             .andExpect(status().isBadRequest());
 
@@ -305,7 +305,7 @@ public class UserCreditAccountResourceIT {
 
         // Delete the userCreditAccount
         restUserCreditAccountMockMvc.perform(delete("/api/user-credit-accounts/{id}", userCreditAccount.getId())
-            .accept(TestUtil.APPLICATION_JSON_UTF8))
+            .accept(TestUtil.APPLICATION_JSON))
             .andExpect(status().isNoContent());
 
         // Validate the database contains one less item
